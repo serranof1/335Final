@@ -39,6 +39,14 @@ public class Drone {
 	private int locationY;
 	
 	/**
+	 * Instance variable for the capacity amount of weight a drone currently holds.
+	 * Later we can implement a cap, and increase movement cost if the drone
+	 * 	has more things.
+	 */
+	private double inventory;
+
+	
+	/**
 	 * Creates a drone with a set amount of starting power, and a default job of do nothing
 	 * 
 	 * @param power 	The initial power that a drone starts with
