@@ -1,6 +1,6 @@
 package model;
 
-public class powerUp extends Command<Drone>{
+public class PowerUp extends Command<Drone>{
 
 	@Override
 	public void execute(Drone executeOn) {
