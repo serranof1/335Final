@@ -2,13 +2,13 @@ package game;
 
 public class Map {
 
-	private Terrain[][] map = new Terrain[30][30];
+	private Tile[][] map = new Tile[30][30];
 	
 	public Map() {
 		
 		for(int i = 0; i < map.length; i++){
 			for(int j =0; j < map.length; j++){
-				map[i][j] = new Terrain(i , j);
+				map[i][j] = new Tile(i , j);
 			}
 		}
 				
@@ -43,7 +43,7 @@ public class Map {
 		
 	}
 
-	public Terrain getTerrain(int i, int j) {
+	public Tile getTile(int i, int j) {
 		return map[5][5];
 	}
 }

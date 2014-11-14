@@ -1,5 +1,7 @@
 package model;
 
+import game.Tile;
+
 import java.util.LinkedList;
 
 public class Drone {

@@ -7,7 +7,7 @@ import java.util.Timer;
 import javax.swing.JFrame;
 
 import model.Drone;
-import View.mapView;
+import view.mapView;
 
 
 public class MainGame extends JFrame{
@@ -17,7 +17,7 @@ public class MainGame extends JFrame{
 	private mapView mapView;
 	private static Map map;
 	private static List<Drone> droneList = new LinkedList<Drone>();
-	private static LinkedList<Terrain> resourceList;
+	private static LinkedList<Tile> resourceList;
 
 	private boolean running = true;
 	private boolean paused = false;
@@ -38,7 +38,7 @@ public class MainGame extends JFrame{
 	 * This is where the starting groups of drones will be added, later a method to add a drone to the map can be added to replace this
 	 */
 	private static void initializeDrones() {
-		Terrain start = map.getTerrain(5,5);
+		Tile start = map.getTile(5,5);
 
 		start.setHasDrone(true);
 
@@ -119,7 +119,7 @@ public class MainGame extends JFrame{
 	private void updateGame()
 	{
 		for(int i = 0; i < droneList.size(); i++){
-			droneList.get(i).executeTask();
+			//droneList.get(i).execute();
 		}
 		mapView.setTextArea(map.toString());
 	}
