@@ -2,6 +2,7 @@ package model;
 
 import game.Tile;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class Drone {
@@ -10,10 +11,15 @@ public class Drone {
 	private int locationY;
 	
 	/**
+	 * a list of tiles that a drone has been assigned
+	 */
+	private LinkedList<Tile> currentPath = new LinkedList<Tile>();
+	
+	/**
 	 * @author Cody Jensen
 	 * Queue of task for drone to execute
 	 */
-	private Queue<Task> taskList;
+	private LinkedList<Task> taskList = new LinkedList<Task>();
 	
 	/**
 	 * Keeps track of the drone's current power level. Depletes over time by
@@ -35,7 +41,7 @@ public class Drone {
 	/**
 	 * Instance variable for the current tile the drone is on.
 	 */
-	private Tile currentTile;
+	protected Tile currentTile;
 	
 	/**
 	 * Instance keeps track of the drones charging state;
@@ -81,6 +87,17 @@ public class Drone {
 			return false;
 	}
 
+	
+	public void executeTaskList(){
+		if(taskList.isEmpty()){
+			//execute random move here
+			DefaultTask defaultTask = new DefaultTask(this);
+			defaultTask.execute();
+		} else {
+			taskList.poll().execute();
+		}
+	}
+	
 	/**
 	 * This code will be executed depending on when the drones' power updates.
 	 * It will either increment or decrement depending on different conditions.
