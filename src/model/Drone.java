@@ -2,12 +2,18 @@ package model;
 
 import game.Tile;
 
-import java.util.LinkedList;
+import java.util.Queue;
 
 public class Drone {
 	
 	private int locationX;
 	private int locationY;
+	
+	/**
+	 * @author Cody Jensen
+	 * Queue of task for drone to execute
+	 */
+	private Queue<Task> taskList;
 	
 	/**
 	 * Keeps track of the drone's current power level. Depletes over time by

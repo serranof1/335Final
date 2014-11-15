@@ -1,8 +1,11 @@
 package game;
 
+import java.util.LinkedList;
+
 public class Map {
 
 	private Tile[][] map = new Tile[30][30];
+	protected LinkedList<Tile> resourceTiles = new LinkedList<Tile>();
 	
 	public Map() {
 		
@@ -22,6 +25,7 @@ public class Map {
 		}
 		
 		map[14][14].setResource(true);
+		resourceTiles.add(map[14][14]);
 	}
 
 	public String toString(){
