@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Map {
 
-	private Tile[][] map = new Tile[30][30];
+	private Tile[][] map = new Tile[10][10];
 	protected LinkedList<Tile> resourceTiles = new LinkedList<Tile>();
 	
 	public Map() {
@@ -17,15 +17,15 @@ public class Map {
 				
 		for(int i = 0; i < map.length - 1; i++){
 			for(int j =0; j < map.length - 1; j++){
-				map[i][j].setWest(map[((30 + (i - 1)) %30)][j]);
-				map[i][j].setEast(map[((30 + (i + 1)) %30)][j]);
-				map[i][j].setNorth(map[i][(30 + (i - 1)) %30]);
-				map[i][j].setSouth(map[i][(30 + (i + 1)) %30]);
+				map[i][j].setWest(map[((10 + (i - 1)) %10)][j]);
+				map[i][j].setEast(map[((10 + (i + 1)) %10)][j]);
+				map[i][j].setNorth(map[i][(10 + (i - 1)) %10]);
+				map[i][j].setSouth(map[i][(10 + (i + 1)) %10]);
 			}
 		}
 		
-		map[14][14].setResource(true);
-		resourceTiles.add(map[14][14]);
+		map[5][5].setResource(true);
+		resourceTiles.add(map[6][6]);
 	}
 
 	public String toString(){
@@ -48,6 +48,6 @@ public class Map {
 	}
 
 	public Tile getTile(int i, int j) {
-		return map[5][5];
+		return map[i][j];
 	}
 }

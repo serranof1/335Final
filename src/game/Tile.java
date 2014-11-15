@@ -8,6 +8,7 @@ public class Tile {
 	
 	public Tile(int row ,int col) {
 		this.isResource = false;
+		this.hasDrone = false;
 	}
 
 	public boolean getResource(){
@@ -20,7 +21,7 @@ public class Tile {
 
 	public String toString(){
 		if(hasDrone){
-			return "dDb";
+			return "d";
 		} else if(!isResource){
 			return "R";
 		} else { 

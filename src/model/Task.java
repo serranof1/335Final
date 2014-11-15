@@ -10,11 +10,19 @@ public abstract class Task {
 	protected List<Tile> steps;
 	private Tile tile; 
 	
-	public abstract void execute(Drone current);
+	public abstract void execute();
 	
-	public Task(Drone drone, List<Tile> steps, Tile tile){
+	
+	/**
+	 * A task only needs a drone, as a drone knows its currentTile
+	 * @param drone
+	 * @param tile
+	 */
+	public Task(Drone drone){
 		this.drone = drone;
-		this.steps= steps;
-		this.tile = tile;
+	}
+	
+	public Drone getDrone(){
+		return this.drone;
 	}
 }

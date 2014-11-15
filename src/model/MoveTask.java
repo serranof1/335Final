@@ -6,12 +6,12 @@ import java.util.List;
 
 public class MoveTask extends Task {
 
-	public MoveTask(Drone drone, List<Tile> steps, Tile tile) {
-		super(drone, steps, tile);
+	public MoveTask(Drone drone) {
+		super(drone);
 	}
 
 	@Override
-	public void execute(Drone current) {
+	public void execute() {
 	
 		System.out.println("DRONE UPDATE");
 		

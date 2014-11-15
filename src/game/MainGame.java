@@ -119,7 +119,7 @@ public class MainGame extends JFrame{
 	private void updateGame()
 	{
 		for(int i = 0; i < droneList.size(); i++){
-			//droneList.get(i).execute();
+			droneList.get(i).executeTaskList();
 		}
 		mapView.setTextArea(map.toString());
 	}
