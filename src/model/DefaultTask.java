@@ -21,7 +21,10 @@ public class DefaultTask extends Task {
 		int min = 1;
 		int max = 5;
 		int randomNumber = 1; 
+		System.out.println(drone.toString() + " doing Default Task");
+		drone.getTaskList().push(new DefaultTask(drone));
 				//random.nextInt(max - min) + min;
+	
 		//This will execute a move north, does not work yet
 		/*if(randomNumber == 1 && !drone.currentTile.getNorth().getHasDrone()){
 			drone.currentTile.setHasDrone(false);

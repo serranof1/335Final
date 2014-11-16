@@ -59,6 +59,7 @@ public class Drone {
 		this.power = power;
 		currentTile = start;
 		materials = 0;
+		taskList.push(new DefaultTask(this));
 		
 		
 	}
@@ -87,26 +88,32 @@ public class Drone {
 			return false;
 	}
 
-	
-	public void executeTaskList(){
-		if(taskList.isEmpty()){
-			//execute random move here
-			DefaultTask defaultTask = new DefaultTask(this);
-			defaultTask.execute();
-		} else {
-			taskList.poll().execute();
-		}
-	}
-	
 	/**
-	 * This code will be executed depending on when the drones' power updates.
-	 * It will either increment or decrement depending on different conditions.
-	 * Other processes happen here as well, but that will be figured out later.
+	 * 
 	 */
-	public void endOfLoopUpdate() {
-		if (charging)
-			power += .75;
-		else
-			power--;
+	public void executeTaskList(){
+		System.out.println(this.toString() + " Current Power: " + power);
+		if(power > 30){
+			taskList.pop().execute();
+			
+		}else{
+			System.out.println("Insufficient power, need to recharge");
+			taskList.push(new ChargeTask(this));
+			taskList.pop().execute();
+		}
+		power -=5;
+	}
+
+	public double getPower() {
+		
+		return power;
+	}
+
+	public void setPower(double newPower) {
+		power = newPower;
+	}
+
+	public LinkedList<Task> getTaskList() {
+		return taskList;
 	}
 }

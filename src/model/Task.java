@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public abstract class Task {
-	private Drone drone;
+	protected Drone drone;
 	protected List<Tile> steps;
 	private Tile tile; 
 	

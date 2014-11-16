@@ -13,7 +13,6 @@ import view.mapView;
 public class MainGame extends JFrame{
 
 
-	private static Drone drone1;
 	private mapView mapView;
 	private static Map map;
 	private static List<Drone> droneList = new LinkedList<Drone>();
@@ -24,6 +23,8 @@ public class MainGame extends JFrame{
 	private int fps = 60;
 	private int frameCount = 0;
 	private Timer timer;
+	
+	private static Drone drone1, drone2, drone3;
 
 	public static void main(String[] args)
 	{
@@ -42,10 +43,23 @@ public class MainGame extends JFrame{
 
 		start.setHasDrone(true);
 
-		drone1 = new Drone(200.0, start);
+		drone1 = new Drone(50.0, start);
+//		drone2 = new Drone(50.0, map.getTile(5,6));
+//		drone3 = new Drone(100.0, map.getTile(5,4));
+//		map.getTile(5,6).setHasDrone(true);
+//		map.getTile(5,4).setHasDrone(true);
+		
 		drone1.setLocationX(5);
 		drone1.setLocationY(5);
 		droneList.add(drone1);
+		
+//		drone2.setLocationX(6);
+//		drone2.setLocationY(5);
+//		droneList.add(drone2);
+//		
+//		drone3.setLocationX(4);
+//		drone3.setLocationY(5);
+//		droneList.add(drone3);
 	}
 
 	/**
@@ -102,13 +116,14 @@ public class MainGame extends JFrame{
 
 	private class loopRunnable extends java.util.TimerTask
 	{
+		int x = 0;
 		public void run() //this becomes the loop
 		{
 			updateGame();
-			System.out.println("UPDATE");
+			System.out.println("Current Game Loop Update: " + x);
 			//draw the game here
 			//render();
-
+			x++;
 			if (!running)
 			{
 				timer.cancel();
