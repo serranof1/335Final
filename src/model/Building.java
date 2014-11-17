@@ -31,7 +31,7 @@ public abstract class Building implements Serializable {
 		resource = source;
 	}
 	
-	
+	// comment on cost
 	public void setCost(int price) {
 		this.buildCost = price;
 	}
