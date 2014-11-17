@@ -1,5 +1,7 @@
 package model;
 
+import game.Map;
+
 import java.util.List;
 
 import tiles.Tile;
@@ -10,7 +12,7 @@ public abstract class Task {
 	protected List<Tile> steps;
 	private Tile tile; 
 	
-	public abstract void execute();
+	public abstract void execute(Map map);
 	
 	
 	/**

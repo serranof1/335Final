@@ -1,5 +1,7 @@
 package model;
 
+import game.Map;
+
 import java.util.Random;
 
 public class DefaultTask extends Task {
@@ -12,7 +14,7 @@ public class DefaultTask extends Task {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Map map) {
 		/**
 		 * Generate a random number between 1 and 4.
 		 * if 1, move North, 2 move East, 3 move South, 4 move West
@@ -26,13 +28,11 @@ public class DefaultTask extends Task {
 				//random.nextInt(max - min) + min;
 	
 		//This will execute a move north, does not work yet
-		/*if(randomNumber == 1 && !drone.currentTile.getNorth().getHasDrone()){
-			drone.currentTile.setHasDrone(false);
-			drone.currentTile.getNorth().setHasDrone(true);
-			drone.currentTile = drone.currentTile.getNorth();
-			System.out.println("DEFAULT TASK UPDATE");
-			this.getDrone().endOfLoopUpdate();
-		}*/
+		if(randomNumber == 1){
+			drone.move(map.getTile(drone.getLocationX(), drone.getLocationY()).getNorth());
+			System.out.println(map.getTile(drone.getLocationX(), drone.getLocationY()));
+			
+		}
 		
 	}
 	

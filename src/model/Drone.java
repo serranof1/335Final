@@ -1,5 +1,7 @@
 package model;
 
+import game.Map;
+
 import java.util.LinkedList;
 
 import tiles.Tile;
@@ -90,15 +92,15 @@ public class Drone {
 	/**
 	 * 
 	 */
-	public void executeTaskList(){
+	public void executeTaskList(Map map){
 		System.out.println(this.toString() + " Current Power: " + power);
 		if(power > 30){
-			taskList.pop().execute();
+			taskList.pop().execute(map);
 			
 		}else{
 			System.out.println("Insufficient power, need to recharge");
 			taskList.push(new ChargeTask(this));
-			taskList.pop().execute();
+			taskList.pop().execute(map);
 		}
 		power -=5;
 	}
@@ -114,5 +116,13 @@ public class Drone {
 
 	public LinkedList<Task> getTaskList() {
 		return taskList;
+	}
+
+	public void move(Tile input) {
+		
+		currentTile.setHasDrone(false);
+		currentTile = input;
+		currentTile.setHasDrone(true);
+		
 	}
 }
