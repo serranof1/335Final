@@ -18,7 +18,7 @@ public class GraphicView extends JPanel{
 	private int viewLength, viewHeight;
 	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength) {
 
-		this.setSize(800,800);
+		this.setSize(1000,1000);
 		this.setBackground(Color.BLACK);
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
@@ -53,16 +53,26 @@ public class GraphicView extends JPanel{
 		repaint();
 	}
 
-
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 
 		int row = leftRow;
 		int col = leftCol;
-		System.out.println("MAP SIZE:  "+map.getSize());
 		
 		for (int i = 0; i < viewHeight - 1; i++){
 			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
+				if(map.getTile(row, col).drawTextForm().equals("_") || map.getTile(row, col).drawTextForm().equals("m")){
+					g.setColor(Color.RED);
+				}
+				if(map.getTile(row, col).drawTextForm().equals("M")){
+					g.setColor(Color.GRAY);
+				}
+				if(map.getTile(row, col).drawTextForm().equals("~")){
+					g.setColor(Color.BLUE);
+				}
+				if(map.getTile(row, col).drawTextForm().equals("@")){
+					g.setColor(Color.BLACK);
+				}
 				map.getTile(row, col).draw(g, (viewLength - j) * 50, i * 50);
 				col++;
 			}

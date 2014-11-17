@@ -44,9 +44,9 @@ public class TextView extends JPanel{
 		for (int i = 0; i < viewHeight - 1; i++){
 			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
 				String charMap = "";
-				charMap += "[ ";
+				charMap += "(";
 				charMap += map.getTile(row, col).drawTextForm();
-				charMap += " ]";
+				charMap += " )";
 				if(map.getTile(row, col).drawTextForm().equals("_") || map.getTile(row, col).drawTextForm().equals("m")){
 					g.setColor(Color.RED);
 				}
@@ -60,7 +60,7 @@ public class TextView extends JPanel{
 					g.setColor(Color.BLACK);
 				}
 				g.setFont(new Font("TimesRoman", Font.BOLD, 18)); 
-				g.drawString(charMap,(viewLength - j) * 30, i * 30);
+				g.drawString(charMap,(viewLength - j + 1) * 30, ((i + 1) * 30));
 				col++;
 			}
 			col = leftCol;

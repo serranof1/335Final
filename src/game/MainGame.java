@@ -79,10 +79,10 @@ public class MainGame extends JFrame{
 	 */
 	public MainGame() {
 		setupVariables();
-		this.setSize(1200,1200);
-		//this.add(panes);
-		//this.add(graphics);
-		this.add(textView);
+		this.setSize(1000,1000);
+		this.add(panes);
+		textView.setLocation(0, 50);
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		runGameLoop();
 	}
@@ -98,11 +98,16 @@ public class MainGame extends JFrame{
 		textView = new TextView(map, 5, 5, 20, 20);
 		graphics = new GraphicView(map, 5 ,5, 20, 20);
 		graphics.setLocation(0, 0);
-		//this.add(graphics);
-		this.addKeyListener(new KeyMoveListener());
-		//panes = new JTabbedPane();
-		//panes.add("Text View", textView);
-		//panes.add("Graphic View", graphics);
+		graphics.setFocusable(true);
+		textView.setFocusable(true);
+	
+		
+		graphics.addKeyListener(new KeyMoveListener());
+		textView.addKeyListener(new KeyMoveListener());
+		panes = new JTabbedPane();
+		panes.add("Text View", textView);
+		panes.add("Graphic View", graphics);
+		panes.setFocusable(false);
 	}
 
 	/**
