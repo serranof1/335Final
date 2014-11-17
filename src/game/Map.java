@@ -187,6 +187,9 @@ public class Map {
 		return s;
 	}
 	
+	public int getSize(){
+		return size;
+	}
 	public String toString() {
 		String s = new String();
 		for (int i = 0; i < size; i++) {

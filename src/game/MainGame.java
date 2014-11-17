@@ -1,13 +1,16 @@
 package game;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Timer;
 
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 
 import model.Drone;
 import tiles.Tile;
+import view.GraphicView;
 import view.mapView;
 
 
@@ -16,6 +19,10 @@ public class MainGame extends JFrame{
 
 	private mapView mapView;
 	private static Map map;
+	private GraphicView graphics;
+
+	private JTabbedPane panes;
+
 	private static LinkedList<Drone> droneList = new LinkedList<Drone>();
 	private static LinkedList<Tile> resourceList = new LinkedList<Tile>();
 
@@ -24,7 +31,8 @@ public class MainGame extends JFrame{
 	private int fps = 60;
 	private int frameCount = 0;
 	private Timer timer;
-	
+
+
 	private static Drone drone1, drone2, drone3;
 
 	public static void main(String[] args)
@@ -45,22 +53,22 @@ public class MainGame extends JFrame{
 		start.setHasDrone(true);
 
 		drone1 = new Drone(50.0, start);
-//		drone2 = new Drone(50.0, map.getTile(5,6));
-//		drone3 = new Drone(100.0, map.getTile(5,4));
-//		map.getTile(5,6).setHasDrone(true);
-//		map.getTile(5,4).setHasDrone(true);
-		
+		//		drone2 = new Drone(50.0, map.getTile(5,6));
+		//		drone3 = new Drone(100.0, map.getTile(5,4));
+		//		map.getTile(5,6).setHasDrone(true);
+		//		map.getTile(5,4).setHasDrone(true);
+
 		drone1.setLocationX(5);
 		drone1.setLocationY(5);
 		droneList.add(drone1);
-		
-//		drone2.setLocationX(6);
-//		drone2.setLocationY(5);
-//		droneList.add(drone2);
-//		
-//		drone3.setLocationX(4);
-//		drone3.setLocationY(5);
-//		droneList.add(drone3);
+
+		//		drone2.setLocationX(6);
+		//		drone2.setLocationY(5);
+		//		droneList.add(drone2);
+		//		
+		//		drone3.setLocationX(4);
+		//		drone3.setLocationY(5);
+		//		droneList.add(drone3);
 	}
 
 	/**
@@ -72,7 +80,7 @@ public class MainGame extends JFrame{
 	public MainGame() {
 		setupVariables();
 		this.setSize(800,800);
-		this.add(mapView);
+		//this.add(panes);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		runGameLoop();
 	}
@@ -85,6 +93,13 @@ public class MainGame extends JFrame{
 	private void setupVariables() {
 		mapView = new mapView();
 		map = new Map(5);
+		graphics = new GraphicView(map, 5 ,5);
+		graphics.setLocation(0, 0);
+		this.add(graphics);
+		this.addKeyListener(new KeyMoveListener());
+		/*panes = new JTabbedPane();
+		panes.add("Text View", mapView);
+		panes.add("Graphic View", graphics);*/
 	}
 
 	/**
@@ -122,8 +137,7 @@ public class MainGame extends JFrame{
 		{
 			updateGame();
 			System.out.println("Current Game Loop Update: " + x);
-			//draw the game here
-			//render();
+			drawGame();
 			x++;
 			if (!running)
 			{
@@ -140,10 +154,55 @@ public class MainGame extends JFrame{
 		mapView.setTextArea(map.toString());
 	}
 
-	private void drawGame(float interpolation)
-	{
-		//gamePanel.repaint();
+	private void drawGame(){
+		graphics.repaint();
 	}
 
+
+	private class KeyMoveListener implements KeyListener
+	{
+		public void keyPressed(KeyEvent arg0) {
+			switch(arg0.getKeyCode())
+			{
+			case KeyEvent.VK_UP: 
+				if(graphics.getLeftRow() > 0){
+					graphics.setLeftRow(-1);
+					System.out.println("UP :" +graphics.getLeftRow());
+					graphics.repaint();
+				}
+				break;
+
+			case KeyEvent.VK_DOWN: 
+				if(graphics.getLeftRow() < map.getSize() - 20){
+					graphics.setLeftRow(1);
+					System.out.println("DOWN :" +graphics.getLeftRow());
+					graphics.repaint();
+				}
+				break;
+
+			case KeyEvent.VK_LEFT: 
+				if(graphics.getLeftCol() > 0){
+					graphics.setLeftCol(-1);
+					System.out.println("LEFT :" +graphics.getLeftCol());
+					graphics.repaint();
+				}
+				break;
+
+			case KeyEvent.VK_RIGHT: 
+				if(graphics.getLeftCol() < map.getSize() - 20){
+					graphics.setLeftCol(-1);
+					System.out.println("RIGHT :" +graphics.getLeftCol());
+					graphics.repaint();
+				}
+				break;
+			default:
+				break;
+			}
+
+		}
+
+		public void keyReleased(KeyEvent arg0) {}
+		public void keyTyped(KeyEvent arg0) {}
+	}
 }
 

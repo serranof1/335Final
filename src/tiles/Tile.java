@@ -1,5 +1,8 @@
 package tiles;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import resources.Resource;
 
 public class Tile {
@@ -22,6 +25,10 @@ public class Tile {
 		tileStack[0] = base;
 	}
 	
+	public String getBase(){
+		return tileStack[0].drawTextForm();
+		
+	}
 	public void setResource(TileResource resource) {
 		tileStack[1] = resource;
 	}
@@ -85,6 +92,17 @@ public class Tile {
 		}
 	}
 
+	public void draw(Graphics g, int x, int y){
+		if(!tileStack[0].drawTextForm().equals("~")){
+			g.setColor(Color.RED);
+			g.fillRect(x * 50, y * 50, 50, 50);
+		}
+		if(tileStack[0].drawTextForm().equals("~")){
+			g.setColor(Color.BLUE);
+			g.fillRect(x * 50, y * 50, 50, 50);
+		}
+		
+	}
 	//Gather a resource
 	public Resource gather() {
 		return ((TileResource) tileStack[1]).gather();
