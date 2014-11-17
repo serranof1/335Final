@@ -58,8 +58,6 @@ public class MainGame extends JFrame{
 		//		map.getTile(5,6).setHasDrone(true);
 		//		map.getTile(5,4).setHasDrone(true);
 
-		drone1.setLocationX(5);
-		drone1.setLocationY(5);
 		droneList.add(drone1);
 
 		//		drone2.setLocationX(6);
@@ -81,7 +79,7 @@ public class MainGame extends JFrame{
 		setupVariables();
 		this.setSize(1000,1000);
 		this.add(panes);
-		textView.setLocation(0, 50);
+		textView.setLocation(0, 0);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		runGameLoop();
@@ -157,7 +155,7 @@ public class MainGame extends JFrame{
 	private void updateGame()
 	{
 		for(int i = 0; i < droneList.size(); i++){
-			droneList.get(i).executeTaskList();
+			droneList.get(i).executeTaskList(map);
 		}
 		
 	}

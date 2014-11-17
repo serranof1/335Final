@@ -26,7 +26,6 @@ public class TextView extends JPanel{
 		this.map = map;
 		this.setSize(800,800);
 		this.setBackground(Color.WHITE);
-		this.setLocation(0, 0);
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
 		leftRow = row;
@@ -47,6 +46,10 @@ public class TextView extends JPanel{
 				charMap += "(";
 				charMap += map.getTile(row, col).drawTextForm();
 				charMap += " )";
+				if(map.getTile(row, col).drawTextForm().equals("@")){
+					g.setColor(Color.BLACK);
+				}
+				
 				if(map.getTile(row, col).drawTextForm().equals("_") || map.getTile(row, col).drawTextForm().equals("m")){
 					g.setColor(Color.RED);
 				}
@@ -56,9 +59,7 @@ public class TextView extends JPanel{
 				if(map.getTile(row, col).drawTextForm().equals("~")){
 					g.setColor(Color.BLUE);
 				}
-				if(map.getTile(row, col).drawTextForm().equals("@")){
-					g.setColor(Color.BLACK);
-				}
+				
 				g.setFont(new Font("TimesRoman", Font.BOLD, 18)); 
 				g.drawString(charMap,(viewLength - j + 1) * 30, ((i + 1) * 30));
 				col++;
