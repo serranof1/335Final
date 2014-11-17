@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import resources.Resource;
 
 public class Tile {
-	private TileWrapper[] tileStack = new TileWrapper[3];
+	private TileWrapper[] tileStack = new TileWrapper[3]; //will need to add buildings to this
 	private boolean hasDrone;
 	private Tile north, south, east, west;
 	
@@ -14,6 +14,11 @@ public class Tile {
 		tileStack[0] = base;
 		tileStack[1] = resource;
 		tileStack[2] = weather;
+		hasDrone = false;
+	}
+	
+	public Tile(TileWrapper[] tileStack) {
+		this.tileStack = tileStack;
 		hasDrone = false;
 	}
 	
