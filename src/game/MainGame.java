@@ -93,7 +93,7 @@ public class MainGame extends JFrame{
 	private void setupVariables() {
 		mapView = new mapView();
 		map = new Map(5);
-		graphics = new GraphicView(map, 5 ,5);
+		graphics = new GraphicView(map, 5 ,5, 15, 15);
 		graphics.setLocation(0, 0);
 		this.add(graphics);
 		this.addKeyListener(new KeyMoveListener());
@@ -169,13 +169,13 @@ public class MainGame extends JFrame{
 					graphics.setLeftRow(-1);
 					System.out.println("UP :" +graphics.getLeftRow());
 					graphics.repaint();
-				}
+				} 
 				break;
 
 			case KeyEvent.VK_DOWN: 
-				if(graphics.getLeftRow() < map.getSize() - 20){
+				if(graphics.getLeftRow() < map.getSize() - graphics.getViewHeight()){
 					graphics.setLeftRow(1);
-					System.out.println("DOWN :" +graphics.getLeftRow());
+					System.out.println("DOWN :" +(map.getSize() - graphics.getViewHeight()));
 					graphics.repaint();
 				}
 				break;
@@ -189,8 +189,8 @@ public class MainGame extends JFrame{
 				break;
 
 			case KeyEvent.VK_RIGHT: 
-				if(graphics.getLeftCol() < map.getSize() - 20){
-					graphics.setLeftCol(-1);
+				if(graphics.getLeftCol() < (map.getSize() - graphics.getViewLength())){
+					graphics.setLeftCol(1);
 					System.out.println("RIGHT :" +graphics.getLeftCol());
 					graphics.repaint();
 				}

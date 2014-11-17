@@ -17,12 +17,13 @@ public class GraphicView extends JPanel{
 	private LinkedList<BufferedImage> images = new LinkedList<BufferedImage>();
 	private Map map;
 	private int leftRow, leftCol;
-	
-	public GraphicView(Map map, int row, int col) {
+	private int viewLength, viewHeight;
+	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength) {
 
 		this.setSize(800,800);
 		this.setBackground(Color.BLACK);
-		
+		this.viewHeight = viewHeight;
+		this.viewLength = viewLength;
 		leftRow = row;
 		leftCol = col;
 		
@@ -60,16 +61,31 @@ public class GraphicView extends JPanel{
 
 		int row = leftRow;
 		int col = leftCol;
-		System.out.println("TEST");
+		System.out.println("MAP SIZE:  "+map.getSize());
 		
-		for (int i = 0; i < 9; i++){
-			for (int j = 9; j >= 0; j--) { // Changed loop condition here.
-				map.getTile(row, col).draw(g, j, i);
-				
-				col++;	
+		for (int i = 0; i < viewHeight - 1; i++){
+			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
+				map.getTile(row, col).draw(g, (viewLength - j), i);
+				col++;
 			}
 			col = leftCol;
 			row++;
 		}
+	}
+
+	public int getViewLength() {
+		return viewLength;
+	}
+
+	public void setViewLength(int viewLength) {
+		this.viewLength = viewLength;
+	}
+
+	public int getViewHeight() {
+		return viewHeight;
+	}
+
+	public void setViewHeight(int viewHeight) {
+		this.viewHeight = viewHeight;
 	}
 }
