@@ -1,8 +1,8 @@
 package model;
 
-import game.Tile;
-
 import java.util.List;
+
+import tiles.Tile;
 
 
 public abstract class Task {

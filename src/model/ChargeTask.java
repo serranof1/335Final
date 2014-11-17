@@ -1,8 +1,5 @@
 package model;
 
-import game.Tile;
-
-import java.util.List;
 
 public class ChargeTask extends Task{
 

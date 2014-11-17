@@ -2,12 +2,12 @@ package tiles;
 
 import resources.Resource;
 
-public class Tile2 {
+public class Tile {
 	private TileWrapper[] tileStack = new TileWrapper[3];
 	private boolean hasDrone;
-	private Tile2 north, south, east, west;
+	private Tile north, south, east, west;
 	
-	public Tile2(TileBase base, TileResource resource, TileWeather weather) {
+	public Tile(TileBase base, TileResource resource, TileWeather weather) {
 		tileStack[0] = base;
 		tileStack[1] = resource;
 		tileStack[2] = weather;
@@ -40,35 +40,35 @@ public class Tile2 {
 	}
 
 	//Tile nodes
-	public Tile2 getNorth() {
+	public Tile getNorth() {
 		return north;
 	}
 
-	public void setNorth(Tile2 north) {
+	public void setNorth(Tile north) {
 		this.north = north;
 	}
 
-	public Tile2 getSouth() {
+	public Tile getSouth() {
 		return south;
 	}
 
-	public void setSouth(Tile2 south) {
+	public void setSouth(Tile south) {
 		this.south = south;
 	}
 
-	public Tile2 getEast() {
+	public Tile getEast() {
 		return east;
 	}
 
-	public void setEast(Tile2 east) {
+	public void setEast(Tile east) {
 		this.east = east;
 	}
 
-	public Tile2 getWest() {
+	public Tile getWest() {
 		return west;
 	}
 
-	public void setWest(Tile2 west) {
+	public void setWest(Tile west) {
 		this.west = west;
 	}
 

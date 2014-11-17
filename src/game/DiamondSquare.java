@@ -163,7 +163,7 @@ public class DiamondSquare {
 
 	public static void main(String[] args) {
 		DiamondSquare test = new DiamondSquare();
-		test.demoMap();
+		//test.demoMap();
 	}
 }
 

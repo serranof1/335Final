@@ -7,6 +7,7 @@ import java.util.Timer;
 import javax.swing.JFrame;
 
 import model.Drone;
+import tiles.Tile;
 import view.mapView;
 
 
@@ -15,8 +16,8 @@ public class MainGame extends JFrame{
 
 	private mapView mapView;
 	private static Map map;
-	private static List<Drone> droneList = new LinkedList<Drone>();
-	private static LinkedList<Tile> resourceList;
+	private static LinkedList<Drone> droneList = new LinkedList<Drone>();
+	private static LinkedList<Tile> resourceList = new LinkedList<Tile>();
 
 	private boolean running = true;
 	private boolean paused = false;
@@ -83,7 +84,7 @@ public class MainGame extends JFrame{
 	 */
 	private void setupVariables() {
 		mapView = new mapView();
-		map = new Map();
+		map = new Map(5);
 	}
 
 	/**
