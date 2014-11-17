@@ -21,7 +21,7 @@ public class Map2 {
 		size = (int) Math.pow(2, n) + 1;
 		this.seed = seed;
 		rand = new Random(seed);
-		map = buildTileMap();
+		map = buildNodeMap();
 	}
 	
 	public Map2(int n) {
@@ -30,7 +30,7 @@ public class Map2 {
 		rand = new Random();
 		seed = rand.nextLong();
 		rand = new Random(seed);
-		map = buildTileMap();
+		map = buildNodeMap();
 	}
 	
 	private float[][] buildFloatMap() {
@@ -163,6 +163,19 @@ public class Map2 {
 		return tileMap;
 	}
 	
+	
+	private Tile2[][] buildNodeMap() {
+		Tile2[][] map = buildTileMap();
+		for(int i = 0; i < size; i++){
+			for(int j =0; j < size; j++){
+				map[i][j].setWest(map[(size - i) % size][j]);
+				map[i][j].setEast(map[(size + i) % size][j]);
+				map[i][j].setNorth(map[i][(size - 1) % size]);
+				map[i][j].setSouth(map[i][(size + 1) % size]);
+			}
+		}
+		return map;
+	}
 	private String drawTextForm() {
 		String s = new String();
 		for (int i = 0; i < size; i++) {
