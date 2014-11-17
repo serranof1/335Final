@@ -11,13 +11,13 @@ import javax.swing.JTabbedPane;
 import model.Drone;
 import tiles.Tile;
 import view.GraphicView;
-import view.mapView;
+import view.TextView;
 
 
 public class MainGame extends JFrame{
 
 
-	private mapView mapView;
+	private TextView textView;
 	private static Map map;
 	private GraphicView graphics;
 
@@ -79,8 +79,10 @@ public class MainGame extends JFrame{
 	 */
 	public MainGame() {
 		setupVariables();
-		this.setSize(800,800);
+		this.setSize(1200,1200);
 		//this.add(panes);
+		//this.add(graphics);
+		this.add(textView);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		runGameLoop();
 	}
@@ -91,15 +93,16 @@ public class MainGame extends JFrame{
 	 * eventually time reliant display windows will go here
 	 */
 	private void setupVariables() {
-		mapView = new mapView();
-		map = new Map(5);
-		graphics = new GraphicView(map, 5 ,5, 15, 15);
+		
+		map = new Map(7);
+		textView = new TextView(map, 5, 5, 20, 20);
+		graphics = new GraphicView(map, 5 ,5, 20, 20);
 		graphics.setLocation(0, 0);
-		this.add(graphics);
+		//this.add(graphics);
 		this.addKeyListener(new KeyMoveListener());
-		/*panes = new JTabbedPane();
-		panes.add("Text View", mapView);
-		panes.add("Graphic View", graphics);*/
+		//panes = new JTabbedPane();
+		//panes.add("Text View", textView);
+		//panes.add("Graphic View", graphics);
 	}
 
 	/**
@@ -151,11 +154,12 @@ public class MainGame extends JFrame{
 		for(int i = 0; i < droneList.size(); i++){
 			droneList.get(i).executeTaskList();
 		}
-		mapView.setTextArea(map.toString());
+		
 	}
 
 	private void drawGame(){
 		graphics.repaint();
+		textView.repaint();
 	}
 
 
@@ -165,33 +169,41 @@ public class MainGame extends JFrame{
 			switch(arg0.getKeyCode())
 			{
 			case KeyEvent.VK_UP: 
-				if(graphics.getLeftRow() > 0){
+				if((graphics.getLeftRow() > 0) || (textView.getLeftRow() > 0)){
 					graphics.setLeftRow(-1);
 					System.out.println("UP :" +graphics.getLeftRow());
+					textView.setLeftRow(-1);
+					textView.repaint();
 					graphics.repaint();
 				} 
 				break;
 
 			case KeyEvent.VK_DOWN: 
-				if(graphics.getLeftRow() < map.getSize() - graphics.getViewHeight()){
+				if((graphics.getLeftRow() < map.getSize() - graphics.getViewHeight()) || (textView.getLeftRow() < map.getSize() - graphics.getViewHeight())){
 					graphics.setLeftRow(1);
 					System.out.println("DOWN :" +(map.getSize() - graphics.getViewHeight()));
+					textView.setLeftRow(1);
+					textView.repaint();
 					graphics.repaint();
 				}
 				break;
 
 			case KeyEvent.VK_LEFT: 
-				if(graphics.getLeftCol() > 0){
+				if((graphics.getLeftCol() > 0) || (textView.getLeftCol() > 0)){
 					graphics.setLeftCol(-1);
 					System.out.println("LEFT :" +graphics.getLeftCol());
+					textView.setLeftCol(-1);
+					textView.repaint();
 					graphics.repaint();
 				}
 				break;
 
 			case KeyEvent.VK_RIGHT: 
-				if(graphics.getLeftCol() < (map.getSize() - graphics.getViewLength())){
+				if((graphics.getLeftCol() < (map.getSize() - graphics.getViewLength())) || (textView.getLeftCol() < (map.getSize() - graphics.getViewLength()))){
 					graphics.setLeftCol(1);
 					System.out.println("RIGHT :" +graphics.getLeftCol());
+					textView.setLeftCol(1);
+					textView.repaint();
 					graphics.repaint();
 				}
 				break;

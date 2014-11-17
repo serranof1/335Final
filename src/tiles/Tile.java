@@ -95,11 +95,11 @@ public class Tile {
 	public void draw(Graphics g, int x, int y){
 		if(!tileStack[0].drawTextForm().equals("~")){
 			g.setColor(Color.RED);
-			g.fillRect(x * 50, y * 50, 50, 50);
+			g.fillRect(x, y * 50, 50, 50);
 		}
 		if(tileStack[0].drawTextForm().equals("~")){
 			g.setColor(Color.BLUE);
-			g.fillRect(x * 50, y * 50, 50, 50);
+			g.fillRect(x, y * 50, 50, 50);
 		}
 		
 	}

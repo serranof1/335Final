@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 
 public class GraphicView extends JPanel{
 
-
-	private LinkedList<BufferedImage> images = new LinkedList<BufferedImage>();
 	private Map map;
 	private int leftRow, leftCol;
 	private int viewLength, viewHeight;
@@ -65,7 +63,7 @@ public class GraphicView extends JPanel{
 		
 		for (int i = 0; i < viewHeight - 1; i++){
 			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
-				map.getTile(row, col).draw(g, (viewLength - j), i);
+				map.getTile(row, col).draw(g, (viewLength - j) * 50, i * 50);
 				col++;
 			}
 			col = leftCol;
