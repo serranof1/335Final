@@ -22,18 +22,19 @@ public class DefaultTask extends Task {
 		Random random = new Random();
 		int min = 1;
 		int max = 5;
-		int randomNumber = 1; 
+		int randomNumber = random.nextInt(max - min) + min;; 
 		System.out.println(drone.toString() + " doing Default Task");
-		drone.getTaskList().push(new DefaultTask(drone));
-				//random.nextInt(max - min) + min;
-	
-		//This will execute a move north, does not work yet
-		if(randomNumber == 1){
-			drone.move(map.getTile(drone.getLocationX(), drone.getLocationY()).getNorth());
-			System.out.println(map.getTile(drone.getLocationX(), drone.getLocationY()));
-			
-		}
 		
+		if(randomNumber == 1){
+			drone.setCurrentTile(drone.currentTile.getNorth());
+		} else if(randomNumber == 2){
+			drone.setCurrentTile(drone.currentTile.getSouth());
+		} else if(randomNumber == 3){
+			drone.setCurrentTile(drone.currentTile.getEast());
+		} else {
+			drone.setCurrentTile(drone.currentTile.getWest());
+		}
+		drone.getTaskList().push(new DefaultTask(drone));
 	}
 	
 	

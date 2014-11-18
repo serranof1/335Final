@@ -1,8 +1,7 @@
 package model;
 
-import game.Tile;
+import game.Map;
 
-import java.util.List;
 
 public class MoveTask extends Task {
 
@@ -11,7 +10,7 @@ public class MoveTask extends Task {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Map map) {
 	
 		System.out.println("DRONE UPDATE");
 		

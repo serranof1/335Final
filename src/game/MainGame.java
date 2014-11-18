@@ -53,12 +53,14 @@ public class MainGame extends JFrame{
 		start.setHasDrone(true);
 
 		drone1 = new Drone(50.0, start);
-		//		drone2 = new Drone(50.0, map.getTile(5,6));
-		//		drone3 = new Drone(100.0, map.getTile(5,4));
-		//		map.getTile(5,6).setHasDrone(true);
-		//		map.getTile(5,4).setHasDrone(true);
+		drone2 = new Drone(50.0, map.getTile(10,10));
+		drone3 = new Drone(100.0, map.getTile(8,17));
+		map.getTile(10,10).setHasDrone(true);
+		map.getTile(8,17).setHasDrone(true);
 
 		droneList.add(drone1);
+		droneList.add(drone2);
+		droneList.add(drone3);
 
 		//		drone2.setLocationX(6);
 		//		drone2.setLocationY(5);

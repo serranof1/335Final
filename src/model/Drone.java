@@ -105,8 +105,7 @@ public class Drone {
 		power -=5;
 	}
 
-	public double getPower() {
-		
+	public double getPower() {	
 		return power;
 	}
 
@@ -119,7 +118,13 @@ public class Drone {
 	}
 
 	public void move(Tile input) {
+		currentTile.setHasDrone(false);
+		currentTile = input;
+		currentTile.setHasDrone(true);
 		
+	}
+
+	public void setCurrentTile(Tile input) {
 		currentTile.setHasDrone(false);
 		currentTile = input;
 		currentTile.setHasDrone(true);

@@ -1,5 +1,7 @@
 package model;
 
+import game.Map;
+
 
 public class ChargeTask extends Task{
 
@@ -9,7 +11,7 @@ public class ChargeTask extends Task{
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Map map) {
 		if(nextToPower()){
 			System.out.println("Drone is next to power Supply");
 			if(drone.getPower()<100){

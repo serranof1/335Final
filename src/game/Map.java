@@ -168,10 +168,10 @@ public class Map {
 		Tile[][] map = buildTileMap();
 		for(int i = 0; i < size; i++){
 			for(int j =0; j < size; j++){
-				map[i][j].setWest(map[(size - i) % size][j]);
-				map[i][j].setEast(map[(size + i) % size][j]);
-				map[i][j].setNorth(map[i][(size - 1) % size]);
-				map[i][j].setSouth(map[i][(size + 1) % size]);
+				map[i][j].setWest(map[i][(size + (j - 1)) % size ]);
+				map[i][j].setEast(map[i][(size + (j + 1)) % size ]);
+				map[i][j].setNorth(map[(size + (i - 1)) % size ][j]);
+				map[i][j].setSouth(map[(size + (i + 1)) % size ][j]);
 			}
 		}
 		return map;
