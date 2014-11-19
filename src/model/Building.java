@@ -55,11 +55,12 @@ public class Building extends TileWrapper {
 	 * @param source
 	 *            a {@link String} represent the purpose of the building.
 	 */
-	public Building(int x, int y, int width, int length, Resource source) {
+	public Building(int x, int y, int width, int length, Resource source, String name) {
 		location = new Point(x, y);
 		this.width = width;
 		this.height = length;
 		this.resource = source;
+		buildingName = name;
 		droneList = new ArrayList<Drone>();
 	}
 
@@ -104,7 +105,7 @@ public class Building extends TileWrapper {
 
 		curr = startTile;
 		for(int i = 0; i < width; i++) {
-			if(curr.getSouth() != null) { rowStart = curr.getSouth(); }
+			if(curr.getSouth() == null) { return false; }
 			for(int j = 0; j < height; j++) {
 				if(currBase.compareTo("_") == 0) {
 					curr = curr.getEast();
