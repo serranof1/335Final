@@ -10,10 +10,17 @@ public class Tile {
 	private boolean hasDrone;
 	private Tile north, south, east, west;
 	
-	public Tile(TileBase base, TileResource resource, TileWrapper building, TileWeather weather) {
+	public Tile(TileBase base, TileResource resource, BuildingTile building, TileWeather weather) {
 		tileStack[0] = base;
 		tileStack[1] = resource;
 		tileStack[2] = building;
+		tileStack[3] = weather;
+		hasDrone = false;
+	}
+	
+	public Tile(TileBase base, TileResource resource, TileWeather weather) {
+		tileStack[0] = base;
+		tileStack[1] = resource;
 		tileStack[3] = weather;
 		hasDrone = false;
 	}
