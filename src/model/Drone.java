@@ -12,9 +12,11 @@ public class Drone {
 	private int locationY;
 	
 	/**
-	 * a list of tiles that a drone has been assigned
+	 * List of tiles that a drone has been assigned, with the first tile
+	 * always being adjacent to the drone's current tile
 	 */
 	private LinkedList<Tile> currentPath = new LinkedList<Tile>();
+	
 	
 	/**
 	 * @author Cody Jensen
@@ -46,8 +48,9 @@ public class Drone {
 	
 	/**
 	 * Instance keeps track of the drones charging state;
+	 * This may not be needed.
 	 */
-	private boolean charging;
+	//private boolean charging;
 	
 	/**
 	 * Creates a drone with a set amount of starting power, and a default job of do nothing
@@ -82,18 +85,16 @@ public class Drone {
 		locationY = newY;
 	}
 
-	public boolean isCharging() {
-		if (charging)
-			return true;
-		else
-			return false;
-	}
+//	public boolean isCharging() {
+//		return charging;
+//	}
 
 	/**
 	 * 
 	 */
 	public void executeTaskList(Map map){
 		System.out.println(this.toString() + " Current Power: " + power);
+		
 		if(power > 30){
 			taskList.pop().execute(map);
 			
