@@ -11,8 +11,9 @@ public class Map {
 	private long seed;
 	private Random rand;
 	
-	private float mountainThreshold = .9f;
-	private float groundThreshold = .35f;
+	private float mountainThreshold = .8f;
+	private float groundThreshold = .45f;
+	private float sandThreshold = .3f;
 	//I think, for a map of any particular size, the linkedlist of resources becomes difficult to use
 	//so I did not implement it here. We may need to figure this out.
 	
@@ -130,33 +131,30 @@ public class Map {
 	private Tile[][] buildTileMap() {
 		Tile[][] tileMap = new Tile[size][size];
 		float[][] floatMap = normalizeMap();
+		GroundTile plain = new GroundTile(GroundEnum.PLAIN);
+		GroundTile mountain = new GroundTile(GroundEnum.MOUNTAIN);
+		GroundTile ocean = new GroundTile(GroundEnum.OCEAN);
+		GroundTile sand = new GroundTile(GroundEnum.SAND);
 		
-		Mountain mountain = new Mountain();
-		Ground ground = new Ground();
-		Ocean ocean = new Ocean();
+		ResourceTile noResource = new ResourceTile(ResourceEnum.NOTHING);
+		BuildingTile noBuilding = new BuildingTile(BuildingEnum.NOTHING);
+		WeatherTile noWeather = new WeatherTile(WeatherEnum.NOTHING);
 		
-		NoResource nr = new NoResource(null, 0);
-		MethaneTile methaneTile = new MethaneTile(new Methane(), 0);
-		MineralTile mineralTile = new MineralTile(new Mineral(), 0);
+		ResourceTile methane = new ResourceTile(ResourceEnum.METHANE);
+		ResourceTile carbon = new ResourceTile(ResourceEnum.CARBON);
+		ResourceTile iron = new ResourceTile(ResourceEnum.IRON);
 		
-		NoWeather nw = new NoWeather();
 		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (floatMap[i][j] > mountainThreshold) {
-					if (rand.nextFloat() > .75) {
-						tileMap[i][j] = new Tile(mountain, mineralTile, nw);
-					} else {
-						tileMap[i][j] = new Tile(mountain, nr, nw);
-					}
+					tileMap[i][j] = new Tile(mountain, iron, noBuilding, noWeather);
 				} else if (floatMap[i][j] > groundThreshold) {
-					if (rand.nextFloat() > .9) {
-						tileMap[i][j] = new Tile(ground, mineralTile, nw);
-					} else {
-						tileMap[i][j] = new Tile(ground, nr, nw);
-					}
+					tileMap[i][j] = new Tile(plain, noResource, noBuilding, noWeather);
+				} else if (floatMap[i][j] > sandThreshold) {
+					tileMap[i][j] = new Tile(sand, carbon, noBuilding, noWeather);
 				} else {
-					tileMap[i][j] = new Tile(ocean, methaneTile, nw);
+					tileMap[i][j] = new Tile(ocean, methane, noBuilding, noWeather);
 				}
 			}
 		}
@@ -167,7 +165,7 @@ public class Map {
 	private Tile[][] buildNodeMap() {
 		Tile[][] map = buildTileMap();
 		for(int i = 0; i < size; i++){
-			for(int j =0; j < size; j++){
+			for(int j = 0; j < size; j++){
 				map[i][j].setWest(map[i][(size + (j - 1)) % size ]);
 				map[i][j].setEast(map[i][(size + (j + 1)) % size ]);
 				map[i][j].setNorth(map[(size + (i - 1)) % size ][j]);

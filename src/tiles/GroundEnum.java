@@ -1,6 +1,6 @@
 package tiles;
 
-public enum GroundTileEnums {
+public enum GroundEnum {
 	OCEAN ("~", 2),
 	SAND (",", 1),
 	PLAIN ("_", 0),
@@ -9,7 +9,7 @@ public enum GroundTileEnums {
 	private String textRepresentation;
 	private int movementCost;
 	
-	private GroundTileEnums(String s, int n) {
+	private GroundEnum(String s, int n) {
 		textRepresentation = s;
 		movementCost = n;
 	}

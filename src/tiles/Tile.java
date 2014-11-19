@@ -1,5 +1,4 @@
 package tiles;
-
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -7,128 +6,86 @@ import resources.Resource;
 
 public class Tile {
 	private TileWrapper[] tileStack = new TileWrapper[4];
+	private int x, y;
 	private boolean hasDrone;
 	private Tile north, south, east, west;
+	private Color color;
 	
-	public Tile(TileBase base, TileResource resource, BuildingTile building, TileWeather weather) {
-		tileStack[0] = base;
+	public Tile(TileWrapper[] tileStack) {
+		this.tileStack = tileStack;
+		color = ((ResourceTile) tileStack[1]).getColor();
+		int n = ((WeatherTile) tileStack[3]).getDarkness();
+		if (n < 0) {
+			color = color.brighter();
+		} else {
+			for (int i = 0; i < n; i++) {
+				color = color.darker();
+			}
+		}
+		hasDrone = false;
+	}
+	
+	public Tile(TileWrapper ground, TileWrapper resource, TileWrapper building, TileWrapper weather) {
+		tileStack[0] = ground;
 		tileStack[1] = resource;
 		tileStack[2] = building;
 		tileStack[3] = weather;
+		color = ((ResourceTile) tileStack[1]).getColor();
+		int n = ((WeatherTile) tileStack[3]).getDarkness();
+		if (n < 0) {
+			color = color.brighter();
+		} else {
+			for (int i = 0; i < n; i++) {
+				color = color.darker();
+			}
+		}
 		hasDrone = false;
 	}
 	
-	public Tile(TileBase base, TileResource resource, TileWeather weather) {
-		tileStack[0] = base;
-		tileStack[1] = resource;
-		tileStack[3] = weather;
-		hasDrone = false;
-	}
+	public void setGround(GroundTile g){tileStack[0]=g;}
+	public void setResource(ResourceTile r){tileStack[1]=r;}
+	public void setBuilding(BuildingTile b){tileStack[2]=b;}
+	public void setWeather(WeatherTile w){tileStack[3]=w;}
+	public void setHasDrone(Boolean b){hasDrone=b;}
+	public void setNorth(Tile t){north = t;}
+	public void setSouth(Tile t){south = t;}
+	public void setEast(Tile t){east = t;}
+	public void setWest(Tile t){west = t;}
+	public void setX(int x){this.x = x;}
+	public void setY(int y){this.y = y;}
+	public void setTileStack(TileWrapper[] tw){tileStack = tw;}
+	public void setColor(Color c){color = c;}
 	
-	//Each tile consists of three objects: 
-	//the base, such as ground or mountain
-	//the resource, such as iron or noResource
-	//the weather, such as sun or storm
-	public void setBase(TileBase base) {
-		tileStack[0] = base;
-	}
+	public GroundTile getGround(){return (GroundTile)tileStack[0];}
+	public ResourceTile getResource(){return (ResourceTile)tileStack[1];}
+	public BuildingTile getBuilding(){return (BuildingTile)tileStack[2];}
+	public WeatherTile getWeather(){return (WeatherTile)tileStack[3];}
+	public boolean getHasDrone(){return hasDrone;}
+	public Tile getNorth(){return north;}
+	public Tile getSouth(){return south;}
+	public Tile getEast(){return east;}
+	public Tile getWest(){return west;}
+	public int getX(){return x;}
+	public int getY(){return y;}
+	public TileWrapper[] getTileStack(){return tileStack;}
+	public Color getColor(){return color;}
 	
-	public String getBase(){
-		return tileStack[0].drawTextForm();	
-	}
+	public ResourceEnum gather() {return ((ResourceTile) tileStack[1]).gather();}
+	public boolean hasResource() {return ((ResourceTile) tileStack[1]).getResource() != ResourceEnum.NOTHING;}
 	
-	public TileWrapper getBase2() {
-		return tileStack[0];
-	}
-	
-	public TileWrapper getResource2() {
-		return tileStack[1];
-	}
-	
-	public TileWrapper getBuilding2() {
-		return tileStack[2];
-	}
-	
-	public TileWrapper getWeather2() {
-		return tileStack[3];
-	}
-	public void setResource(TileResource resource) {
-		tileStack[1] = resource;
-	}
-	
-	public void setBuilding(BuildingTile building) {
-		tileStack[3] = building;
-	}
-	public void setWeather(TileWeather weather) {
-		tileStack[3] = weather;
-	}
-	
-	//Occupied/not occupied methods
-	public void setHasDrone(boolean hasDrone) {
-		this.hasDrone = hasDrone;
-	}
-	
-	public boolean getHasDrone() {
-		return hasDrone;
-	}
-
-	//Tile nodes
-	public Tile getNorth() {
-		return north;
-	}
-
-	public void setNorth(Tile north) {
-		this.north = north;
-	}
-
-	public Tile getSouth() {
-		return south;
-	}
-
-	public void setSouth(Tile south) {
-		this.south = south;
-	}
-
-	public Tile getEast() {
-		return east;
-	}
-
-	public void setEast(Tile east) {
-		this.east = east;
-	}
-
-	public Tile getWest() {
-		return west;
-	}
-
-	public void setWest(Tile west) {
-		this.west = west;
-	}
-
-	//Draw the tile
+	//We will probably want a better way to draw the string format, since this has potentially weird priorty
+	//ie, weather > building > resource > ground
+	//This doesn't work super well if we have a mineral on a mountain; we won't all of that info, but we only
+	//get that there is a mineral
 	public String drawTextForm() {
 		if (hasDrone) {
 			return "@";
-		} else if (!(tileStack[3] instanceof NoWeather || tileStack[3] instanceof Sun)) {
-			return tileStack[3].drawTextForm();
-		} else if (!(tileStack[1] instanceof NoResource)) {
-			return tileStack[1].drawTextForm();
 		} else {
-			return tileStack[0].drawTextForm();
+			return (tileStack[2].drawTextForm() + tileStack[0].drawTextForm()).substring(0, 1);
 		}
 	}
-	//I think it might be good to do the text drawing in the tile? I am not sure. We'd have to deal with setting colors here.
-
+	
 	public void draw(Graphics g, int x, int y){
-			
 		g.fillRect(x, y, 50, 50);		
-	}
-	//Gather a resource
-	public Resource gather() {
-		return ((TileResource) tileStack[1]).gather();
-	}
-	//a boolean for if the tile has a resource, like in the other Tile class
-	public boolean getResource() {
-		return !(tileStack[1] instanceof NoResource);
 	}
 }

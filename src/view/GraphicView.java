@@ -61,7 +61,8 @@ public class GraphicView extends JPanel{
 		
 		for (int i = 0; i < viewHeight - 1; i++){
 			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
-				if(map.getTile(row, col).drawTextForm().equals("_") || map.getTile(row, col).drawTextForm().equals("m")){
+				
+				if(map.getTile(row, col).drawTextForm().equals("_")){
 					g.setColor(Color.RED);
 				}
 				if(map.getTile(row, col).drawTextForm().equals("M")){
@@ -70,9 +71,13 @@ public class GraphicView extends JPanel{
 				if(map.getTile(row, col).drawTextForm().equals("~")){
 					g.setColor(Color.BLUE);
 				}
+				if(map.getTile(row, col).drawTextForm().equals(",")){
+					g.setColor(Color.YELLOW);
+				}
 				if(map.getTile(row, col).drawTextForm().equals("@")){
 					g.setColor(Color.BLACK);
 				}
+				//g.setColor(map.getTile(row, col).getColor());
 				map.getTile(row, col).draw(g, (viewLength - j) * 50, i * 50);
 				col++;
 			}
