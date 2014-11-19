@@ -167,7 +167,6 @@ public class MainGame extends JFrame{
 		textView.repaint();
 	}
 
-
 	private class KeyMoveListener implements KeyListener
 	{
 		public void keyPressed(KeyEvent arg0) {

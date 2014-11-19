@@ -6,10 +6,12 @@ public class MineBuilding extends Building{
 
 	private final static int BUILD_RATE = 10;
 	private final static int BUILD_COST = 50;
+	private final static int MINE_WIDTH = 2;
+	private final static int MINE_HEIGHT = 2;
 	private final static String BUILDING_NAME = "MB";
 	
-	public MineBuilding(int x, int y, int width, int length, Resource source) {
-		super(x, y, width, length, source, BUILDING_NAME);
+	public MineBuilding(int x, int y, Resource source) {
+		super(x, y, MINE_WIDTH, MINE_HEIGHT, source, BUILDING_NAME);
 		super.setCost(BUILD_COST);
 	}
 
@@ -22,6 +24,5 @@ public class MineBuilding extends Building{
 		public MineItem() {
 			super(getBuildingResource());
 		}
-		
 	}
 }
