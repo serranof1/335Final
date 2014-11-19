@@ -31,7 +31,11 @@ public class ChargeTask extends Task{
 	}
 
 	private boolean nextToPower() {
-		// TODO Auto-generated method stub
+		/*if(drone.currentTile.givesPower())
+			return true;
+		else
+			return false;*/
+		//This return is just for testing purposes. It will always return true
 		return true;
 	}
 
