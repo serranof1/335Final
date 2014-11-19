@@ -1,15 +1,11 @@
 package model;
 
-import java.awt.Dimension;
 import java.awt.Point;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import resources.Resource;
-import tiles.Ground;
 import tiles.Tile;
-import tiles.TileBase;
 import tiles.TileBuilding;
 import tiles.TileWrapper;
 
@@ -33,8 +29,7 @@ public class Building extends TileWrapper {
 	private List<Drone> droneList;
 	private TileWrapper[][] tiles;
 	
-	private final static int MAX_DRONE = 4;
-	private final static int BUILD_RATE = 20;
+	private final static int MAX_CAP = 4;
 
 	/**
 	 * Construct the Building object, the parameters present the location, size,
@@ -64,11 +59,12 @@ public class Building extends TileWrapper {
 		droneList = new ArrayList<Drone>();
 	}
 
-	//
+	// Set the cost of the building
 	protected void setCost(int price) {
 		this.buildCost = price;
 	}
 
+	// Set the buildsite on the map
 	protected void setBuildSite(Tile tile) {
 		Tile curr = tile;
 		Tile rowStart = null;
@@ -83,21 +79,25 @@ public class Building extends TileWrapper {
 			curr = rowStart;
 		}
 	}
-	//
-	protected void addDrone(Drone drone) {
-		droneList.add(drone);
-	}
-
-	protected boolean collectResource(int amount) {
-		if (inventory <= 100)
+	
+	// When drone need to recharges
+	protected boolean addDrone(Drone drone) {
+		if(droneList.size() == MAX_CAP)						// check the maximum capacity before add
 			return false;
-		else
-			inventory += amount;
-
+		droneList.add(drone);
 		return true;
 	}
 
-	//
+	// Tell the building to collectResource
+	protected boolean collectResource(int amount) {
+		if (inventory >= 100)
+			return false;
+		
+		inventory += amount;
+		return true;
+	}
+
+	// Check the surrounding surface of the tile, make sure there are enough room for building
 	public boolean canBuild(Tile startTile) {
 		Tile curr = null;
 		Tile rowStart = null;
@@ -118,7 +118,7 @@ public class Building extends TileWrapper {
 		return true;
 	}
 
-	//
+	// How long to build the building depends on the dimension of the building
 	protected void build(int buildRate) {
 		if (life <= 0 && life > 100)
 			life += buildRate;
@@ -143,7 +143,12 @@ public class Building extends TileWrapper {
 		return height;
 	}
 
-	public boolean finishBuilt() {
+	public Resource getBuildingResource() {
+		return resource;
+	}
+	
+	// Return true if the building is complete built
+	public boolean isFinishBuilt() {
 		if (life >= 100)
 			return true;
 
@@ -156,6 +161,7 @@ public class Building extends TileWrapper {
 		return buildingName;
 	}
 	
+	// Return the informations of the building
 	public String toString() {
 		String info = null;
 		info = info + buildingName + "\n";

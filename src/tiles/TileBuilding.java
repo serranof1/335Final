@@ -2,7 +2,8 @@ package tiles;
 
 public class TileBuilding extends TileBase {
 
-	private String building;
+	private String buildingSymbol;
+	
 	public TileBuilding() {
 		
 	}

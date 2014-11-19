@@ -12,5 +12,4 @@ public class Base extends Building {
 		super.setBuildSite(base);
 		// TODO Auto-generated constructor stub
 	}
-
 }

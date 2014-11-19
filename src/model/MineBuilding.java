@@ -11,11 +11,17 @@ public class MineBuilding extends Building{
 	public MineBuilding(int x, int y, int width, int length, Resource source) {
 		super(x, y, width, length, source, BUILDING_NAME);
 		super.setCost(BUILD_COST);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void startBuild() {
 		super.build(BUILD_RATE);
 	}
 	
+	private class MineItem extends Items {
+
+		public MineItem() {
+			super(getBuildingResource());
+		}
+		
+	}
 }
