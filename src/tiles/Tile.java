@@ -6,14 +6,15 @@ import java.awt.Graphics;
 import resources.Resource;
 
 public class Tile {
-	private TileWrapper[] tileStack = new TileWrapper[3];
+	private TileWrapper[] tileStack = new TileWrapper[4];
 	private boolean hasDrone;
 	private Tile north, south, east, west;
 	
-	public Tile(TileBase base, TileResource resource, TileWeather weather) {
+	public Tile(TileBase base, TileResource resource, TileWrapper building, TileWeather weather) {
 		tileStack[0] = base;
 		tileStack[1] = resource;
-		tileStack[2] = weather;
+		tileStack[2] = building;
+		tileStack[3] = weather;
 		hasDrone = false;
 	}
 	
@@ -26,15 +27,33 @@ public class Tile {
 	}
 	
 	public String getBase(){
-		return tileStack[0].drawTextForm();
-		
+		return tileStack[0].drawTextForm();	
+	}
+	
+	public TileWrapper getBase2() {
+		return tileStack[0];
+	}
+	
+	public TileWrapper getResource2() {
+		return tileStack[1];
+	}
+	
+	public TileWrapper getBuilding2() {
+		return tileStack[2];
+	}
+	
+	public TileWrapper getWeather2() {
+		return tileStack[3];
 	}
 	public void setResource(TileResource resource) {
 		tileStack[1] = resource;
 	}
 	
+	public void setBuilding(BuildingTile building) {
+		tileStack[3] = building;
+	}
 	public void setWeather(TileWeather weather) {
-		tileStack[2] = weather;
+		tileStack[3] = weather;
 	}
 	
 	//Occupied/not occupied methods
@@ -83,14 +102,15 @@ public class Tile {
 	public String drawTextForm() {
 		if (hasDrone) {
 			return "@";
-		} else if (!(tileStack[2] instanceof NoWeather || tileStack[2] instanceof Sun)) {
-			return tileStack[2].drawTextForm();
+		} else if (!(tileStack[3] instanceof NoWeather || tileStack[3] instanceof Sun)) {
+			return tileStack[3].drawTextForm();
 		} else if (!(tileStack[1] instanceof NoResource)) {
 			return tileStack[1].drawTextForm();
 		} else {
 			return tileStack[0].drawTextForm();
 		}
 	}
+	//I think it might be good to do the text drawing in the tile? I am not sure. We'd have to deal with setting colors here.
 
 	public void draw(Graphics g, int x, int y){
 			
