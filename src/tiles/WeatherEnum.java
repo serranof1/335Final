@@ -19,7 +19,7 @@ public enum WeatherEnum {
 		textRepresentation = s;
 		darkness = n;
 		try {
-			image = ImageIO.read(new File("images/transparentplacehold.png"));
+			image = ImageIO.read(new File("images/transparentplaceholder.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
