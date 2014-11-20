@@ -1,6 +1,10 @@
 package tiles;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 import resources.Resource;
 
@@ -10,6 +14,7 @@ public class Tile {
 	private boolean hasDrone;
 	private Tile north, south, east, west;
 	private Color color;
+	private Image droneImage;
 	
 	public Tile(TileWrapper[] tileStack) {
 		this.tileStack = tileStack;
@@ -21,6 +26,11 @@ public class Tile {
 			for (int i = 0; i < n; i++) {
 				color = color.darker();
 			}
+		}
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		hasDrone = false;
 	}
@@ -38,6 +48,11 @@ public class Tile {
 			for (int i = 0; i < n; i++) {
 				color = color.darker();
 			}
+		}
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		hasDrone = false;
 	}
@@ -92,6 +107,9 @@ public class Tile {
 	public void draw2(Graphics g, int x, int y) {
 		for (int i = 0; i < 4; i++) {
 			g.drawImage(tileStack[i].getImage(), x, y, null);
+			if (hasDrone) {
+				g.drawImage(droneImage, x, y, null);
+			}
 		}
 	}
 }
