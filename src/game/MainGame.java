@@ -8,7 +8,10 @@ import java.util.Timer;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import model.Base;
 import model.Drone;
+import model.SolarPlant;
+import resources.Hydrogen;
 import tiles.Tile;
 import view.GraphicView;
 import view.TextView;
@@ -38,9 +41,20 @@ public class MainGame extends JFrame{
 	public static void main(String[] args)
 	{
 		MainGame game = new MainGame();
+		initializeBuildings();
 		initializeDrones();	
 		game.setVisible(true);
 
+	}
+	private static void initializeBuildings() {
+		// TODO Auto-generated method stub
+		Base base = new Base(10, 10, map.getTile(10,10));
+		map.build(base);
+		
+		//Constructed with methane as its resource, should not be in final.
+		//Resource may not even be necessary in the constructor.
+		SolarPlant plant1 = new SolarPlant(10, 15, new Hydrogen(), map.getTile(10, 15));
+		map.build(plant1);
 	}
 	/**
 	 * @author Cody Jensen
@@ -52,11 +66,9 @@ public class MainGame extends JFrame{
 
 		start.setHasDrone(true);
 
-		drone1 = new Drone(50.0, start);
-		drone2 = new Drone(50.0, map.getTile(10,10));
+		drone1 = new Drone(100.0, start);
+		drone2 = new Drone(100.0, map.getTile(15,10));
 		drone3 = new Drone(100.0, map.getTile(8,17));
-		map.getTile(10,10).setHasDrone(true);
-		map.getTile(8,17).setHasDrone(true);
 
 		droneList.add(drone1);
 		droneList.add(drone2);

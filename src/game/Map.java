@@ -213,10 +213,13 @@ public class Map {
 	
 	public void build(Building b) {
 		//These allows us to find the tile in our array for the building, ie, the top left corner of it
-		int x = (int) b.getLocation().getX();
-		int y = (int) b.getLocation().getY();
+		int x = b.getLocation().x;
+		int y = b.getLocation().y;
 		Tile temp = null;
-		if (b.canBuild(map[x][y])) {
+		
+		//Defaulted to true for testing purposes
+		if(true){
+//		if (b.canBuild(map[x][y])) {
 			/*
 			 * Just like in the loop in Building, where it checks if it can build,
 			 * this loop sets each tile to have the appropriate type of building.
@@ -225,14 +228,22 @@ public class Map {
 			 * abstract building class. Each building needs to hold the appropriate 
 			 * enum in it. This will allow us to communicate the type of the building 
 			 * to the map, when we are building.
-			 */
-			for (int i = 0; i < b.getWidth(); i++) {
+			 *
+			 *for (int i = 0; i < b.getWidth(); i++) {
 				temp = map[x][y].getSouth();
 				for (int j = 0; j < b.getHeight(); j++) {
+					
 					map[x][y].setBuilding(new BuildingTile(b.getTypeOfBuilding()));
 					map[x][y] = map[x][y].getEast();
 				}
 				map[x][y] = temp;
+			}*/
+		//Fixed issue with not drawing upper left corner, not sure if the code above was for efficiency. Revision needed.
+			for(int i = x; i < b.getWidth()+x;i++){
+				for (int j = y; j < b.getHeight()+y; j++) {
+					map[i][j].setBuilding(new BuildingTile(b.getTypeOfBuilding()));
+				}
+				
 			}
 		}
 	}
