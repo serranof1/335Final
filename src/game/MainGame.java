@@ -36,7 +36,7 @@ public class MainGame extends JFrame{
 	private Timer timer;
 
 
-	private static Drone drone1, drone2, drone3;
+	private static Drone drone1, drone2, drone3, drone4, drone5, drone6;
 
 	public static void main(String[] args)
 	{
@@ -62,25 +62,23 @@ public class MainGame extends JFrame{
 	 * This is where the starting groups of drones will be added, later a method to add a drone to the map can be added to replace this
 	 */
 	private static void initializeDrones() {
-		Tile start = map.getTile(5,5);
 
-		start.setHasDrone(true);
-
-		drone1 = new Drone(100.0, start);
+		drone1 = new Drone(100.0, map.getTile(5,5));
 		drone2 = new Drone(100.0, map.getTile(15,10));
 		drone3 = new Drone(100.0, map.getTile(8,17));
+		drone4 = new Drone(100.0, map.getTile(6,12));
+		drone5 = new Drone(100.0, map.getTile(5, 10));
+		drone6 = new Drone(100.0, map.getTile(8,9));
 
 		droneList.add(drone1);
 		droneList.add(drone2);
 		droneList.add(drone3);
+		droneList.add(drone4);
+		droneList.add(drone5);
+		droneList.add(drone6);
+		
 
-		//		drone2.setLocationX(6);
-		//		drone2.setLocationY(5);
-		//		droneList.add(drone2);
-		//		
-		//		drone3.setLocationX(4);
-		//		drone3.setLocationY(5);
-		//		droneList.add(drone3);
+
 	}
 
 	/**
