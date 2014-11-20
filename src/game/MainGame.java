@@ -94,7 +94,7 @@ public class MainGame extends JFrame{
 	 */
 	private void setupVariables() {
 		
-		map = new Map(7);
+		map = new Map(7); //If we go larger than 7, we run out of memory. We'll have to check flyweight stuff and that kind of thing to see what we can do.
 		textView = new TextView(map, 5, 5, 20, 20);
 		graphics = new GraphicView(map, 5 ,5, 20, 20);
 		graphics.setLocation(0, 0);
