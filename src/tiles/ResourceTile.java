@@ -1,6 +1,7 @@
 package tiles;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.util.Random;
 
 public class ResourceTile extends TileWrapper {
@@ -28,5 +29,10 @@ public class ResourceTile extends TileWrapper {
 	
 	public Color getColor() {
 		return resource.getColor();
+	}
+
+	@Override
+	public Image getImage() {
+		return resource.getImage();
 	}
 }

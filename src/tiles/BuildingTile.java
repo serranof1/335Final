@@ -1,5 +1,7 @@
 package tiles;
 
+import java.awt.Image;
+
 
 public class BuildingTile extends TileWrapper {
 	
@@ -12,6 +14,11 @@ public class BuildingTile extends TileWrapper {
 	@Override
 	public String drawTextForm() {
 		return building.getTextRepresentation();
+	}
+
+	@Override
+	public Image getImage() {
+		return building.getImage();
 	}
 	
 }

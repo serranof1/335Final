@@ -1,17 +1,28 @@
 package tiles;
 
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 public enum GroundEnum {
-	OCEAN ("~", 2),
-	SAND (",", 1),
-	PLAIN ("_", 0),
-	MOUNTAIN ("M", 3);
+	OCEAN ("~", 2, "ocean.png"),
+	SAND (",", 1, "sand.png"),
+	PLAIN ("_", 0, "plain.png"),
+	MOUNTAIN ("M", 3, "mountain.png");
 	
 	private String textRepresentation;
 	private int movementCost;
+	private Image image;
 	
-	private GroundEnum(String s, int n) {
+	private GroundEnum(String s, int n, String fileName) {
 		textRepresentation = s;
 		movementCost = n;
+		try {
+			image = ImageIO.read(new File("images/" + fileName));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	String getTextRepresentation() {
@@ -25,5 +36,9 @@ public enum GroundEnum {
 	
 	int getMovementCost() {
 		return movementCost;
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 }

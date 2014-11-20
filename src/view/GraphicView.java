@@ -53,7 +53,7 @@ public class GraphicView extends JPanel{
 		repaint();
 	}
 
-	public void paintComponent(Graphics g){
+	public void paintComponent2(Graphics g){
 		super.paintComponent(g);
 
 		int row = leftRow;
@@ -79,6 +79,39 @@ public class GraphicView extends JPanel{
 				}
 				//g.setColor(map.getTile(row, col).getColor());
 				map.getTile(row, col).draw(g, (viewLength - j) * 50, i * 50);
+				col++;
+			}
+			col = leftCol;
+			row++;
+		}
+	}
+	//We may want to use that JViewer or whatever it was Gabe was talking about, but that's later.
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+
+		int row = leftRow;
+		int col = leftCol;
+		
+		for (int i = 0; i < viewHeight - 1; i++){
+			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
+				/*
+				if(map.getTile(row, col).drawTextForm().equals("_")){
+					g.setColor(Color.RED);
+				}
+				if(map.getTile(row, col).drawTextForm().equals("M")){
+					g.setColor(Color.GRAY);
+				}
+				if(map.getTile(row, col).drawTextForm().equals("~")){
+					g.setColor(Color.BLUE);
+				}
+				if(map.getTile(row, col).drawTextForm().equals(",")){
+					g.setColor(Color.YELLOW);
+				}
+				if(map.getTile(row, col).drawTextForm().equals("@")){
+					g.setColor(Color.BLACK);
+				}
+				//g.setColor(map.getTile(row, col).getColor());*/
+				map.getTile(row, col).draw2(g, (viewLength - j) * 50, i * 50);
 				col++;
 			}
 			col = leftCol;

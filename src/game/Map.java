@@ -148,8 +148,6 @@ public class Map {
 		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				tileMap[i][j].setX(i);
-				tileMap[i][j].setY(j);
 				//we may need to switch i and j; I can never remember if the outer loop is the row or the column
 				if (floatMap[i][j] > mountainThreshold) {
 					tileMap[i][j] = new Tile(mountain, iron, noBuilding, noWeather);
@@ -160,6 +158,8 @@ public class Map {
 				} else {
 					tileMap[i][j] = new Tile(ocean, methane, noBuilding, noWeather);
 				}
+				tileMap[i][j].setX(i);
+				tileMap[i][j].setY(j);
 			}
 		}
 		return tileMap;

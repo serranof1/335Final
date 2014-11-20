@@ -1,5 +1,10 @@
 package tiles;
 
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 public enum BuildingEnum {
 	NOTHING (""),
 	POWERPLANT ("P"),
@@ -7,12 +12,22 @@ public enum BuildingEnum {
 	BASE ("B");
 	
 	private String textRepresentation;
+	private Image image;
 	
 	BuildingEnum(String s) {
 		textRepresentation = s;
+		try {
+			image = ImageIO.read(new File("images/transparentplacehold.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getTextRepresentation() {
 		return textRepresentation;
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 }

@@ -1,5 +1,10 @@
 package tiles;
 
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 public enum WeatherEnum {
 	DAY ("", -1),
 	NIGHT ("", 1),
@@ -8,10 +13,16 @@ public enum WeatherEnum {
 	
 	private String textRepresentation;
 	private int darkness;
+	private Image image;
 	
 	WeatherEnum(String s, int n) {
 		textRepresentation = s;
 		darkness = n;
+		try {
+			image = ImageIO.read(new File("images/transparentplacehold.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getTextRepresentation() {
@@ -20,5 +31,9 @@ public enum WeatherEnum {
 	
 	public int getDarkness() {
 		return darkness;
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 }

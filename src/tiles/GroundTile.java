@@ -1,5 +1,7 @@
 package tiles;
 
+import java.awt.Image;
+
 
 public class GroundTile extends TileWrapper {
 	
@@ -19,5 +21,10 @@ public class GroundTile extends TileWrapper {
 
 	public GroundEnum getGround() {
 		return ground;
+	}
+
+	@Override
+	public Image getImage() {
+		return ground.getImage();
 	}
 }

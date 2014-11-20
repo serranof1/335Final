@@ -1,5 +1,7 @@
 package tiles;
 
+import java.awt.Image;
+
 
 public class WeatherTile extends TileWrapper {
 	
@@ -15,5 +17,9 @@ public class WeatherTile extends TileWrapper {
 	
 	public int getDarkness() {
 		return weather.getDarkness();
+	}
+	@Override
+	public Image getImage() {
+		return weather.getImage();
 	}
 }

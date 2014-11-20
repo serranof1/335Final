@@ -1,11 +1,11 @@
 package model;
 
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 import resources.Resource;
-import tiles.GroundEnum;
 import tiles.*;
 
 /**
@@ -197,5 +197,14 @@ public class Building extends TileWrapper {
 	
 	public BuildingEnum getTypeOfBuilding() {
 		return typeOfBuilding;
+	}
+	
+	
+	
+	//This only is here because Building still extends tileWrapper; we'll probably drop it
+	@Override
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
