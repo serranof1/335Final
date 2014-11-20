@@ -1,6 +1,7 @@
 package model;
 
 import resources.Resource;
+import tiles.BuildingEnum;
 import tiles.Tile;
 
 public class Base extends Building {
@@ -11,6 +12,7 @@ public class Base extends Building {
 	
 	public Base(int x, int y, Tile base) {
 		super(x, y, BASE_WIDTH, BASE_HEIGHT,  null, BUILDING_NAME);
-		super.setBuildSite(base);
+		//super.setBuildSite(base);
+		typeOfBuilding = BuildingEnum.BASE;
 	}
 }

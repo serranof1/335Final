@@ -3,7 +3,8 @@ package tiles;
 public enum BuildingEnum {
 	NOTHING (""),
 	POWERPLANT ("P"),
-	MINE ("X");
+	MINE ("X"), 
+	BASE ("B");
 	
 	private String textRepresentation;
 	

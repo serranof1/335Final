@@ -1,6 +1,7 @@
 package model;
 
 import resources.Resource;
+import tiles.BuildingEnum;
 import tiles.Tile;
 
 public class SolarPlant extends Building {
@@ -13,8 +14,9 @@ public class SolarPlant extends Building {
 	
 	public SolarPlant(int x, int y, Resource source, Tile tile) {
 		super(x, y, SOLAR_WIDTH, SOLAR_HEIGHT, source, BUILDING_NAME);
-		super.setBuildSite(tile);
+		//super.setBuildSite(tile);
 		super.setCost(BUILD_COST);
+		typeOfBuilding = BuildingEnum.POWERPLANT;
 	}
 
 	public void getBuild() {

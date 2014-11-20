@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import resources.Resource;
-import tiles.Tile;
-import tiles.TileBuilding;
-import tiles.TileWrapper;
+import tiles.GroundEnum;
+import tiles.*;
 
 /**
  * This class contain the basic attributes for the buildings.
@@ -16,7 +15,15 @@ import tiles.TileWrapper;
  *
  */
 
-public class Building extends TileWrapper {
+public class Building extends TileWrapper { 
+	/*
+	 * I think we don't need Building to extend TileWrapper; we should use the Building class
+	 * for the LinkedList of Buildings that execute their duties each game loop; what gets put
+	 * on the map can just be the BuildingTile that already exists, with the Enum format. (The
+	 * enum is basically the textual representation and location on the map for the drones.)
+	 * 
+	 * Also, I am wondering why Building is not abstract, since SolarPlant extends it?
+	 */
 	
 	private int buildCost;
 	private Point location;
@@ -25,9 +32,10 @@ public class Building extends TileWrapper {
 	private int life;
 	private int inventory;
 	private String buildingName;
-	private Resource resource;
+	private Resource resource; 
 	private List<Drone> droneList;
 	private TileWrapper[][] tiles;
+	protected BuildingEnum typeOfBuilding;
 	
 	private final static int MAX_CAP = 4;
 
@@ -65,6 +73,7 @@ public class Building extends TileWrapper {
 	}
 
 	// Set the buildsite on the map
+	/*
 	protected void setBuildSite(Tile tile) {
 		Tile curr = tile;
 		Tile rowStart = null;
@@ -78,7 +87,9 @@ public class Building extends TileWrapper {
 			}
 			curr = rowStart;
 		}
-	}
+	}*/
+	//I'm not sure what the setBuildSite method is currently doing, but it had an error based on
+	//the current implementation of tiles; I have commented it out, but otherwise left it, for now.
 	
 	// When drone need to recharges
 	protected boolean addDrone(Drone drone) {
@@ -101,17 +112,28 @@ public class Building extends TileWrapper {
 	public boolean canBuild(Tile startTile) {
 		Tile curr = null;
 		Tile rowStart = null;
-		String currBase = startTile.getBase();
 
 		curr = startTile;
 		for(int i = 0; i < width; i++) {
-			if(curr.getSouth() == null) { return false; }
+			if(curr.getGround() == null) { return false; }
+			if (curr.getSouth() != null) {rowStart = curr.getSouth();} //The start of the next row is one south of the starting node.
+			/*
+			 * A diagram of the node behavior:
+			 * 1 2 3
+			 * 4 5 6
+			 * 7 8 9
+			 * 
+			 * Starting at curr = 1, rowStart is set to 4
+			 * Then, curr moves east 1 -> 2 -> 3 (ie, until we hit the end of the internal loop of length <required width>
+			 * Next, curr is set to rowStart, ie, 4 and rowStart is set to south of curr, ie, 7.
+			 * Then, curr moves east 4 -> 5 -> 6, repeating the process. This continues until the other loop of length <required height> finishes
+			 */
 			for(int j = 0; j < height; j++) {
-				if(currBase.compareTo("_") == 0) {
+				if(curr.getGround().getGround() == GroundEnum.PLAIN) { //Sorry about the bad naming here. Tile's getGround method gives a GroundTile whose getGround method gives the Ground enum, if it's PLAIN, it can build
 					curr = curr.getEast();
-					currBase = curr.getBase();
-				} else 
+				} else {
 					return false;
+				}
 			}
 			curr = rowStart;
 		}
@@ -171,5 +193,9 @@ public class Building extends TileWrapper {
 		info = info + buildCost + "\n";
 		
 		return info;
+	}
+	
+	public BuildingEnum getTypeOfBuilding() {
+		return typeOfBuilding;
 	}
 }

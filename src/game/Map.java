@@ -2,6 +2,7 @@ package game;
 
 import java.util.Random;
 
+import model.Building;
 import resources.*;
 import tiles.*;
 
@@ -147,6 +148,9 @@ public class Map {
 		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
+				tileMap[i][j].setX(i);
+				tileMap[i][j].setY(j);
+				//we may need to switch i and j; I can never remember if the outer loop is the row or the column
 				if (floatMap[i][j] > mountainThreshold) {
 					tileMap[i][j] = new Tile(mountain, iron, noBuilding, noWeather);
 				} else if (floatMap[i][j] > groundThreshold) {
@@ -203,4 +207,33 @@ public class Map {
 		return map[i][j];
 	}
 	
+	public void setTile(Tile t, int x, int y) {
+		map[x][y] = t;
+	}
+	
+	public void build(Building b) {
+		//These allows us to find the tile in our array for the building, ie, the top left corner of it
+		int x = (int) b.getLocation().getX();
+		int y = (int) b.getLocation().getY();
+		Tile temp = null;
+		if (b.canBuild(map[x][y])) {
+			/*
+			 * Just like in the loop in Building, where it checks if it can build,
+			 * this loop sets each tile to have the appropriate type of building.
+			 * 
+			 * Note: this required a method, getTypeOfBuilding() to be added to the
+			 * abstract building class. Each building needs to hold the appropriate 
+			 * enum in it. This will allow us to communicate the type of the building 
+			 * to the map, when we are building.
+			 */
+			for (int i = 0; i < b.getWidth(); i++) {
+				temp = map[x][y].getSouth();
+				for (int j = 0; j < b.getHeight(); j++) {
+					map[x][y].setBuilding(new BuildingTile(b.getTypeOfBuilding()));
+					map[x][y] = map[x][y].getEast();
+				}
+				map[x][y] = temp;
+			}
+		}
+	}
 }

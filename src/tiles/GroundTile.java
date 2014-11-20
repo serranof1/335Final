@@ -17,4 +17,7 @@ public class GroundTile extends TileWrapper {
 		return ground.getTextRepresentation();
 	}
 
+	public GroundEnum getGround() {
+		return ground;
+	}
 }
