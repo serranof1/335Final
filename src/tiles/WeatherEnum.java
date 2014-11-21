@@ -1,6 +1,7 @@
 package tiles;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -13,13 +14,13 @@ public enum WeatherEnum {
 	
 	private String textRepresentation;
 	private int darkness;
-	private Image image;
+	private BufferedImage image;
 	
 	WeatherEnum(String s, int n) {
 		textRepresentation = s;
 		darkness = n;
 		try {
-			image = ImageIO.read(new File("images/transparentplaceholder.png"));
+			image = ImageIO.read(new File("images/genericweather.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -2,6 +2,7 @@ package tiles;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -14,7 +15,7 @@ public class Tile {
 	private boolean hasDrone;
 	private Tile north, south, east, west;
 	private Color color;
-	private Image droneImage;
+	private BufferedImage droneImage;
 	
 	public Tile(TileWrapper[] tileStack) {
 		this.tileStack = tileStack;
@@ -57,6 +58,24 @@ public class Tile {
 		hasDrone = false;
 	}
 	
+	public Tile(TileWrapper ground, TileWrapper resource, TileWrapper building, TileWrapper weather, BufferedImage image) {
+		droneImage = image;
+		tileStack[0] = ground;
+		tileStack[1] = resource;
+		tileStack[2] = building;
+		tileStack[3] = weather;
+		color = ((ResourceTile) tileStack[1]).getColor();
+		int n = ((WeatherTile) tileStack[3]).getDarkness();
+		if (n < 0) {
+			color = color.brighter();
+		} else {
+			for (int i = 0; i < n; i++) {
+				color = color.darker();
+			}
+		}
+		hasDrone = false;
+	}
+	
 	public void setGround(GroundTile g){tileStack[0]=g;}
 	public void setResource(ResourceTile r){tileStack[1]=r;}
 	public void setBuilding(BuildingTile b){tileStack[2]=b;}
@@ -70,6 +89,7 @@ public class Tile {
 	public void setY(int y){this.y = y;}
 	public void setTileStack(TileWrapper[] tw){tileStack = tw;}
 	public void setColor(Color c){color = c;}
+	public void setImage(BufferedImage i){droneImage = i;}
 	
 	public GroundTile getGround(){return (GroundTile)tileStack[0];}
 	public ResourceTile getResource(){return (ResourceTile)tileStack[1];}
@@ -84,6 +104,7 @@ public class Tile {
 	public int getY(){return y;}
 	public TileWrapper[] getTileStack(){return tileStack;}
 	public Color getColor(){return color;}
+	public BufferedImage getImage(){return droneImage;}
 	
 	public ResourceEnum gather() {return ((ResourceTile) tileStack[1]).gather();}
 	public boolean hasResource() {return ((ResourceTile) tileStack[1]).getResource() != ResourceEnum.NOTHING;}
@@ -107,9 +128,9 @@ public class Tile {
 	public void draw2(Graphics g, int x, int y) {
 		for (int i = 0; i < 4; i++) {
 			g.drawImage(tileStack[i].getImage(), x, y, null);
-			if (hasDrone) {
-				g.drawImage(droneImage, x, y, null);
-			}
+		}
+		if (hasDrone) {
+			g.drawImage(droneImage, x, y, null);
 		}
 	}
 }

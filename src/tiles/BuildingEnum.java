@@ -1,23 +1,24 @@
 package tiles;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
 
 public enum BuildingEnum {
-	NOTHING (""),
-	POWERPLANT ("P"),
-	MINE ("X"), 
-	BASE ("B");
+	NOTHING ("", "transparentplaceholder.png"),
+	POWERPLANT ("P", "genericbuilding.png"),
+	MINE ("X", "genericbuilding.png"), 
+	BASE ("B", "genericbuilding.png");
 	
 	private String textRepresentation;
-	private Image image;
+	private BufferedImage image;
 	
-	BuildingEnum(String s) {
+	BuildingEnum(String s, String fileName) {
 		textRepresentation = s;
 		try {
-			image = ImageIO.read(new File("images/transparentplaceholder.png"));
+			image = ImageIO.read(new File("images/" + fileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

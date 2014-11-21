@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Timer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import model.Base;
@@ -65,14 +66,14 @@ public class MainGame extends JFrame{
 	private static void initializeDrones() {
 
 		drone1 = new Drone(31.0, map.getTile(10,10));
-//		drone2 = new Drone(100.0, map.getTile(15,10));
+		drone2 = new Drone(10.0, map.getTile(30,30)); //sets a drone out to die
 //		drone3 = new Drone(100.0, map.getTile(8,17));
 //		drone4 = new Drone(100.0, map.getTile(6,12));
 //		drone5 = new Drone(100.0, map.getTile(5, 10));
 //		drone6 = new Drone(100.0, map.getTile(8,9));
 
 		droneList.add(drone1);
-//		droneList.add(drone2);
+		droneList.add(drone2);
 //		droneList.add(drone3);
 //		droneList.add(drone4);
 //		droneList.add(drone5);
@@ -104,8 +105,14 @@ public class MainGame extends JFrame{
 	 * eventually time reliant display windows will go here
 	 */
 	private void setupVariables() {
-		
-		map = new Map(7); //If we go larger than 7, we run out of memory. We'll have to check flyweight stuff and that kind of thing to see what we can do.
+		int n = JOptionPane.showConfirmDialog(null, "Do you want to enter a seed?", "Do you want to enter a seed?", JOptionPane.YES_NO_OPTION);
+		if (n == JOptionPane.NO_OPTION) {
+			map = new Map(7);
+		} else {
+			String s = JOptionPane.showInputDialog("Enter a long:");
+			map = new Map(7, Long.parseLong(s));
+		}
+		//map = new Map(7); //If we go larger than 7, we run out of memory. We'll have to check flyweight stuff and that kind of thing to see what we can do.
 		textView = new TextView(map, 5, 5, 20, 20);
 		graphics = new GraphicView(map, 5 ,5, 20, 20);
 		graphics.setLocation(0, 0);

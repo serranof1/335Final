@@ -67,6 +67,7 @@ public class Drone {
 	public Drone(double power, Tile start) {
 		this.power = power;
 		currentTile = start;
+		currentTile.setHasDrone(true);
 		materials = 0;
 		taskList.push(new DefaultTask(this));
 		
@@ -144,5 +145,9 @@ public class Drone {
 		currentTile = input;
 		currentTile.setHasDrone(true);
 		
+	}
+	
+	public Tile getCurrentTile() {
+		return currentTile;
 	}
 }

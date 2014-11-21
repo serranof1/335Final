@@ -1,6 +1,10 @@
 package game;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import model.Building;
 import model.Drone;
@@ -16,10 +20,18 @@ public class Map {
 	private float mountainThreshold = .8f;
 	private float groundThreshold = .45f;
 	private float sandThreshold = .3f;
+	
+	private BufferedImage droneImage;
 	//I think, for a map of any particular size, the linkedlist of resources becomes difficult to use
 	//so I did not implement it here. We may need to figure this out.
 	
 	public Map(int n, long seed) {
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("No drone image");
+		}
 		this.n = n;
 		size = (int) Math.pow(2, n) + 1;
 		this.seed = seed;
@@ -28,6 +40,12 @@ public class Map {
 	}
 	
 	public Map(int n) {
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("No drone image");
+		}
 		this.n = n;
 		size = (int) Math.pow(2, n) + 1;
 		rand = new Random();
@@ -151,13 +169,13 @@ public class Map {
 			for (int j = 0; j < size; j++) {
 				//we may need to switch i and j; I can never remember if the outer loop is the row or the column
 				if (floatMap[i][j] > mountainThreshold) {
-					tileMap[i][j] = new Tile(mountain, iron, noBuilding, noWeather);
+					tileMap[i][j] = new Tile(mountain, iron, noBuilding, noWeather, droneImage);
 				} else if (floatMap[i][j] > groundThreshold) {
-					tileMap[i][j] = new Tile(plain, noResource, noBuilding, noWeather);
+					tileMap[i][j] = new Tile(plain, noResource, noBuilding, noWeather, droneImage);
 				} else if (floatMap[i][j] > sandThreshold) {
-					tileMap[i][j] = new Tile(sand, carbon, noBuilding, noWeather);
+					tileMap[i][j] = new Tile(sand, carbon, noBuilding, noWeather, droneImage);
 				} else {
-					tileMap[i][j] = new Tile(ocean, methane, noBuilding, noWeather);
+					tileMap[i][j] = new Tile(ocean, methane, noBuilding, noWeather, droneImage);
 				}
 				tileMap[i][j].setX(i);
 				tileMap[i][j].setY(j);

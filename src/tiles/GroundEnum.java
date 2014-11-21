@@ -1,6 +1,7 @@
 package tiles;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -13,7 +14,7 @@ public enum GroundEnum {
 	
 	private String textRepresentation;
 	private int movementCost;
-	private Image image;
+	private BufferedImage image;
 	
 	private GroundEnum(String s, int n, String fileName) {
 		textRepresentation = s;

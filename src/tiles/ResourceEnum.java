@@ -2,6 +2,7 @@ package tiles;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -19,7 +20,7 @@ public enum ResourceEnum {
 	private double lossChance;
 	private String textRepresentation;
 	private Color color;
-	private Image image;
+	private BufferedImage image;
 	
 	ResourceEnum(double f, String s, Color c, String fileName) {
 		lossChance = f;
