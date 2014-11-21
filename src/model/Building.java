@@ -1,5 +1,7 @@
 package model;
 
+import game.Map;
+
 import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class Building extends TileWrapper {
 	private Resource resource; 
 	private List<Drone> droneList;
 	private TileWrapper[][] tiles;
+	private boolean finished;
 	protected BuildingEnum typeOfBuilding;
 	
 	private final static int MAX_CAP = 4;
@@ -65,6 +68,7 @@ public class Building extends TileWrapper {
 		this.resource = source;
 		buildingName = name;
 		droneList = new ArrayList<Drone>();
+		finished = false;
 	}
 
 	// Set the cost of the building
@@ -169,12 +173,11 @@ public class Building extends TileWrapper {
 		return resource;
 	}
 	
-	// Return true if the building is complete built
+//	Return true if the building is complete built
 	public boolean isFinishBuilt() {
-		if (life >= 100)
-			return true;
+		//if (life >= 100)
+			return finished;
 
-		return false;
 	}
 
 	@Override
@@ -206,5 +209,13 @@ public class Building extends TileWrapper {
 	public Image getImage() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void executeOnBuilding(Map map) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setFinished(){
+		finished = true;
 	}
 }

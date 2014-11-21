@@ -16,6 +16,8 @@ public class Drone {
 	 */
 	private boolean reclaim = true;
 	
+	private Items currentItem;
+	
 	/**
 	 * List of tiles that a drone has been assigned, with the first tile
 	 * always being adjacent to the drone's current tile
@@ -106,7 +108,7 @@ public class Drone {
 			
 		}else if(power > 5){
 			System.out.println("Insufficient power, need to recharge");
-			taskList.push(new ChargeTask(this));
+			taskList.push(new ChargeTask(this)); 
 			taskList.pop().execute(map);
 		}else{
 			System.out.println(this.toString() + " has died and should be reclaimed");

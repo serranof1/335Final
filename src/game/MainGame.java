@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import model.Base;
+import model.BuildTask;
+import model.Building;
 import model.DeadTask;
 import model.Drone;
 import model.SolarPlant;
@@ -30,6 +32,7 @@ public class MainGame extends JFrame{
 
 	private static LinkedList<Drone> droneList = new LinkedList<Drone>();
 	private static LinkedList<Tile> resourceList = new LinkedList<Tile>();
+	private static LinkedList<Building> buildingList = new LinkedList<Building>();
 
 	private boolean running = true;
 	private boolean paused = false;
@@ -57,6 +60,9 @@ public class MainGame extends JFrame{
 		//Resource may not even be necessary in the constructor.
 		SolarPlant plant1 = new SolarPlant(10, 15, new Hydrogen(), map.getTile(10, 15));
 		map.build(plant1);
+		
+		buildingList.add(plant1);
+		//buildingList.add(plant1);
 	}
 	/**
 	 * @author Cody Jensen
@@ -65,15 +71,17 @@ public class MainGame extends JFrame{
 	 */
 	private static void initializeDrones() {
 
-		drone1 = new Drone(31.0, map.getTile(10,10));
-		drone2 = new Drone(10.0, map.getTile(30,30)); //sets a drone out to die
+		drone1 = new Drone(100.0, map.getTile(10,15));
+		//drone1.getTaskList().push(new BuildTask(drone1, plant1);
+		
+		//drone2 = new Drone(100.0, map.getTile(30,30)); //sets a drone out to die
 //		drone3 = new Drone(100.0, map.getTile(8,17));
 //		drone4 = new Drone(100.0, map.getTile(6,12));
 //		drone5 = new Drone(100.0, map.getTile(5, 10));
 //		drone6 = new Drone(100.0, map.getTile(8,9));
 
 		droneList.add(drone1);
-		droneList.add(drone2);
+		//droneList.add(drone2);
 //		droneList.add(drone3);
 //		droneList.add(drone4);
 //		droneList.add(drone5);
@@ -182,6 +190,13 @@ public class MainGame extends JFrame{
 			if(droneList.size()== 0){
 				System.out.println("You have no drones left. You lose.");
 			}
+		}
+		for(int i = 0; i<buildingList.size(); i++){
+			if(buildingList.get(i).isFinishBuilt()){
+				drone1.getTaskList().push(new BuildTask(drone1, buildingList.get(i)));
+				System.out.println("Pushed a new build task onto drone");
+			}
+			buildingList.get(i).executeOnBuilding(map);
 		}
 		
 	}
