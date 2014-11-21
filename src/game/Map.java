@@ -161,6 +161,9 @@ public class Map {
 		BuildingTile noBuilding = new BuildingTile(BuildingEnum.NOTHING);
 		WeatherTile noWeather = new WeatherTile(WeatherEnum.NOTHING);
 		
+		WeatherTile day = new WeatherTile(WeatherEnum.DAY);
+		WeatherTile night = new WeatherTile(WeatherEnum.NIGHT);
+		
 		ResourceTile methane = new ResourceTile(ResourceEnum.METHANE);
 		ResourceTile carbon = new ResourceTile(ResourceEnum.CARBON);
 		ResourceTile iron = new ResourceTile(ResourceEnum.IRON);
@@ -170,13 +173,29 @@ public class Map {
 			for (int j = 0; j < size; j++) {
 				//we may need to switch i and j; I can never remember if the outer loop is the row or the column
 				if (floatMap[i][j] > mountainThreshold) {
-					tileMap[i][j] = new Tile(mountain, iron, noBuilding, noWeather, droneImage);
+					if (j < size / 2) {
+						tileMap[i][j] = new Tile(mountain, iron, noBuilding, day, droneImage);
+					} else {
+						tileMap[i][j] = new Tile(mountain, iron, noBuilding, night, droneImage);
+					}
 				} else if (floatMap[i][j] > groundThreshold) {
-					tileMap[i][j] = new Tile(plain, noResource, noBuilding, noWeather, droneImage);
+					if (j < size / 2) {
+						tileMap[i][j] = new Tile(plain, noResource, noBuilding, day, droneImage);
+					} else {
+						tileMap[i][j] = new Tile(plain, noResource, noBuilding, night, droneImage);
+					}
 				} else if (floatMap[i][j] > sandThreshold) {
-					tileMap[i][j] = new Tile(sand, carbon, noBuilding, noWeather, droneImage);
+					if (j < size / 2) {
+						tileMap[i][j] = new Tile(sand, carbon, noBuilding, day, droneImage);
+					} else {
+						tileMap[i][j] = new Tile(sand, carbon, noBuilding, night, droneImage);
+					}
 				} else {
-					tileMap[i][j] = new Tile(ocean, methane, noBuilding, noWeather, droneImage);
+					if (j < size / 2) {
+						tileMap[i][j] = new Tile(ocean, methane, noBuilding, day, droneImage);
+					} else {
+						tileMap[i][j] = new Tile(ocean, methane, noBuilding, night, droneImage);
+					}
 				}
 				tileMap[i][j].setX(i);
 				tileMap[i][j].setY(j);
