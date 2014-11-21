@@ -3,6 +3,7 @@ package game;
 import java.util.Random;
 
 import model.Building;
+import model.Drone;
 import resources.*;
 import tiles.*;
 
