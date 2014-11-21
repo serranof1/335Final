@@ -12,6 +12,11 @@ public class Drone {
 	private int locationY;
 	
 	/**
+	 * Variable keeps track of if a drone has died and can be consumed for resources
+	 */
+	private boolean reclaim = true;
+	
+	/**
 	 * List of tiles that a drone has been assigned, with the first tile
 	 * always being adjacent to the drone's current tile
 	 */
@@ -98,12 +103,21 @@ public class Drone {
 		if(power > 30){
 			taskList.pop().execute(map);
 			
-		}else{
+		}else if(power > 5){
 			System.out.println("Insufficient power, need to recharge");
 			taskList.push(new ChargeTask(this));
 			taskList.pop().execute(map);
+		}else{
+			System.out.println(this.toString() + " has died and should be reclaimed");
+			taskList.push(new DeadTask(this));
+			taskList.peek().execute(map);
 		}
-		power -=5;
+		if(power>0){
+			power -=5;
+			if(power<0){
+				power = 0;
+			}
+		}
 	}
 
 	public double getPower() {	
