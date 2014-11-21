@@ -36,7 +36,7 @@ public class ChargeTask extends Task{
 		else
 			return false;*/
 		//This return is just for testing purposes. It will always return true
-		return true;
+		return false;
 	}
 
 	private void moveToPower() {
