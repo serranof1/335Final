@@ -15,6 +15,7 @@ public enum ResourceEnum {
 	CARBON (.1, "c", Color.RED, "layerplaceholder.png"),
 	HYDROGEN (.1, "h", Color.BLUE, "layerplaceholder.png"),
 	OXYGEN (.1, "o", Color.CYAN, "layerplaceholder.png"),
+	DEADDRONE(0, "d", Color.DARK_GRAY, "layerplaceholder.png"),
 	NOTHING (0, "", Color.BLACK, "layerplaceholder.png");
 	
 	private double lossChance;

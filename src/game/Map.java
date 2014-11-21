@@ -51,6 +51,7 @@ public class Map {
 		rand = new Random();
 		seed = rand.nextLong();
 		rand = new Random(seed);
+		System.out.println("Your seed is: " + seed);
 		map = buildNodeMap();
 	}
 	

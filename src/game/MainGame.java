@@ -107,12 +107,12 @@ public class MainGame extends JFrame{
 	private void setupVariables() {
 		int n = JOptionPane.showConfirmDialog(null, "Do you want to enter a seed?", "Do you want to enter a seed?", JOptionPane.YES_NO_OPTION);
 		if (n == JOptionPane.NO_OPTION) {
-			map = new Map(7);
+			map = new Map(10);
 		} else {
 			String s = JOptionPane.showInputDialog("Enter a long:");
-			map = new Map(7, Long.parseLong(s));
+			map = new Map(10, Long.parseLong(s));
 		}
-		//map = new Map(7); //If we go larger than 7, we run out of memory. We'll have to check flyweight stuff and that kind of thing to see what we can do.
+		
 		textView = new TextView(map, 5, 5, 20, 20);
 		graphics = new GraphicView(map, 5 ,5, 20, 20);
 		graphics.setLocation(0, 0);
