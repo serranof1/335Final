@@ -12,9 +12,9 @@ import javax.swing.JTabbedPane;
 import model.Base;
 import model.BuildTask;
 import model.Building;
-import model.DeadTask;
 import model.Drone;
 import model.SolarPlant;
+import resources.Carbon;
 import resources.Hydrogen;
 import tiles.Tile;
 import view.GraphicView;
@@ -42,6 +42,7 @@ public class MainGame extends JFrame{
 
 
 	private static Drone drone1, drone2, drone3, drone4, drone5, drone6;
+	private static Building base, plant1;
 
 	public static void main(String[] args)
 	{
@@ -53,13 +54,13 @@ public class MainGame extends JFrame{
 	}
 	private static void initializeBuildings() {
 		// TODO Auto-generated method stub
-		Base base = new Base(10, 10, map.getTile(10,10));
+		base = new Base(10, 10, map.getTile(10,10));
 		map.build(base);
 		
 		//Constructed with methane as its resource, should not be in final.
 		//Resource may not even be necessary in the constructor.
-		SolarPlant plant1 = new SolarPlant(10, 15, new Hydrogen(), map.getTile(10, 15));
-		map.build(plant1);
+		plant1 = new SolarPlant(10, 15, new Hydrogen(), map.getTile(10, 15));
+		//map.build(plant1);
 		
 		buildingList.add(plant1);
 		//buildingList.add(plant1);
@@ -182,6 +183,13 @@ public class MainGame extends JFrame{
 
 	private void updateGame()
 	{
+		for(int i = 0; i<buildingList.size(); i++){
+			if(!buildingList.get(i).isFinishBuilt()){
+				drone1.getTaskList().push(new BuildTask(drone1, plant1));
+				System.out.println("Pushed a new build task onto drone");
+			}
+			buildingList.get(i).executeOnBuilding(map);
+		}
 		for(int i = 0; i < droneList.size(); i++){
 			droneList.get(i).executeTaskList(map);
 			if(droneList.get(i).getPower()== 0){
@@ -190,13 +198,6 @@ public class MainGame extends JFrame{
 			if(droneList.size()== 0){
 				System.out.println("You have no drones left. You lose.");
 			}
-		}
-		for(int i = 0; i<buildingList.size(); i++){
-			if(buildingList.get(i).isFinishBuilt()){
-				drone1.getTaskList().push(new BuildTask(drone1, buildingList.get(i)));
-				System.out.println("Pushed a new build task onto drone");
-			}
-			buildingList.get(i).executeOnBuilding(map);
 		}
 		
 	}

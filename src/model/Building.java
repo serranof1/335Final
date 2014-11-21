@@ -188,7 +188,7 @@ public class Building extends TileWrapper {
 	
 	// Return the informations of the building
 	public String toString() {
-		String info = null;
+		String info = "";
 		info = info + buildingName + "\n";
 		info = info + life + "\n";
 		info = info + "This building collect " + resource + "\n";
