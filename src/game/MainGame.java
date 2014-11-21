@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import model.Base;
+import model.DeadTask;
 import model.Drone;
 import model.SolarPlant;
 import resources.Hydrogen;
@@ -63,19 +64,19 @@ public class MainGame extends JFrame{
 	 */
 	private static void initializeDrones() {
 
-		drone1 = new Drone(100.0, map.getTile(5,5));
-		drone2 = new Drone(100.0, map.getTile(15,10));
-		drone3 = new Drone(100.0, map.getTile(8,17));
-		drone4 = new Drone(100.0, map.getTile(6,12));
-		drone5 = new Drone(100.0, map.getTile(5, 10));
-		drone6 = new Drone(100.0, map.getTile(8,9));
+		drone1 = new Drone(31.0, map.getTile(10,10));
+//		drone2 = new Drone(100.0, map.getTile(15,10));
+//		drone3 = new Drone(100.0, map.getTile(8,17));
+//		drone4 = new Drone(100.0, map.getTile(6,12));
+//		drone5 = new Drone(100.0, map.getTile(5, 10));
+//		drone6 = new Drone(100.0, map.getTile(8,9));
 
 		droneList.add(drone1);
-		droneList.add(drone2);
-		droneList.add(drone3);
-		droneList.add(drone4);
-		droneList.add(drone5);
-		droneList.add(drone6);
+//		droneList.add(drone2);
+//		droneList.add(drone3);
+//		droneList.add(drone4);
+//		droneList.add(drone5);
+//		droneList.add(drone6);
 		
 
 
@@ -168,6 +169,12 @@ public class MainGame extends JFrame{
 	{
 		for(int i = 0; i < droneList.size(); i++){
 			droneList.get(i).executeTaskList(map);
+			if(droneList.get(i).getPower()== 0){
+				//droneList.remove(droneList.get(i));
+			}
+			if(droneList.size()== 0){
+				System.out.println("You have no drones left. You lose.");
+			}
 		}
 		
 	}
