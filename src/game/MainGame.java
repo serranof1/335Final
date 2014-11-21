@@ -115,10 +115,10 @@ public class MainGame extends JFrame{
 	private void setupVariables() {
 		int n = JOptionPane.showConfirmDialog(null, "Do you want to enter a seed?", "Do you want to enter a seed?", JOptionPane.YES_NO_OPTION);
 		if (n == JOptionPane.NO_OPTION) {
-			map = new Map(10);
+			map = new Map(7);
 		} else {
 			String s = JOptionPane.showInputDialog("Enter a long:");
-			map = new Map(10, Long.parseLong(s));
+			map = new Map(7, Long.parseLong(s));
 		}
 		
 		textView = new TextView(map, 5, 5, 20, 20);
