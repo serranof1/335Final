@@ -43,8 +43,8 @@ public class MainGame extends JFrame{
 	public static void main(String[] args)
 	{
 		MainGame game = new MainGame();
-		initializeBuildings();
 		initializeDrones();	
+		initializeBuildings();
 		game.setVisible(true);
 
 	}
@@ -56,10 +56,10 @@ public class MainGame extends JFrame{
 		//Constructed with methane as its resource, should not be in final.
 		//Resource may not even be necessary in the constructor.
 		plant1 = new SolarPlant(10, 15, new Hydrogen(), map.getTile(10, 15));
-		//map.build(plant1);
+		map.build(plant1);
 		
 		buildingList.add(plant1);
-		//buildingList.add(plant1);
+		buildingList.add(plant1);
 	}
 	/**
 	 * @author Cody Jensen
@@ -68,7 +68,7 @@ public class MainGame extends JFrame{
 	 */
 	private static void initializeDrones() {
 
-		drone1 = new Drone(100.0, map.getTile(10,15));
+		drone1 = new Drone(70.0, map.getTile(20,25));
 		//drone1.getTaskList().push(new BuildTask(drone1, plant1);
 		
 		//drone2 = new Drone(100.0, map.getTile(30,30)); //sets a drone out to die
@@ -180,9 +180,14 @@ public class MainGame extends JFrame{
 	private void updateGame()
 	{
 		
+<<<<<<< HEAD
 		//droneList.add(test);
+=======
+		
+>>>>>>> origin/master
 		for(int i = 0; i<buildingList.size(); i++){
 			if(!buildingList.get(i).isFinishBuilt()){
+				System.out.println(drone1);
 				drone1.getTaskList().push(new BuildTask(drone1, plant1));
 				test.getTaskList().push(new BuildTask(test, plant1));
 				System.out.println("Pushed a new build task onto drone");

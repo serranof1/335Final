@@ -2,6 +2,8 @@ package model;
 
 import game.Map;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import tiles.Tile;
@@ -22,7 +24,7 @@ public class Drone {
 	 * List of tiles that a drone has been assigned, with the first tile
 	 * always being adjacent to the drone's current tile
 	 */
-	private LinkedList<Tile> currentPath = new LinkedList<Tile>();
+	private LinkedList<Point> currentPath = new LinkedList<Point>();
 	
 	
 	/**
@@ -72,8 +74,6 @@ public class Drone {
 		currentTile.setHasDrone(true);
 		materials = 0;
 		taskList.push(new DefaultTask(this));
-		
-		
 	}
 	
 	//Getters and setters for location
@@ -93,6 +93,9 @@ public class Drone {
 		locationY = newY;
 	}
 
+	public LinkedList<Point> getPath() {
+		return currentPath;
+	}
 //	public boolean isCharging() {
 //		return charging;
 //	}
@@ -102,10 +105,12 @@ public class Drone {
 	 */
 	public void executeTaskList(Map map){
 		System.out.println(this.toString() + " Current Power: " + power);
-		
-		if(power > 30){
+		System.out.println(currentPath.toString());
+		if(currentPath.isEmpty() == false && power > 0){
+			taskList.push(new MoveTask(this, null));
 			taskList.pop().execute(map);
-			
+		}else if(power > 60){
+			taskList.pop().execute(map);
 		}else if(power > 5){
 			System.out.println("Insufficient power, need to recharge");
 			taskList.push(new ChargeTask(this)); 
@@ -152,8 +157,20 @@ public class Drone {
 	public Tile getCurrentTile() {
 		return currentTile;
 	}
+<<<<<<< HEAD
 	
 	public void giveItem(Items item) {
 		currentItem = item;
+=======
+
+	public Point getNextTile(){
+		return currentPath.getFirst();
+	}
+	
+	public void setPath(LinkedList<Point> newPath) {
+		for(Point point : newPath){
+			currentPath.add(point);
+		}	
+>>>>>>> origin/master
 	}
 }

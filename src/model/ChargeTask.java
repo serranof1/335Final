@@ -1,6 +1,8 @@
 package model;
 
 import game.Map;
+import tiles.BuildingEnum;
+import tiles.Tile;
 
 
 public class ChargeTask extends Task{
@@ -26,21 +28,27 @@ public class ChargeTask extends Task{
 			}
 		}else{
 			System.out.println("Moving To power supply!");
-			moveToPower();
+			
+			Tile chargingTile = map.getTile(10, 15);
+			drone.getTaskList().push(new MoveTask(drone, chargingTile));
+			drone.getTaskList().pop().execute(map);
 		}
 	}
 
 	private boolean nextToPower() {
-		/*if(drone.currentTile.givesPower())
+		if(drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT))
 			return true;
 		else
-			return false;*/
+			return false;
 		//This return is just for testing purposes. It will always return true
-		return false;
+		//return false;
 	}
 
-	private void moveToPower() {
-		// TODO Auto-generated method stub
+/*	private void moveToPower() {
 		
-	}
+		Tile chargingTile = map.getTile(10, 15);
+		
+		drone.getTaskList().push(new MoveTask(drone, chargingTile));
+		
+	}*/
 }
