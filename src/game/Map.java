@@ -1,15 +1,24 @@
 package game;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 import model.Building;
-import model.Drone;
-import resources.*;
-import tiles.*;
+import tiles.BuildingEnum;
+import tiles.BuildingTile;
+import tiles.GroundEnum;
+import tiles.GroundTile;
+import tiles.ResourceEnum;
+import tiles.ResourceTile;
+import tiles.Tile;
+import tiles.WeatherEnum;
+import tiles.WeatherTile;
 
 public class Map {
 	private Tile[][] map;
@@ -285,5 +294,72 @@ public class Map {
 				
 			}
 		}
+	}
+	
+	public LinkedList<Point> findPath(Tile current, Tile goal){
+		
+		ArrayList<Tile> closedList = new ArrayList<Tile>();
+		ArrayList<Tile> openList = new ArrayList<Tile>();
+		LinkedList<Point> path = new LinkedList<Point>();;		
+		Tile pathTile = current;
+		double pathRank = 0.0;
+		
+		openList.add(current);
+			
+		while(pathTile != goal){
+			//add eligible tiles to the open list
+			if(checkTileOccupied(pathTile.getNorth())){
+				openList.add(pathTile.getNorth());
+			}
+			if(checkTileOccupied(pathTile.getSouth())){
+				openList.add(pathTile.getSouth());
+			}
+			if(checkTileOccupied(pathTile.getEast())){
+				openList.add(pathTile.getEast());
+			}
+			if(checkTileOccupied(pathTile.getWest())){
+				openList.add(pathTile.getWest());
+			}
+			
+			
+			for(Tile tile : openList){
+				Point pointToAdd = null;
+				if(rankPath(pathTile, goal) > rankPath(tile, goal)){
+					pointToAdd = new Point(pathTile.getX(), pathTile.getY());
+					closedList.add(tile);
+					pathTile = tile;
+					path.add(pointToAdd);
+				}
+				
+			}
+			
+		}
+		return path;
+
+	}
+	//returns Manhattan Distance between two Tiles
+	public double rankPath(Tile pathTile, Tile goal){
+		
+		int dx = Math.abs(goal.getX() - pathTile.getX());
+	    int dy = Math.abs(goal.getY() - pathTile.getY());
+	    
+	    double pathRank = dx+dy;
+		
+		return pathRank; 
+		
+	}
+	
+	private boolean checkTileOccupied(Tile input) {
+		
+		if(input.getHasDrone()){
+			return false;
+		}
+		/*if(input.getBuilding().drawTextForm().equals("") != true){
+			return false;
+		}*/
+		if(input.getGround().getMovementCost() > 2){
+			return false;
+		}
+		return true;
 	}
 }
