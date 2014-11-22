@@ -157,11 +157,11 @@ public class Drone {
 	public Tile getCurrentTile() {
 		return currentTile;
 	}
-<<<<<<< HEAD
+
 	
 	public void giveItem(Items item) {
 		currentItem = item;
-=======
+	}
 
 	public Point getNextTile(){
 		return currentPath.getFirst();
@@ -171,6 +171,5 @@ public class Drone {
 		for(Point point : newPath){
 			currentPath.add(point);
 		}	
->>>>>>> origin/master
 	}
 }
