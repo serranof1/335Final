@@ -24,11 +24,4 @@ public class SolarPlant extends Building {
 	public void getBuild() {
 		super.build(BUILD_RATE);
 	}
-	
-	private class Battery extends Items {
-
-		public Battery() {
-			super(getBuildingResource());
-		}	
-	}
 }

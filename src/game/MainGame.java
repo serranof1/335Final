@@ -9,14 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
-import model.Base;
-import model.BuildTask;
-import model.Building;
-import model.Drone;
-import model.SolarPlant;
+import model.*;
 import resources.Carbon;
 import resources.Hydrogen;
-import tiles.Tile;
+import tiles.*;
 import view.GraphicView;
 import view.TextView;
 
@@ -180,16 +176,22 @@ public class MainGame extends JFrame{
 			}
 		}
 	}
-
+	public Drone test = new Drone(500, map.getTile(1, 1));
 	private void updateGame()
 	{
+		
+		//droneList.add(test);
 		for(int i = 0; i<buildingList.size(); i++){
 			if(!buildingList.get(i).isFinishBuilt()){
 				drone1.getTaskList().push(new BuildTask(drone1, plant1));
+				test.getTaskList().push(new BuildTask(test, plant1));
 				System.out.println("Pushed a new build task onto drone");
 			}
 			buildingList.get(i).executeOnBuilding(map);
 		}
+		Battery batt = new Battery();
+		drone1.getTaskList().push(new ItemBuildTask(drone1, batt));
+		test.getTaskList().push(new ItemBuildTask(test, batt));
 		for(int i = 0; i < droneList.size(); i++){
 			droneList.get(i).executeTaskList(map);
 			if(droneList.get(i).getPower()== 0){

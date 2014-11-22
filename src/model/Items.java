@@ -1,11 +1,13 @@
 package model;
 
 import resources.Resource;
+import tiles.BuildingEnum;
 
 public abstract class Items {
-	private Resource resource;
+	protected Drone drone;
+	protected BuildingEnum reqBuilding;
 	
-	public Items(Resource source) {
-		resource = source;
-	}
+	public Items() {}
+	
+	public abstract void execute(Drone d);
 }

@@ -18,11 +18,4 @@ public class MineBuilding extends Building{
 	public void startBuild() {
 		super.build(BUILD_RATE);
 	}
-	
-	private class MineItem extends Items {
-
-		public MineItem() {
-			super(getBuildingResource());
-		}
-	}
 }

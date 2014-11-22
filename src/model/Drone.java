@@ -152,4 +152,8 @@ public class Drone {
 	public Tile getCurrentTile() {
 		return currentTile;
 	}
+	
+	public void giveItem(Items item) {
+		currentItem = item;
+	}
 }
