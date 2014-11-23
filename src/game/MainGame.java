@@ -2,6 +2,7 @@ package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Timer;
 
@@ -9,16 +10,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
-import model.*;
-import resources.Carbon;
+import model.Base;
+import model.BuildTask;
+import model.Building;
+import model.Drone;
+import model.SolarPlant;
 import resources.Hydrogen;
-import tiles.*;
+import tiles.Tile;
 import view.GraphicView;
 import view.TextView;
 
 
 public class MainGame extends JFrame{
-
 
 	private TextView textView;
 	private static Map map;
@@ -26,9 +29,10 @@ public class MainGame extends JFrame{
 
 	private JTabbedPane panes;
 
-	private static LinkedList<Drone> droneList = new LinkedList<Drone>();
 	private static LinkedList<Tile> resourceList = new LinkedList<Tile>();
 	private static LinkedList<Building> buildingList = new LinkedList<Building>();
+
+	
 
 	private boolean running = true;
 	private boolean paused = false;
@@ -36,6 +40,12 @@ public class MainGame extends JFrame{
 	private int frameCount = 0;
 	private Timer timer;
 
+	private static ArrayList<ArrayList<Drone>> allDrones = new ArrayList<ArrayList<Drone>>();
+	private static ArrayList<Drone> defaultList = new ArrayList<Drone>();
+	private static ArrayList<Drone> builders = new ArrayList<Drone>();
+	private static ArrayList<Drone> miners = new ArrayList<Drone>();
+	
+	
 
 	private static Drone drone1, drone2, drone3, drone4, drone5, drone6;
 	private static Building base, plant1;
@@ -52,14 +62,18 @@ public class MainGame extends JFrame{
 		// TODO Auto-generated method stub
 		base = new Base(10, 10, map.getTile(10,10));
 		map.build(base);
+		base.setFinished();
 		
 		//Constructed with methane as its resource, should not be in final.
 		//Resource may not even be necessary in the constructor.
 		plant1 = new SolarPlant(10, 15, new Hydrogen(), map.getTile(10, 15));
-		map.build(plant1);
+		//map.build(plant1);
 		
+		buildingList.add(base);
 		buildingList.add(plant1);
-		buildingList.add(plant1);
+		
+		//map.build(plant1);
+		//System.out.println(map.getTile(10,15).getBuilding().getEnum());
 	}
 	/**
 	 * @author Cody Jensen
@@ -68,24 +82,30 @@ public class MainGame extends JFrame{
 	 */
 	private static void initializeDrones() {
 
-		drone1 = new Drone(70.0, map.getTile(20,25));
-		//drone1.getTaskList().push(new BuildTask(drone1, plant1);
-		
-		//drone2 = new Drone(100.0, map.getTile(30,30)); //sets a drone out to die
+		drone1 = new Drone(200.0, map.getTile(10,15));	
+		drone2 = new Drone(120.0, map.getTile(15,15));
 //		drone3 = new Drone(100.0, map.getTile(8,17));
 //		drone4 = new Drone(100.0, map.getTile(6,12));
 //		drone5 = new Drone(100.0, map.getTile(5, 10));
 //		drone6 = new Drone(100.0, map.getTile(8,9));
 
-		droneList.add(drone1);
-		//droneList.add(drone2);
-//		droneList.add(drone3);
-//		droneList.add(drone4);
-//		droneList.add(drone5);
-//		droneList.add(drone6);
+		//For now we add drone 1 to the builder list because he starts where the power plant
+		//is being built. Later this will be handled by the user.
 		
-
-
+		builders.add(drone1);
+		
+		defaultList.add(drone2);
+//		defaultList.add(drone3);
+//		defaultList.add(drone4);
+//		defaultList.add(drone5);
+//		defaultList.add(drone6);
+		
+		
+		
+		allDrones.add(defaultList);
+		allDrones.add(miners);
+		allDrones.add(builders);
+		
 	}
 
 	/**
@@ -158,7 +178,7 @@ public class MainGame extends JFrame{
 	private void gameLoop()
 	{
 		timer = new Timer();
-		timer.schedule(new loopRunnable(), 0, 3000); //new timer at 60 fps, the timing mechanism
+		timer.schedule(new loopRunnable(), 0, 1000); //new timer at 60 fps, the timing mechanism
 	}
 
 	private class loopRunnable extends java.util.TimerTask
@@ -166,7 +186,8 @@ public class MainGame extends JFrame{
 		int x = 0;
 		public void run() //this becomes the loop
 		{
-			updateGame();
+			assignTasks();
+			doTasks();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;
@@ -176,36 +197,40 @@ public class MainGame extends JFrame{
 			}
 		}
 	}
-	//public Drone test = new Drone(500, map.getTile(1, 1));
-	private void updateGame()
-	{
 
-		//droneList.add(test);
-
-		for(int i = 0; i<buildingList.size(); i++){
-			if(!buildingList.get(i).isFinishBuilt()){
-				System.out.println(drone1);
-				drone1.getTaskList().push(new BuildTask(drone1, plant1));
-				//test.getTaskList().push(new BuildTask(test, plant1));
-				System.out.println("Pushed a new build task onto drone");
-			}
-			buildingList.get(i).executeOnBuilding(map);
-		}
-		//Battery batt = new Battery();
-		//drone1.getTaskList().push(new ItemBuildTask(drone1, batt));
-		//test.getTaskList().push(new ItemBuildTask(test, batt));
-		for(int i = 0; i < droneList.size(); i++){
-			droneList.get(i).executeTaskList(map);
-			if(droneList.get(i).getPower()== 0){
-				//droneList.remove(droneList.get(i));
-			}
-			if(droneList.size()== 0){
-				System.out.println("You have no drones left. You lose.");
+	
+	private void assignTasks(){
+		buildTasks();
+		mineTasks();
+	}
+	private void buildTasks() {
+		
+		for (int i = 0; i < buildingList.size(); i++) {
+			for (int j = 0; j < builders.size(); j++) {
+				if(!buildingList.get(i).isFinished()){
+					System.out.println(j);
+					builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
+					System.out.println("Builder has been assigned a building task.");
+				}
 			}
 		}
+	}
+	
+	private void mineTasks() {
+		//
 		
 	}
-
+	
+	private void doTasks() {
+		// Goes through every drone, checks if they're dead and removes them if they are. 
+		// Then it calls execute on every drone's current task.
+		
+		for(int i = 0; i < allDrones.size(); i++){
+			for(int j = 0; j< allDrones.get(i).size(); j++){
+				allDrones.get(i).get(j).executeTaskList(map);
+			}
+		}
+	}
 	private void drawGame(){
 		graphics.repaint();
 		textView.repaint();
@@ -219,7 +244,7 @@ public class MainGame extends JFrame{
 			case KeyEvent.VK_UP: 
 				if((graphics.getLeftRow() > 0) || (textView.getLeftRow() > 0)){
 					graphics.setLeftRow(-1);
-					System.out.println("UP :" +graphics.getLeftRow());
+					
 					textView.setLeftRow(-1);
 					textView.repaint();
 					graphics.repaint();
@@ -229,7 +254,6 @@ public class MainGame extends JFrame{
 			case KeyEvent.VK_DOWN: 
 				if((graphics.getLeftRow() < map.getSize() - graphics.getViewHeight()) || (textView.getLeftRow() < map.getSize() - graphics.getViewHeight())){
 					graphics.setLeftRow(1);
-					System.out.println("DOWN :" +(map.getSize() - graphics.getViewHeight()));
 					textView.setLeftRow(1);
 					textView.repaint();
 					graphics.repaint();
@@ -239,7 +263,6 @@ public class MainGame extends JFrame{
 			case KeyEvent.VK_LEFT: 
 				if((graphics.getLeftCol() > 0) || (textView.getLeftCol() > 0)){
 					graphics.setLeftCol(-1);
-					System.out.println("LEFT :" +graphics.getLeftCol());
 					textView.setLeftCol(-1);
 					textView.repaint();
 					graphics.repaint();
@@ -249,7 +272,6 @@ public class MainGame extends JFrame{
 			case KeyEvent.VK_RIGHT: 
 				if((graphics.getLeftCol() < (map.getSize() - graphics.getViewLength())) || (textView.getLeftCol() < (map.getSize() - graphics.getViewLength()))){
 					graphics.setLeftCol(1);
-					System.out.println("RIGHT :" +graphics.getLeftCol());
 					textView.setLeftCol(1);
 					textView.repaint();
 					graphics.repaint();

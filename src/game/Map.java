@@ -322,18 +322,23 @@ public class Map {
 			}
 			
 			
-			for(Tile tile : openList){
+			for(int i = 0; i < openList.size(); i++){
+				Tile tile = openList.get(i);
+				
 				Point pointToAdd = null;
 				if(rankPath(pathTile, goal) > rankPath(tile, goal)){
 					pointToAdd = new Point(pathTile.getX(), pathTile.getY());
 					closedList.add(tile);
 					pathTile = tile;
 					path.add(pointToAdd);
+					openList.remove(tile);
 				}
 				
 			}
 			
 		}
+		Point pointToAdd = new Point(pathTile.getX(), pathTile.getY());
+		path.add(pointToAdd);
 		return path;
 
 	}

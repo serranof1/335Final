@@ -23,7 +23,7 @@ public class BuildTask extends Task{
 		buildLoc = map.getTile(10,15);
 		
 		//This if statement wont work 
-		if(!toBuild.isFinishBuilt()){
+		if(!toBuild.isFinished()){
 			if(drone.getCurrentTile() == buildLoc)
 			map.build(toBuild);
 			toBuild.setFinished();

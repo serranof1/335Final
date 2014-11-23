@@ -14,34 +14,34 @@ public class ChargeTask extends Task{
 
 	@Override
 	public void execute(Map map) {
-		if(nextToPower()){
+		if(drone.getCurrentTile() == map.getTile(10, 15)){
 			System.out.println("Drone is next to power Supply");
-			if(drone.getPower()<100){
-				drone.setPower(drone.getPower()+10);
-				System.out.println("Incremented Charge by 10");
-				if(drone.getPower()< 200){
-					drone.getTaskList().push(new ChargeTask(drone));
-				}else{
+			if(drone.getPower() < 400){
+				drone.setPower(drone.getPower()+50);
+				System.out.println("Incremented Charge by 50");
+				if(drone.getPower()> 400){
 					System.out.println("Done Charging");
-					drone.setPower(100);
+					drone.setPower(400);
+				}else{
+					drone.getTaskList().push(new ChargeTask(drone));
 				}
 			}
 		}else{
-			System.out.println("Moving To power supply!");
 			
 			Tile chargingTile = map.getTile(10, 15);
+			//drone.getTaskList().push(new ChargeTask(drone));
 			drone.getTaskList().push(new MoveTask(drone, chargingTile));
 			drone.getTaskList().pop().execute(map);
+			System.out.println("Moving To power supply!");
 		}
 	}
 
 	private boolean nextToPower() {
+		System.out.println("POOWER PLANT:  " +drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT));
 		if(drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT))
 			return true;
 		else
 			return false;
-		//This return is just for testing purposes. It will always return true
-		//return false;
 	}
 
 /*	private void moveToPower() {

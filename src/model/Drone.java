@@ -105,21 +105,23 @@ public class Drone {
 	 */
 	public void executeTaskList(Map map){
 		System.out.println(this.toString() + " Current Power: " + power);
-		System.out.println(currentPath.toString());
-		if(currentPath.isEmpty() == false && power > 0){
+		System.out.println("PATH:   " + currentPath.toString());
+		if(currentPath.isEmpty() == false && power >= 80){
 			taskList.push(new MoveTask(this, null));
 			taskList.pop().execute(map);
-		}else if(power > 60){
+		}else if(power > 80){
 			taskList.pop().execute(map);
-		}else if(power > 5){
+		}else if(power > 0){
 			System.out.println("Insufficient power, need to recharge");
 			taskList.push(new ChargeTask(this)); 
 			taskList.pop().execute(map);
 		}else{
 			System.out.println(this.toString() + " has died and should be reclaimed");
 			taskList.push(new DeadTask(this));
-			taskList.peek().execute(map);
+			taskList.pop().execute(map);
 		}
+		System.out.println(this.getTaskList());
+		
 		if(power>0){
 			power -=5;
 			if(power<0){
@@ -138,13 +140,6 @@ public class Drone {
 
 	public LinkedList<Task> getTaskList() {
 		return taskList;
-	}
-
-	public void move(Tile input) {
-		currentTile.setHasDrone(false);
-		currentTile = input;
-		currentTile.setHasDrone(true);
-		
 	}
 
 	public void setCurrentTile(Tile input) {

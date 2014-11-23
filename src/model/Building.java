@@ -17,7 +17,7 @@ import tiles.*;
  *
  */
 
-public abstract class Building  { 
+public abstract class Building{ 
 	/*
 	 * I think we don't need Building to extend TileWrapper; we should use the Building class
 	 * for the LinkedList of Buildings that execute their duties each game loop; what gets put
@@ -172,13 +172,6 @@ public abstract class Building  {
 		return resource;
 	}
 	
-//	Return true if the building is complete built
-	public boolean isFinishBuilt() {
-		//if (life >= 100)
-			return finished;
-
-	}
-	
 	// Return the informations of the building
 	public String toString() {
 		String info = "";
@@ -201,5 +194,10 @@ public abstract class Building  {
 	}
 	public void setFinished(){
 		finished = true;
+	}
+
+	public boolean isFinished() {
+		// TODO Auto-generated method stub
+		return finished;
 	}
 }
