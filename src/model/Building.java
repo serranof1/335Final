@@ -17,7 +17,7 @@ import tiles.*;
  *
  */
 
-public class Building extends TileWrapper { 
+public abstract class Building  { 
 	/*
 	 * I think we don't need Building to extend TileWrapper; we should use the Building class
 	 * for the LinkedList of Buildings that execute their duties each game loop; what gets put
@@ -36,7 +36,6 @@ public class Building extends TileWrapper {
 	private String buildingName;
 	private Resource resource; 
 	private List<Drone> droneList;
-	private TileWrapper[][] tiles;
 	private boolean finished;
 	protected BuildingEnum typeOfBuilding;
 	
@@ -179,12 +178,6 @@ public class Building extends TileWrapper {
 			return finished;
 
 	}
-
-	@Override
-	public String drawTextForm() {
-		// TODO Auto-generated method stub
-		return buildingName;
-	}
 	
 	// Return the informations of the building
 	public String toString() {
@@ -200,15 +193,6 @@ public class Building extends TileWrapper {
 	
 	public BuildingEnum getTypeOfBuilding() {
 		return typeOfBuilding;
-	}
-	
-	
-	
-	//This only is here because Building still extends tileWrapper; we'll probably drop it
-	@Override
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void executeOnBuilding(Map map) {
