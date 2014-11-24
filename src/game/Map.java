@@ -356,9 +356,9 @@ public class Map {
 	
 	private boolean checkTileOccupied(Tile input) {
 		
-		if(input.getHasDrone()){
-			return false;
-		}
+		//if(input.getHasDrone()){
+		//	return false;
+		//}
 		/*if(input.getBuilding().drawTextForm().equals("") != true){
 			return false;
 		}*/
