@@ -207,6 +207,7 @@ public class MainGame extends JFrame{
 		mineTasks();
 		itemBuildTasks();
 	}
+	
 	private void buildTasks() {
 		
 		for (int i = 0; i < buildingList.size(); i++) {

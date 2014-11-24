@@ -16,7 +16,8 @@ public class BuildTask extends Task{
 		toBuild = build;
 	}
 
-
+	//We should probably set this up soon so that we can choose the location the building is built.
+	//Probably just change the constructor and such. We can do that once we can get user input.
 	@Override
 	public void execute(Map map) {
 		// TODO Auto-generated method stub
