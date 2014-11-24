@@ -296,7 +296,7 @@ public class Map {
 		}
 	}
 	
-	public LinkedList<Point> findPath(Tile current, Tile goal){
+	public LinkedList<Point> findPath(Tile current, Tile goal, int canMove){
 		
 		ArrayList<Tile> closedList = new ArrayList<Tile>();
 		ArrayList<Tile> openList = new ArrayList<Tile>();
@@ -308,16 +308,16 @@ public class Map {
 			
 		while(pathTile != goal){
 			//add eligible tiles to the open list
-			if(checkTileOccupied(pathTile.getNorth())){
+			if(checkTileOccupied(pathTile.getNorth(), canMove)){
 				openList.add(pathTile.getNorth());
 			}
-			if(checkTileOccupied(pathTile.getSouth())){
+			if(checkTileOccupied(pathTile.getSouth(), canMove)){
 				openList.add(pathTile.getSouth());
 			}
-			if(checkTileOccupied(pathTile.getEast())){
+			if(checkTileOccupied(pathTile.getEast(), canMove)){
 				openList.add(pathTile.getEast());
 			}
-			if(checkTileOccupied(pathTile.getWest())){
+			if(checkTileOccupied(pathTile.getWest(), canMove)){
 				openList.add(pathTile.getWest());
 			}
 			
@@ -354,7 +354,7 @@ public class Map {
 		
 	}
 	
-	private boolean checkTileOccupied(Tile input) {
+	private boolean checkTileOccupied(Tile input, int canMove) {
 		
 		//if(input.getHasDrone()){
 		//	return false;
@@ -362,7 +362,7 @@ public class Map {
 		/*if(input.getBuilding().drawTextForm().equals("") != true){
 			return false;
 		}*/
-		if(input.getGround().getMovementCost() > 2){
+		if(input.getGround().getMovementCost() > canMove){
 			return false;
 		}
 		return true;

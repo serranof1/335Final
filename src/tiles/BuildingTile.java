@@ -21,4 +21,8 @@ public class BuildingTile extends TileWrapper {
 		return building.getImage();
 	}
 	
+	public BuildingEnum getBuildingType() {
+		return building;
+	}
+	
 }

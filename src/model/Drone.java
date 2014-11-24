@@ -67,6 +67,8 @@ public class Drone {
 	 * @param power 	The initial power that a drone starts with
 	 * @param defaultJob 	The Default job that a drone will always do
 	 */
+	
+	private int movementAbility = 10;
 
 	public Drone(double power, Tile start) {
 		this.power = power;
@@ -166,5 +168,13 @@ public class Drone {
 		for(Point point : newPath){
 			currentPath.add(point);
 		}	
+	}
+	
+	public void setMovementAbility(int i) {
+		movementAbility = i;
+	}
+	
+	public int getMovementAbility() {
+		return movementAbility;
 	}
 }

@@ -24,7 +24,7 @@ public class MoveTask extends Task {
 		
 		if(drone.getPath().isEmpty()){
 			System.out.println("Drone doesn't have a path. Creating a new one");
-			drone.setPath(map.findPath(current, goal));
+			drone.setPath(map.findPath(current, goal, drone.getMovementAbility()));
 		}
 		
 		Point nextCoord = drone.getNextTile();

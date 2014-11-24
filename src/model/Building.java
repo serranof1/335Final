@@ -113,6 +113,7 @@ public abstract class Building{
 
 	// Check the surrounding surface of the tile, make sure there are enough room for building
 	public boolean canBuild(Tile startTile) {
+		
 		Tile curr = null;
 		Tile rowStart = null;
 
@@ -131,6 +132,7 @@ public abstract class Building{
 			 * Next, curr is set to rowStart, ie, 4 and rowStart is set to south of curr, ie, 7.
 			 * Then, curr moves east 4 -> 5 -> 6, repeating the process. This continues until the other loop of length <required height> finishes
 			 */
+		
 			for(int j = 0; j < height; j++) {
 				if(curr.getGround().getGround() == GroundEnum.PLAIN) { //Sorry about the bad naming here. Tile's getGround method gives a GroundTile whose getGround method gives the Ground enum, if it's PLAIN, it can build
 					curr = curr.getEast();
@@ -141,6 +143,7 @@ public abstract class Building{
 			curr = rowStart;
 		}
 		return true;
+		
 	}
 
 	// How long to build the building depends on the dimension of the building

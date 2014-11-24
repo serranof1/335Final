@@ -10,4 +10,8 @@ public abstract class Items {
 	public Items() {}
 	
 	public abstract void execute(Drone d);
+	
+	public BuildingEnum getRequiredBuilding() {
+		return reqBuilding;
+	}
 }

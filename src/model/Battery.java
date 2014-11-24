@@ -11,7 +11,7 @@ public class Battery extends Items {
 
 	@Override
 	public void execute(Drone drone) {
-		drone.setPower(10000);
-		System.out.println("It's over 9000");
+		drone.setPower(1000);
+		System.out.println("LOTS AND LOTS OF POWER NOW");
 	}
 }

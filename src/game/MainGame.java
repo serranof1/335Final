@@ -11,9 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import model.Base;
+import model.Battery;
 import model.BuildTask;
 import model.Building;
 import model.Drone;
+import model.ItemBuildTask;
 import model.SolarPlant;
 import resources.Hydrogen;
 import tiles.Tile;
@@ -84,7 +86,7 @@ public class MainGame extends JFrame{
 
 		drone1 = new Drone(200.0, map.getTile(10,15));	
 		drone2 = new Drone(120.0, map.getTile(15,15));
-//		drone3 = new Drone(100.0, map.getTile(8,17));
+		drone3 = new Drone(100.0, map.getTile(50,50));
 //		drone4 = new Drone(100.0, map.getTile(6,12));
 //		drone5 = new Drone(100.0, map.getTile(5, 10));
 //		drone6 = new Drone(100.0, map.getTile(8,9));
@@ -95,6 +97,7 @@ public class MainGame extends JFrame{
 		builders.add(drone1);
 		
 		defaultList.add(drone2);
+		defaultList.add(drone3);
 //		defaultList.add(drone3);
 //		defaultList.add(drone4);
 //		defaultList.add(drone5);
@@ -202,6 +205,7 @@ public class MainGame extends JFrame{
 	private void assignTasks(){
 		buildTasks();
 		mineTasks();
+		itemBuildTasks();
 	}
 	private void buildTasks() {
 		
@@ -219,6 +223,16 @@ public class MainGame extends JFrame{
 	private void mineTasks() {
 		//
 		
+	}
+	
+	private void itemBuildTasks() {
+		try {
+			Drone drone = allDrones.get(0).get(0);
+			if (drone.getPower() < 100) {
+				System.out.println("Time to make a battery");
+				drone.getTaskList().push(new ItemBuildTask(drone, new Battery()));
+			}
+		} catch (Exception e) {}
 	}
 	
 	private void doTasks() {
