@@ -23,7 +23,7 @@ public class BuildTask extends Task{
 		// TODO Auto-generated method stub
 		buildLoc = map.getTile(10,15);
 		
-		if(!toBuild.isFinished()){
+		/*if(!toBuild.isFinished()){
 			if(drone.getLocationX()  == buildLoc.getX() && drone.getLocationY() == buildLoc.getY()) {
 				map.build(toBuild);
 				toBuild.setFinished();
@@ -32,7 +32,7 @@ public class BuildTask extends Task{
 				drone.getTaskList().push(new MoveTask(drone, buildLoc));
 				System.out.println("Moving to building");
 			}
-		}
+		}*/
 		
 		if (drone.getCurrentTile() == buildLoc) {
 			if (!toBuild.isFinished()) {
