@@ -42,6 +42,7 @@ public class Drone {
 	 * 
 	 */
 	private double power;
+	private double maxPower;
 
 	/**
 	 * Instance variable for the amount of materials a drone currently holds.
@@ -72,6 +73,10 @@ public class Drone {
 
 	public Drone(double power, Tile start) {
 		this.power = power;
+		maxPower = 200;
+		if (this.power > maxPower) {
+			this.power = maxPower;
+		}
 		currentTile = start;
 		currentTile.setHasDrone(true);
 		materials = 0;
@@ -137,7 +142,19 @@ public class Drone {
 	}
 
 	public void setPower(double newPower) {
-		power = newPower;
+		if (newPower > maxPower) {
+			power = maxPower;
+		} else {
+			power = newPower;
+		}
+	}
+	
+	public void setMaxPower(double newMax) {
+		maxPower = newMax;
+	}
+	
+	public double getMaxPower() {
+		return maxPower;
 	}
 
 	public LinkedList<Task> getTaskList() {

@@ -16,16 +16,17 @@ public class ChargeTask extends Task{
 	public void execute(Map map) {
 		if(drone.getCurrentTile() == map.getTile(10, 15)){
 			System.out.println("Drone is next to power Supply");
-			if(drone.getPower() < 400){
+			if(drone.getPower() < drone.getMaxPower()){
 				drone.setPower(drone.getPower()+50);
 				System.out.println("Incremented Charge by 50");
-				if(drone.getPower()> 400){
-					System.out.println("Done Charging");
-					drone.setPower(400);
+				//We shouldn't need any code like this with the way maxPower is handled
+				//if(drone.getPower()> drone.getMaxPower()){
+				//	System.out.println("Done Charging");
+				//	drone.setPower(400);
 				}else{
 					drone.getTaskList().push(new ChargeTask(drone));
 				}
-			}
+			
 		}else{
 			
 			Tile chargingTile = map.getTile(10, 15);

@@ -229,7 +229,7 @@ public class MainGame extends JFrame{
 	private void itemBuildTasks() {
 		try {
 			Drone drone = allDrones.get(0).get(0);
-			if (drone.getPower() < 100) {
+			if (drone.getPower() / drone.getMaxPower() < .5) {
 				System.out.println("Time to make a battery");
 				drone.getTaskList().push(new ItemBuildTask(drone, new Battery()));
 			}
