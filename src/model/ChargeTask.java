@@ -15,10 +15,10 @@ public class ChargeTask extends Task{
 	@Override
 	public void execute(Map map) {
 		if(drone.getCurrentTile() == map.getTile(10, 15)){
-			System.out.println("Drone is next to power Supply");
+			//System.out.println("Drone is next to power Supply");
 			if(drone.getPower() < drone.getMaxPower()){
 				drone.setPower(drone.getPower()+50);
-				System.out.println("Incremented Charge by 50");
+				//System.out.println("Incremented Charge by 50");
 				//We shouldn't need any code like this with the way maxPower is handled
 				//if(drone.getPower()> drone.getMaxPower()){
 				//	System.out.println("Done Charging");
@@ -33,12 +33,12 @@ public class ChargeTask extends Task{
 			//drone.getTaskList().push(new ChargeTask(drone));
 			drone.getTaskList().push(new MoveTask(drone, chargingTile));
 			drone.getTaskList().pop().execute(map);
-			System.out.println("Moving To power supply!");
+			//System.out.println("Moving To power supply!");
 		}
 	}
 
 	private boolean nextToPower() {
-		System.out.println("POOWER PLANT:  " +drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT));
+		//System.out.println("POOWER PLANT:  " +drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT));
 		if(drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT))
 			return true;
 		else

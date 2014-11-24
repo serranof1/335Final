@@ -40,7 +40,8 @@ public class BuildTask extends Task{
 				toBuild.setFinished();
 				System.out.println("Drone has built the building");
 			} else {
-				drone.getTaskList().push(new BuildTask(drone, toBuild));
+				//drone.getTaskList().push(new BuildTask(drone, toBuild));
+				System.out.println("Test");
 			}
 		} else {
 			drone.getTaskList().push(new MoveTask(drone, buildLoc));

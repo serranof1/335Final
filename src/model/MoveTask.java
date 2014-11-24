@@ -28,7 +28,7 @@ public class MoveTask extends Task {
 		}
 		
 		Point nextCoord = drone.getNextTile();
-		System.out.println("PATH:  " +drone.getNextTile());
+		//System.out.println("PATH:  " +drone.getNextTile());
 		drone.setCurrentTile(map.getTile(nextCoord.x, nextCoord.y));
 		drone.getPath().removeFirst();
 		

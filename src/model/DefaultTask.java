@@ -23,7 +23,7 @@ public class DefaultTask extends Task {
 		int min = 1;
 		int max = 5;
 		int randomNumber = random.nextInt(max - min) + min;; 
-		System.out.println(drone.toString() + " doing Default Task");
+		//System.out.println(drone.toString() + " doing Default Task");
 		
 		if(randomNumber == 1){
 			drone.setCurrentTile(drone.currentTile.getNorth());

@@ -28,6 +28,6 @@ public class DeadTask extends Task{
 		//The execute method does nothing here. We could use this part
 		//to convert the tile to use as a resource
 		drone.getCurrentTile().setImage(deadDrone);
-		System.out.println("Dead task being executed");
+		//System.out.println("Dead task being executed");
 	}
 }

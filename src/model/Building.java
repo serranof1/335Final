@@ -34,7 +34,7 @@ public abstract class Building{
 	private int life;
 	private int inventory;
 	private String buildingName;
-	private Resource resource; 
+	private int resource; 
 	private List<Drone> droneList;
 	private boolean finished;
 	protected BuildingEnum typeOfBuilding;
@@ -64,7 +64,7 @@ public abstract class Building{
 		location = new Point(x, y);
 		this.width = width;
 		this.height = length;
-		this.resource = source;
+		this.resource = 0;
 		buildingName = name;
 		droneList = new ArrayList<Drone>();
 		finished = false;
@@ -170,10 +170,10 @@ public abstract class Building{
 	public int getHeight() {
 		return height;
 	}
-
+	/*
 	public Resource getBuildingResource() {
 		return resource;
-	}
+	}*/
 	
 	// Return the informations of the building
 	public String toString() {
@@ -202,5 +202,15 @@ public abstract class Building{
 	public boolean isFinished() {
 		// TODO Auto-generated method stub
 		return finished;
+	}
+
+	public boolean isAssigned() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public void deposit(int i) {
+		System.out.println("Stuff has been deposited");
+		resource = i;
 	}
 }

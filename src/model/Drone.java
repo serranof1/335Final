@@ -111,8 +111,8 @@ public class Drone {
 	 * 
 	 */
 	public void executeTaskList(Map map){
-		System.out.println(this.toString() + " Current Power: " + power);
-		System.out.println("PATH:   " + currentPath.toString());
+		//System.out.println(this.toString() + " Current Power: " + power);
+		//System.out.println("PATH:   " + currentPath.toString());
 		if(currentPath.isEmpty() == false && power >= 80){
 			taskList.push(new MoveTask(this, null));
 			taskList.pop().execute(map);
@@ -203,5 +203,13 @@ public class Drone {
 		}else{
 			return false;
 		}
+	}
+
+	public boolean isFull() {
+		return true;
+	}
+
+	public int getInventory() {
+		return 10;
 	}
 }

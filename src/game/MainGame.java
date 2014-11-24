@@ -46,10 +46,11 @@ public class MainGame extends JFrame{
 	private static ArrayList<Drone> defaultList = new ArrayList<Drone>();
 	private static ArrayList<Drone> builders = new ArrayList<Drone>();
 	private static ArrayList<Drone> miners = new ArrayList<Drone>();
-	
+	private static ArrayList<Drone> resourceCollectors = new ArrayList<Drone>();
+	private static ArrayList<Drone> itemBuilders = new ArrayList<Drone>();
 	
 
-	private static Drone drone1, drone2, drone3, drone4, drone5, drone6;
+	private static Drone buildingDrone, chargingDrone, humanSacrifice, itemBuilder, resourceCollector, drone6;
 	private static Building base, plant1;
 
 	public static void main(String[] args)
@@ -84,30 +85,31 @@ public class MainGame extends JFrame{
 	 */
 	private static void initializeDrones() {
 
-		drone1 = new Drone(200.0, map.getTile(10,15));	
-		drone2 = new Drone(120.0, map.getTile(15,15));
-		drone3 = new Drone(100.0, map.getTile(50,50));
-//		drone4 = new Drone(100.0, map.getTile(6,12));
-//		drone5 = new Drone(100.0, map.getTile(5, 10));
+		buildingDrone = new Drone(200.0, map.getTile(10,15));	
+		chargingDrone = new Drone(120.0, map.getTile(15,15));
+		humanSacrifice = new Drone(100.0, map.getTile(50,50));
+		itemBuilder = new Drone(100.0, map.getTile(6,12));
+		resourceCollector = new Drone(500.0, map.getTile(30, 10));
 //		drone6 = new Drone(100.0, map.getTile(8,9));
 
 		//For now we add drone 1 to the builder list because he starts where the power plant
 		//is being built. Later this will be handled by the user.
 		
-		builders.add(drone1);
-		
-		defaultList.add(drone2);
-		defaultList.add(drone3);
-//		defaultList.add(drone3);
-//		defaultList.add(drone4);
-//		defaultList.add(drone5);
+		builders.add(buildingDrone);
+		defaultList.add(chargingDrone);
+		defaultList.add(humanSacrifice);
+		itemBuilders.add(itemBuilder);
+		resourceCollectors.add(resourceCollector);
 //		defaultList.add(drone6);
+		
 		
 		
 		
 		allDrones.add(defaultList);
 		allDrones.add(miners);
 		allDrones.add(builders);
+		allDrones.add(resourceCollectors);
+		allDrones.add(itemBuilders);
 		
 	}
 
@@ -193,10 +195,13 @@ public class MainGame extends JFrame{
 			if (x > 5) {
 				buildTasks();
 			}
-			if (x > 10) {
+			if (x > 15) {
 				itemBuildTasks();
 			}
-			doTasks();
+			if (x > 25) {
+				resourceTasks();
+			}
+			doDroneTasks();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;
@@ -212,6 +217,13 @@ public class MainGame extends JFrame{
 		buildTasks();
 		mineTasks();
 		itemBuildTasks();
+		resourceTasks();
+	}
+	
+	private void resourceTasks() {
+		for (int i = 0; i < resourceCollectors.size(); i++) {
+			resourceCollectors.get(i).getTaskList().push(new ResourceTask(resourceCollectors.get(i), buildingList.get(0)));
+		}
 	}
 	
 	private void buildTasks() {
@@ -219,9 +231,8 @@ public class MainGame extends JFrame{
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
 				if(!buildingList.get(i).isFinished()){
-					System.out.println(j);
-					builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
-					System.out.println("Builder has been assigned a building task.");
+						builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
+						System.out.println("Builder has been assigned a building task.");
 				}
 			}
 		}
@@ -242,7 +253,7 @@ public class MainGame extends JFrame{
 		} catch (Exception e) {}
 	}
 	
-	private void doTasks() {
+	private void doDroneTasks() {
 		// Goes through every drone, checks if they're dead and removes them if they are. 
 		// Then it calls execute on every drone's current task.
 		
