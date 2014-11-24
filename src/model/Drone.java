@@ -73,7 +73,7 @@ public class Drone {
 
 	public Drone(double power, Tile start) {
 		this.power = power;
-		maxPower = 200;
+		maxPower = 400;
 		if (this.power > maxPower) {
 			this.power = maxPower;
 		}
@@ -193,5 +193,15 @@ public class Drone {
 	
 	public int getMovementAbility() {
 		return movementAbility;
+	}
+
+	public boolean hasItem() {
+		// TODO Auto-generated method stub
+		if(currentItem != null){
+			return true;
+			
+		}else{
+			return false;
+		}
 	}
 }
