@@ -189,7 +189,13 @@ public class MainGame extends JFrame{
 		int x = 0;
 		public void run() //this becomes the loop
 		{
-			assignTasks();
+			//assignTasks();
+			if (x > 5) {
+				buildTasks();
+			}
+			if (x > 10) {
+				itemBuildTasks();
+			}
 			doTasks();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();

@@ -23,21 +23,33 @@ public class BuildTask extends Task{
 		// TODO Auto-generated method stub
 		buildLoc = map.getTile(10,15);
 		
-		//This if statement wont work 
 		if(!toBuild.isFinished()){
-			if(drone.getCurrentTile() == buildLoc)
-			map.build(toBuild);
-			toBuild.setFinished();
-			System.out.println("Drone has built the building");
-		}else{
-			moveDroneToBuilding();
-			drone.getTaskList().push(new BuildTask(drone, toBuild));
+			if(drone.getLocationX()  == buildLoc.getX() && drone.getLocationY() == buildLoc.getY()) {
+				map.build(toBuild);
+				toBuild.setFinished();
+				System.out.println("Drone has built the building");
+			} else {
+				drone.getTaskList().push(new MoveTask(drone, buildLoc));
+				System.out.println("Moving to building");
+			}
+		}
+		
+		if (drone.getCurrentTile() == buildLoc) {
+			if (!toBuild.isFinished()) {
+				map.build(toBuild);
+				toBuild.setFinished();
+				System.out.println("Drone has built the building");
+			} else {
+				drone.getTaskList().push(new BuildTask(drone, toBuild));
+			}
+		} else {
+			drone.getTaskList().push(new MoveTask(drone, buildLoc));
+			drone.getTaskList().pop().execute(map);
 		}
 	}
 
 	private void moveDroneToBuilding() {
-		// TODO Auto-generated method stub
-		
+		drone.getTaskList().push(new MoveTask(drone, buildLoc));
 	}
 
 }
