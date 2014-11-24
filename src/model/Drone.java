@@ -74,9 +74,9 @@ public class Drone {
 	public Drone(double power, Tile start) {
 		this.power = power;
 		maxPower = 400;
-		if (this.power > maxPower) {
-			this.power = maxPower;
-		}
+		//if (this.power > maxPower) {
+		//	this.power = maxPower;
+		//}
 		currentTile = start;
 		currentTile.setHasDrone(true);
 		materials = 0;
@@ -127,7 +127,7 @@ public class Drone {
 			taskList.push(new DeadTask(this));
 			taskList.pop().execute(map);
 		}
-		System.out.println(this.getTaskList());
+		//System.out.println(this.getTaskList());
 		
 		if(power>0){
 			power -=5;
