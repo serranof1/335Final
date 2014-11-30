@@ -290,6 +290,7 @@ public class Map {
 			for(int i = x; i < b.getWidth()+x;i++){
 				for (int j = y; j < b.getHeight()+y; j++) {
 					map[i][j].setBuilding(new BuildingTile(b.getTypeOfBuilding()));
+					b.addTile(map[i][j]);
 				}	
 				
 			}
