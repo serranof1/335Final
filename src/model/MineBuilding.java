@@ -1,5 +1,6 @@
 package model;
 
+import game.Map;
 import resources.Resource;
 
 public class MineBuilding extends Building{
@@ -11,11 +12,17 @@ public class MineBuilding extends Building{
 	private final static String BUILDING_NAME = "MB";
 	
 	public MineBuilding(int x, int y, Resource source) {
-		super(x, y, MINE_WIDTH, MINE_HEIGHT, source, BUILDING_NAME);
+		super(x, y, MINE_WIDTH, MINE_HEIGHT, BUILDING_NAME);
 		super.setCost(BUILD_COST);
 	}
 
 	public void startBuild() {
 		super.build(BUILD_RATE);
+	}
+
+	@Override
+	public void executeOnBuilding(Map map) {
+		// TODO Auto-generated method stub
+		
 	}
 }
