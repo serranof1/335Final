@@ -16,6 +16,7 @@ import model.BuildTask;
 import model.Building;
 import model.Drone;
 import model.ItemBuildTask;
+import model.ResourceTask;
 import model.SolarPlant;
 import resources.Hydrogen;
 import tiles.Tile;
@@ -85,11 +86,11 @@ public class MainGame extends JFrame{
 	 */
 	private static void initializeDrones() {
 
-		buildingDrone = new Drone(200.0, map.getTile(10,15));	
-		chargingDrone = new Drone(120.0, map.getTile(15,15));
-		humanSacrifice = new Drone(100.0, map.getTile(50,50));
-		itemBuilder = new Drone(100.0, map.getTile(6,12));
-		resourceCollector = new Drone(500.0, map.getTile(30, 10));
+		buildingDrone = new Drone("buildingDrone", 200.0, map.getTile(10,15));	
+		chargingDrone = new Drone("chargingDrone", 120.0, map.getTile(15,15));
+		humanSacrifice = new Drone("humanSacrifice", 100.0, map.getTile(50,50));
+		itemBuilder = new Drone("itemBuilder", 100.0, map.getTile(6,12));
+		resourceCollector = new Drone("resourceCollector", 500.0, map.getTile(30, 10));
 //		drone6 = new Drone(100.0, map.getTile(8,9));
 
 		//For now we add drone 1 to the builder list because he starts where the power plant
@@ -192,13 +193,13 @@ public class MainGame extends JFrame{
 		public void run() //this becomes the loop
 		{
 			//assignTasks();
-			if (x > 5) {
+			if (x == 5) {
 				buildTasks();
 			}
-			if (x > 15) {
+			if (x >= 15) {
 				itemBuildTasks();
 			}
-			if (x > 25) {
+			if (x>= 25) {
 				resourceTasks();
 			}
 			doDroneTasks();
@@ -256,12 +257,13 @@ public class MainGame extends JFrame{
 	private void doDroneTasks() {
 		// Goes through every drone, checks if they're dead and removes them if they are. 
 		// Then it calls execute on every drone's current task.
-		
+		System.out.println("**************************************************************");
 		for(int i = 0; i < allDrones.size(); i++){
 			for(int j = 0; j< allDrones.get(i).size(); j++){
 				allDrones.get(i).get(j).executeTaskList(map);
 			}
 		}
+		System.out.println("**************************************************************");
 	}
 	private void drawGame(){
 		graphics.repaint();
