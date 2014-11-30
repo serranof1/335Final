@@ -12,6 +12,7 @@ public class Drone {
 	
 	private int locationX;
 	private int locationY;
+	private String name;
 	
 	/**
 	 * Variable keeps track of if a drone has died and can be consumed for resources
@@ -71,7 +72,8 @@ public class Drone {
 	
 	private int movementAbility = 10;
 
-	public Drone(double power, Tile start) {
+	public Drone(String name, double power, Tile start) {
+		this.name = name;
 		this.power = power;
 		maxPower = 400;
 		//if (this.power > maxPower) {
@@ -111,31 +113,40 @@ public class Drone {
 	 * 
 	 */
 	public void executeTaskList(Map map){
-		//System.out.println(this.toString() + " Current Power: " + power);
-		//System.out.println("PATH:   " + currentPath.toString());
+		System.out.println(this.getName() + " Current Power: " + power);
+		System.out.println(this.getTaskList());
+		System.out.println(this.getPath());
+		System.out.println();
 		if(currentPath.isEmpty() == false && power >= 80){
 			taskList.push(new MoveTask(this, null));
-			taskList.pop().execute(map);
+			//taskList.pop().execute(map);
 		}else if(power > 80){
-			taskList.pop().execute(map);
+			//taskList.pop().execute(map);
 		}else if(power > 0){
 			System.out.println("Insufficient power, need to recharge");
 			taskList.push(new ChargeTask(this)); 
-			taskList.pop().execute(map);
+			//taskList.pop().execute(map);
 		}else{
 			System.out.println(this.toString() + " has died and should be reclaimed");
 			taskList.push(new DeadTask(this));
-			taskList.pop().execute(map);
+			//taskList.pop().execute(map);
 		}
-		//System.out.println(this.getTaskList());
 		
-		if(power>0){
-			power -=5;
-			if(power<0){
-				power = 0;
-			}
-		}
+//		System.out.println(this.getTaskList());
+		taskList.pop().execute(map);
+		
+//		if(power>0){
+//			power -=5;
+//			if(power<0){
+//				power = 0;
+//			}
+//		}
 	}
+
+	private String getName() {
+	// TODO Auto-generated method stub
+	return name;
+}
 
 	public double getPower() {	
 		return power;
