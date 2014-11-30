@@ -14,12 +14,14 @@ public class ItemBuildTask extends Task {
 
 	@Override
 	public void execute(Map map) {
+		drone.setPower(drone.getPower() - 7);
 		if (drone.getCurrentTile().getBuilding().getBuildingType() == toBeBuilt.getRequiredBuilding()) {
 			toBeBuilt.execute(drone);
 			drone.giveItem(toBeBuilt);
 			System.out.println("I made myself a battery!");
 		} else {
 			Tile chargingTile = map.getTile(10, 15);
+			drone.getTaskList().push(new ItemBuildTask(drone, toBeBuilt));
 			drone.getTaskList().push(new MoveTask(drone, chargingTile));
 			drone.getTaskList().pop().execute(map);
 			System.out.println("Moving To Power Plant to make a battery!");

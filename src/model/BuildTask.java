@@ -20,6 +20,7 @@ public class BuildTask extends Task{
 	//Probably just change the constructor and such. We can do that once we can get user input.
 	@Override
 	public void execute(Map map) {
+		drone.setPower(drone.getPower() - 10);
 		// TODO Auto-generated method stub
 		buildLoc = map.getTile(10,15);
 		
@@ -44,13 +45,10 @@ public class BuildTask extends Task{
 				System.out.println("Test");
 			}
 		} else {
+			
+			drone.getTaskList().push(new BuildTask(drone, toBuild));
 			drone.getTaskList().push(new MoveTask(drone, buildLoc));
 			drone.getTaskList().pop().execute(map);
 		}
 	}
-
-	private void moveDroneToBuilding() {
-		drone.getTaskList().push(new MoveTask(drone, buildLoc));
-	}
-
 }

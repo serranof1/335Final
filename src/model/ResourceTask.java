@@ -1,10 +1,6 @@
-package game;
+package model;
 
-import model.Base;
-import model.Building;
-import model.Drone;
-import model.MoveTask;
-import model.Task;
+import game.Map;
 
 public class ResourceTask extends Task {
 	
@@ -18,7 +14,8 @@ public class ResourceTask extends Task {
 
 	@Override
 	public void execute(Map map) {
-		drone.getTaskList().pop();
+		//drone.getTaskList().pop();
+//		drone.setPower(drone.getPower() - 6);
 		if (drone.isFull()) {
 			if (drone.getCurrentTile() == map.getTile(10, 10)) {
 				giveMeStuff.deposit(drone.getInventory());

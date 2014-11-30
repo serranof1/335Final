@@ -14,6 +14,8 @@ public class ChargeTask extends Task{
 
 	@Override
 	public void execute(Map map) {
+		drone.setPower(drone.getPower() - 3);
+//		if(drone.getCurrentTile().equals(BuildingEnum
 		if(drone.getCurrentTile() == map.getTile(10, 15)){
 			//System.out.println("Drone is next to power Supply");
 			if(drone.getPower() < drone.getMaxPower()){

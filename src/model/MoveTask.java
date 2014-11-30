@@ -19,7 +19,7 @@ public class MoveTask extends Task {
 
 	@Override
 	public void execute(Map map) {
-		
+		drone.setPower(drone.getPower() - 5);
 		Tile current = drone.getCurrentTile();
 		
 		if(drone.getPath().isEmpty()){
