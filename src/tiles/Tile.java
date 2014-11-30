@@ -138,4 +138,11 @@ public class Tile {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public boolean canMove() {
+		if(((GroundTile)tileStack[0]).getGround() == GroundEnum.OCEAN)
+			return false;
+		else
+			return true;
+	}
 }
