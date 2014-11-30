@@ -2,13 +2,12 @@ package model;
 
 import game.Map;
 
-import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 
-import resources.Resource;
-import tiles.*;
+import tiles.BuildingEnum;
+import tiles.GroundEnum;
+import tiles.Tile;
 
 /**
  * This class contain the basic attributes for the buildings.
@@ -32,14 +31,17 @@ public abstract class Building{
 	private int width;
 	private int height;
 	private int life;
-	private int inventory;
+	protected int inventory;
 	private String buildingName;
 	private int resource; 
-	private List<Drone> droneList;
+	protected ArrayList<Drone> droneList;
+	protected ArrayList<Tile> tileList;
 	private boolean finished;
 	protected BuildingEnum typeOfBuilding;
 	
 	private final static int MAX_CAP = 4;
+	
+	public abstract void executeOnBuilding(Map map);
 
 	/**
 	 * Construct the Building object, the parameters present the location, size,
@@ -57,10 +59,9 @@ public abstract class Building{
 	 * @param length
 	 *            an {@link Integer} represent the length of the building on the
 	 *            map.
-	 * @param source
-	 *            a {@link String} represent the purpose of the building.
+
 	 */
-	public Building(int x, int y, int width, int length, Resource source, String name) {
+	public Building(int x, int y, int width, int length, String name) {
 		location = new Point(x, y);
 		this.width = width;
 		this.height = length;
@@ -191,10 +192,7 @@ public abstract class Building{
 		return typeOfBuilding;
 	}
 
-	public void executeOnBuilding(Map map) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	public void setFinished(){
 		finished = true;
 	}
@@ -212,5 +210,21 @@ public abstract class Building{
 	public void deposit(int i) {
 		System.out.println("Stuff has been deposited");
 		resource = i;
+	}
+	
+	public int getInventory(){
+		return inventory;
+	}
+	public void setInventory(int inventory){
+		this.inventory= inventory;
+	}
+	public void addTile(Tile addTile){
+		tileList.add(addTile);
+	}
+	public Tile getEmptyTile(){
+		//iterates through tiles and returns a tile that doesn't have a drone
+		//For now just returns top left
+		//should a tile say it is empty even if there is a drone moving to that tile?
+		return tileList.get(0);
 	}
 }
