@@ -133,4 +133,9 @@ public class Tile {
 			g.drawImage(droneImage, x, y, null);
 		}
 	}
+	//Quick method to check if the tile is in sunlight
+	public boolean daytime() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
