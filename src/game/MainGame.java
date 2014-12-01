@@ -10,20 +10,25 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
-import model.Base;
+
+
+
+
+import buildings.Base;
+import buildings.Building;
+import buildings.SolarPlant;
 import model.Battery;
-import model.BuildTask;
-import model.Building;
 import model.Drone;
-import model.ItemBuildTask;
-import model.ResourceTask;
-import model.SolarPlant;
 import model.WeatherBehavior;
 import resources.Hydrogen;
 import tiles.Tile;
 import view.GraphicView;
 import view.TextView;
-
+import model.*;
+import resources.*;
+import task.*;
+import tiles.*;
+import view.*;
 
 public class MainGame extends JFrame{
 
