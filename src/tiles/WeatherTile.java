@@ -22,4 +22,12 @@ public class WeatherTile extends TileWrapper {
 	public Image getImage() {
 		return weather.getImage();
 	}
+	
+	public WeatherEnum getWeatherType() {
+		return weather;
+	}
+	
+	public void setWeatherType(WeatherEnum weather) {
+		this.weather = weather;
+	}
 }

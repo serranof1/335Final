@@ -18,6 +18,7 @@ import model.Drone;
 import model.ItemBuildTask;
 import model.ResourceTask;
 import model.SolarPlant;
+import model.WeatherBehavior;
 import resources.Hydrogen;
 import tiles.Tile;
 import view.GraphicView;
@@ -138,10 +139,10 @@ public class MainGame extends JFrame{
 	private void setupVariables() {
 		int n = JOptionPane.showConfirmDialog(null, "Do you want to enter a seed?", "Do you want to enter a seed?", JOptionPane.YES_NO_OPTION);
 		if (n == JOptionPane.NO_OPTION) {
-			map = new Map(7);
+			map = new Map(6);
 		} else {
 			String s = JOptionPane.showInputDialog("Enter a long:");
-			map = new Map(7, Long.parseLong(s));
+			map = new Map(6, Long.parseLong(s));
 		}
 		
 		textView = new TextView(map, 5, 5, 20, 20);
@@ -202,6 +203,7 @@ public class MainGame extends JFrame{
 			if (x>= 25) {
 				resourceTasks();
 			}
+			WeatherBehavior.LightMovement(map);
 			doDroneTasks();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();

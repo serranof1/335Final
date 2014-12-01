@@ -135,8 +135,7 @@ public class Tile {
 	}
 	//Quick method to check if the tile is in sunlight
 	public boolean daytime() {
-		// TODO Auto-generated method stub
-		return false;
+		return (((WeatherTile) tileStack[3]).getWeatherType() == WeatherEnum.DAY);
 	}
 	
 	public boolean canMove() {
