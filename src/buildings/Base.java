@@ -1,7 +1,8 @@
-package model;
+package buildings;
 
 import java.util.ArrayList;
 
+import model.Drone;
 import game.Map;
 import resources.Resource;
 import tiles.BuildingEnum;

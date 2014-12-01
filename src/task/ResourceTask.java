@@ -1,5 +1,7 @@
-package model;
+package task;
 
+import buildings.Building;
+import model.Drone;
 import game.Map;
 
 public class ResourceTask extends Task {

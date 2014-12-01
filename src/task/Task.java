@@ -1,9 +1,10 @@
-package model;
+package task;
 
 import game.Map;
 
 import java.util.List;
 
+import model.Drone;
 import tiles.Tile;
 
 

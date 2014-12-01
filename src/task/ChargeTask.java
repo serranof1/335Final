@@ -1,5 +1,6 @@
-package model;
+package task;
 
+import model.Drone;
 import game.Map;
 import tiles.BuildingEnum;
 import tiles.Tile;
@@ -41,7 +42,7 @@ public class ChargeTask extends Task{
 
 	private boolean nextToPower() {
 		//System.out.println("POOWER PLANT:  " +drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT));
-		if(drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT))
+		if(drone.getCurrentTile().getBuilding().equals(BuildingEnum.POWERPLANT))
 			return true;
 		else
 			return false;

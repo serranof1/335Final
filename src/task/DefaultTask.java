@@ -1,8 +1,10 @@
-package model;
+package task;
 
 import game.Map;
 
 import java.util.Random;
+
+import model.Drone;
 
 public class DefaultTask extends Task {
 	
@@ -26,13 +28,13 @@ public class DefaultTask extends Task {
 		drone.setPower(drone.getPower() - 5);
 		
 		if(randomNumber == 1){
-			drone.setCurrentTile(drone.currentTile.getNorth());
+			drone.setCurrentTile(drone.getCurrentTile().getNorth());
 		} else if(randomNumber == 2){
-			drone.setCurrentTile(drone.currentTile.getSouth());
+			drone.setCurrentTile(drone.getCurrentTile().getSouth());
 		} else if(randomNumber == 3){
-			drone.setCurrentTile(drone.currentTile.getEast());
+			drone.setCurrentTile(drone.getCurrentTile().getEast());
 		} else {
-			drone.setCurrentTile(drone.currentTile.getWest());
+			drone.setCurrentTile(drone.getCurrentTile().getWest());
 		}
 		drone.getTaskList().push(new DefaultTask(drone));
 	}

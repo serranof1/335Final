@@ -216,6 +216,7 @@ public class Map {
 	
 	private Tile[][] buildNodeMap() {
 		Tile[][] map = buildTileMap();
+		//i is column, j is row
 		for(int i = 0; i < size; i++){
 			for(int j = 0; j < size; j++){
 				map[i][j].setWest(map[i][(size + (j - 1)) % size ]);

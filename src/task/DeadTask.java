@@ -1,10 +1,11 @@
-package model;
+package task;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import model.Drone;
 import game.Map;
 
 public class DeadTask extends Task{
