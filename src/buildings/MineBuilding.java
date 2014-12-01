@@ -1,4 +1,4 @@
-package model;
+package buildings;
 
 import game.Map;
 import resources.Resource;

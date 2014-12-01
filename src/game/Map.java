@@ -9,7 +9,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import model.Building;
+import buildings.Building;
 import tiles.BuildingEnum;
 import tiles.BuildingTile;
 import tiles.GroundEnum;

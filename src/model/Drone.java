@@ -6,6 +6,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import task.ChargeTask;
+import task.DeadTask;
+import task.DefaultTask;
+import task.MoveTask;
+import task.Task;
 import tiles.Tile;
 
 public class Drone {

@@ -1,5 +1,7 @@
-package model;
+package task;
 
+import buildings.Building;
+import model.Drone;
 import resources.Carbon;
 import tiles.Tile;
 import game.Map;

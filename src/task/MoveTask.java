@@ -1,7 +1,8 @@
-package model;
+package task;
 
 import java.awt.Point;
 
+import model.Drone;
 import game.Map;
 import tiles.BuildingEnum;
 import tiles.Tile;
