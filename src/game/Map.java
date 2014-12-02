@@ -289,7 +289,7 @@ public class Map {
 			}*/
 		//Fixed issue with not drawing upper left corner, not sure if the code above was for efficiency. Revision needed.
 			for(int i = x; i < b.getWidth()+x;i++){
-				for (int j = y; j < b.getHeight()+y; j++) {
+				for (int j = y; j < b.getLength()+y; j++) {
 					map[i][j].setBuilding(new BuildingTile(b.getTypeOfBuilding()));
 					b.addTile(map[i][j]);
 				}	

@@ -70,13 +70,13 @@ public class MainGame extends JFrame{
 	}
 	private static void initializeBuildings() {
 		// TODO Auto-generated method stub
-		base = new Base(10, 10, map.getTile(10,10));
+		base = new Base(10, 10);
 		map.build(base);
 		base.setFinished();
 		
 		//Constructed with methane as its resource, should not be in final.
 		//Resource may not even be necessary in the constructor.
-		plant1 = new SolarPlant(10, 15, new Hydrogen(), map.getTile(10, 15));
+		plant1 = new SolarPlant(10, 15);
 		//map.build(plant1);
 		
 		buildingList.add(base);
