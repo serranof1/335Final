@@ -135,9 +135,7 @@ public class Tile {
 	}
 	
 	public boolean canMove() {
-		if(((GroundTile)tileStack[0]).getGround() == GroundEnum.OCEAN)
-			return false;
-		else
-			return true;
+		int moveCost = ((GroundTile)tileStack[0]).getMovementCost();		
+		return moveCost <= 1 && !hasDrone;
 	}
 }
