@@ -121,11 +121,7 @@ public class Tile {
 		}
 	}
 	
-	public void draw(Graphics g, int x, int y){
-		g.fillRect(x, y, 50, 50);		
-	}
-	
-	public void draw2(Graphics g, int x, int y) {
+	public void draw(Graphics g, int x, int y) {
 		for (int i = 0; i < 4; i++) {
 			g.drawImage(tileStack[i].getImage(), x, y, null);
 		}

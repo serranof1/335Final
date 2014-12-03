@@ -46,20 +46,7 @@ public class TextView extends JPanel{
 				charMap += "[";
 				charMap += map.getTile(row, col).drawTextForm();
 				charMap += "]";
-				/*
-				if(map.getTile(row, col).drawTextForm().equals("@")){
-					g.setColor(Color.BLACK);
-				}
-				
-				if(map.getTile(row, col).drawTextForm().equals("_") || map.getTile(row, col).drawTextForm().equals("m")){
-					g.setColor(Color.RED);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("M")){
-					g.setColor(Color.GRAY);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("~")){
-					g.setColor(Color.BLUE);
-				}*/
+			
 				g.setColor(map.getTile(row,  col).getColor());
 				g.setFont(new Font("Courier", Font.BOLD, 18)); 
 				g.drawString(charMap,(viewLength - j + 1) * 30, ((i + 1) * 30));

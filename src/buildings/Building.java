@@ -114,7 +114,7 @@ public abstract class Building{
 			 */
 		
 			for(int j = 0; j < length; j++) {
-				if(curr.getGround().getGround() == GroundEnum.PLAIN) { //Sorry about the bad naming here. Tile's getGround method gives a GroundTile whose getGround method gives the Ground enum, if it's PLAIN, it can build
+				if(curr.getGround().getGround() == GroundEnum.PLAIN || curr.getGround().getGround() == GroundEnum.SAND) { //Sorry about the bad naming here. Tile's getGround method gives a GroundTile whose getGround method gives the Ground enum, if it's PLAIN, it can build
 					curr = curr.getEast();
 				} else {
 					return false;

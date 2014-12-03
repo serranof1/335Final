@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
@@ -16,16 +14,20 @@ public class GraphicView extends JPanel{
 	private Map map;
 	private int leftRow, leftCol;
 	private int viewLength, viewHeight;
-	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength) {
+	private TextView textView;
+	
+	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength, TextView textView) {
 
 		this.setSize(1000,1000);
 		this.setBackground(Color.BLACK);
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
+		this.textView = textView;
 		leftRow = row;
 		leftCol = col;
 		
 		this.map = map;
+		this.addKeyListener(new KeyMoveListener());
 		
 
 	}
@@ -53,38 +55,6 @@ public class GraphicView extends JPanel{
 		repaint();
 	}
 
-	public void paintComponent2(Graphics g){
-		super.paintComponent(g);
-
-		int row = leftRow;
-		int col = leftCol;
-		
-		for (int i = 0; i < viewHeight - 1; i++){
-			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
-				
-				if(map.getTile(row, col).drawTextForm().equals("_")){
-					g.setColor(Color.RED);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("M")){
-					g.setColor(Color.GRAY);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("~")){
-					g.setColor(Color.BLUE);
-				}
-				if(map.getTile(row, col).drawTextForm().equals(",")){
-					g.setColor(Color.YELLOW);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("@")){
-					g.setColor(Color.BLACK);
-				}
-				//g.setColor(map.getTile(row, col).getColor());
-				map.getTile(row, col).draw(g, (viewLength - j) * 50, i * 50);
-				col++;
-			}
-			col = leftCol;
-			row++;
-		}
-	}
 	//We may want to use that JViewer or whatever it was Gabe was talking about, but that's later.
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -94,24 +64,8 @@ public class GraphicView extends JPanel{
 		
 		for (int i = 0; i < viewHeight - 1; i++){
 			for (int j = viewLength - 1; j >= 0; j--) { // Changed loop condition here.
-				/*
-				if(map.getTile(row, col).drawTextForm().equals("_")){
-					g.setColor(Color.RED);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("M")){
-					g.setColor(Color.GRAY);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("~")){
-					g.setColor(Color.BLUE);
-				}
-				if(map.getTile(row, col).drawTextForm().equals(",")){
-					g.setColor(Color.YELLOW);
-				}
-				if(map.getTile(row, col).drawTextForm().equals("@")){
-					g.setColor(Color.BLACK);
-				}
-				//g.setColor(map.getTile(row, col).getColor());*/
-				map.getTile(row, col).draw2(g, (viewLength - j) * 50, i * 50);
+				
+				map.getTile(row, col).draw(g, (viewLength - j) * 50, i * 50);
 				col++;
 			}
 			col = leftCol;
@@ -133,5 +87,56 @@ public class GraphicView extends JPanel{
 
 	public void setViewHeight(int viewHeight) {
 		this.viewHeight = viewHeight;
+	}
+
+	private class KeyMoveListener implements KeyListener
+	{
+		public void keyPressed(KeyEvent arg0) {
+			switch(arg0.getKeyCode())
+			{
+			case KeyEvent.VK_UP: 
+				if(leftRow > 0){
+					leftRow--;
+					textView.setLeftRow(-1);
+					
+					textView.repaint();
+					repaint();
+				} 
+				break;
+
+			case KeyEvent.VK_DOWN: 
+				if(leftRow < map.getSize() - viewHeight){
+					leftRow++;
+					textView.setLeftRow(1);
+					textView.repaint();
+					repaint();
+				}
+				break;
+
+			case KeyEvent.VK_LEFT: 
+				if(leftCol > 0){
+					leftCol--;
+					textView.setLeftCol(-1);
+					textView.repaint();
+					repaint();
+				}
+				break;
+
+			case KeyEvent.VK_RIGHT: 
+				if(leftCol < map.getSize() - viewLength){
+					leftCol++;
+					textView.setLeftCol(1);
+					textView.repaint();
+					repaint();
+				}
+				break;
+			default:
+				break;
+			}
+
+		}
+		//this is a comment
+		public void keyReleased(KeyEvent arg0) {}
+		public void keyTyped(KeyEvent arg0) {}
 	}
 }
