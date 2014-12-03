@@ -92,5 +92,10 @@ public class TextView extends JPanel{
 	public int getLeftCol() {
 		return leftCol;
 	}
+
+	public void setMap(Map map) {
+		this.map = map;
+		
+	}
 }
 

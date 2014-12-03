@@ -29,7 +29,6 @@ public class GraphicView extends JPanel{
 		this.map = map;
 		this.addKeyListener(new KeyMoveListener());
 		
-
 	}
 
 	public void setLeftCol(int input){
@@ -138,5 +137,10 @@ public class GraphicView extends JPanel{
 		//this is a comment
 		public void keyReleased(KeyEvent arg0) {}
 		public void keyTyped(KeyEvent arg0) {}
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+		
 	}
 }
