@@ -51,7 +51,7 @@ public class BuildTask extends Task{
 		} else {
 			
 			drone.getTaskList().push(new BuildTask(drone, toBuild));
-			drone.getTaskList().push(new MoveTask(drone, buildLoc));
+			drone.getTaskList().push(new MoveTask(drone, buildLoc, true));
 			drone.getTaskList().pop().execute(map);
 		}
 	}

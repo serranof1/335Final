@@ -22,7 +22,7 @@ public class ResourceTask extends Task {
 			if (drone.getCurrentTile() == map.getTile(10, 10)) {
 				giveMeStuff.depositAll(drone.getInventory());
 			} else {
-				drone.getTaskList().push(new MoveTask(drone, map.getTile(10, 10)));
+				drone.getTaskList().push(new MoveTask(drone, map.getTile(10, 10), true));
 				drone.getTaskList().pop().execute(map);
 			}
 		}

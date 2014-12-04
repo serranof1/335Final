@@ -25,7 +25,7 @@ public class ItemBuildTask extends Task {
 		} else {
 			Tile chargingTile = map.getTile(10, 15);
 			drone.getTaskList().push(new ItemBuildTask(drone, toBeBuilt));
-			drone.getTaskList().push(new MoveTask(drone, chargingTile));
+			drone.getTaskList().push(new MoveTask(drone, chargingTile, true));
 			drone.getTaskList().pop().execute(map);
 			System.out.println("Moving To Power Plant to make a battery!");
 		}
