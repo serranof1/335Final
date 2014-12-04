@@ -178,6 +178,7 @@ public class MainGame {
 		for(int i = 0; i < allDrones.size(); i++){
 			for(int j = 0; j< allDrones.get(i).size(); j++){
 				allDrones.get(i).get(j).executeTaskList(map);
+				System.out.println("Repair: " + allDrones.get(i).get(j).getRepair());
 			}
 		}
 		System.out.println("**************************************************************");

@@ -26,7 +26,7 @@ public class DefaultTask extends Task {
 		int max = 5;
 		int randomNumber = random.nextInt(max - min) + min; 
 		drone.setPower(drone.getPower() - 5);
-		
+		drone.setRepair(drone.getRepair() - 1);
 		if(randomNumber == 1){
 			drone.setCurrentTile(drone.getCurrentTile().getNorth());
 		} else if(randomNumber == 2){

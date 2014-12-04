@@ -76,11 +76,15 @@ public class Drone {
 	 */
 	
 	private int movementAbility = 10;
+	
+	private int repair;
+	private int maxRepair = 100;
 
 	public Drone(String name, double power, Tile start) {
 		this.name = name;
 		this.power = power;
 		maxPower = 400;
+		repair = 100;
 		//if (this.power > maxPower) {
 		//	this.power = maxPower;
 		//}
@@ -122,12 +126,12 @@ public class Drone {
 		System.out.println(this.getTaskList());
 		System.out.println(this.getPath());
 		System.out.println();
-		if(currentPath.isEmpty() == false && power >= 80){
+		if(currentPath.isEmpty() == false && power >= 80 && repair >= 30){
 			taskList.push(new MoveTask(this, null));
 			//taskList.pop().execute(map);
 		}else if(power > 80){
 			//taskList.pop().execute(map);
-		}else if(power > 0){
+		}else if(power > 0 && repair > 0){
 			System.out.println("Insufficient power, need to recharge");
 			taskList.push(new ChargeTask(this)); 
 			//taskList.pop().execute(map);
@@ -227,5 +231,13 @@ public class Drone {
 
 	public int getInventory() {
 		return 10;
+	}
+	
+	public int getRepair() {
+		return repair;
+	}
+	
+	public void setRepair(int i) {
+		repair = i;
 	}
 }
