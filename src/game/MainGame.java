@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import model.Battery;
 import model.Drone;
+import model.WeatherBehavior;
 import task.BuildTask;
 import task.ItemBuildTask;
 import task.ResourceTask;
@@ -35,6 +36,8 @@ public class MainGame {
 
 	private static Drone startDroneOne, startDroneTwo, startDroneThree, startDroneFour, startDroneFive;
 	private static Building base, plant1;
+	
+	private static WeatherBehavior wb = new WeatherBehavior();
 
 	/**
 	 * @author Cody Jensen
@@ -164,6 +167,7 @@ public class MainGame {
 		for(int i = 0; i < allDrones.size(); i++){
 			for(int j = 0; j< allDrones.get(i).size(); j++){
 				allDrones.get(i).get(j).executeTaskList(map);
+				System.out.println("Repair: " + allDrones.get(i).get(j).getRepair());
 			}
 		}
 		System.out.println("**************************************************************");
@@ -175,6 +179,9 @@ public class MainGame {
 		return this.map;
 	}
 
+	public void doWeather() {
+		wb.LightMovement(map);
+	}
 
 
 }

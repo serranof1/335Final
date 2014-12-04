@@ -98,8 +98,8 @@ public class MainGUI extends JFrame{
 		int x = 0;
 		public void run() //this becomes the loop
 		{
-			WeatherBehavior.LightMovement(mainGame.getMap());
 			mainGame.assignTasks();
+			mainGame.doWeather();
 			mainGame.doDroneTasks();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();

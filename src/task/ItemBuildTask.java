@@ -17,6 +17,7 @@ public class ItemBuildTask extends Task {
 	@Override
 	public void execute(Map map) {
 		drone.setPower(drone.getPower() - 7);
+		drone.setRepair(drone.getRepair() - 1);
 		if (drone.getCurrentTile().getBuilding().getBuildingType() == toBeBuilt.getRequiredBuilding()) {
 			toBeBuilt.execute(drone);
 			drone.giveItem(toBeBuilt);

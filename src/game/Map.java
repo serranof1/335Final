@@ -206,8 +206,9 @@ public class Map {
 						tileMap[i][j] = new Tile(ocean, methane, noBuilding, night, droneImage);
 					}
 				}
-				tileMap[i][j].setX(i);
-				tileMap[i][j].setY(j);
+				tileMap[i][j].setX(j);
+				tileMap[i][j].setY(i);
+				//switched i and j here; I think that is where we were having the x/y issue
 			}
 		}
 		return tileMap;
