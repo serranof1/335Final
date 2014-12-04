@@ -12,10 +12,12 @@ public class BuildTask extends Task{
 	private Tile buildLoc;
 	private Building toBuild;
 	private boolean flag = true;
+	private int buildProgress;
 
 	public BuildTask(Drone drone, Building build) {
 		super(drone);
 		toBuild = build;
+		buildProgress = 0;
 	}
 
 	//We should probably set this up soon so that we can choose the location the building is built.
@@ -38,13 +40,13 @@ public class BuildTask extends Task{
 		}*/
 		
 		if (drone.getCurrentTile() == buildLoc) {
-			if (!toBuild.isFinished()) {
+			buildProgress+=1;
+			if (toBuild.contruct()) {
 				map.build(toBuild);
 				toBuild.setFinished();
 				System.out.println("Drone has built the building");
-			} else {
-				//drone.getTaskList().push(new BuildTask(drone, toBuild));
-				System.out.println("Test");
+			}else{
+				drone.getTaskList().push(new BuildTask(drone, toBuild));
 			}
 		} else {
 			

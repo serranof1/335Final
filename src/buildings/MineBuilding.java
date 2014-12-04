@@ -11,9 +11,10 @@ public class MineBuilding extends Building{
 	private final static int MINE_LENGTH = 2;
 	private final static String BUILDING_NAME = "MB";
 	private final static int MAX_CAP = 10000;
+	private final static int BUILD_TIME = 8;
 	
 	public MineBuilding(int x, int y, Resource source) {
-		super(x, y, MINE_WIDTH, MINE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.MINE);
+		super(x, y, MINE_WIDTH, MINE_LENGTH, MAX_CAP, BUILD_TIME, BUILDING_NAME, BuildingEnum.MINE);
 	}
 
 	@Override
@@ -24,6 +25,12 @@ public class MineBuilding extends Building{
 
 	@Override
 	public void construct() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void collectResource(Map map) {
 		// TODO Auto-generated method stub
 		
 	}

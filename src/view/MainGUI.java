@@ -90,7 +90,7 @@ public class MainGUI extends JFrame{
 	private void gameLoop()
 	{
 		timer = new Timer();
-		timer.schedule(new loopRunnable(), 0, 3000); 
+		timer.schedule(new loopRunnable(), 0, 2000); 
 	}
 
 	private class loopRunnable extends java.util.TimerTask
@@ -99,6 +99,7 @@ public class MainGUI extends JFrame{
 		public void run() //this becomes the loop
 		{
 			WeatherBehavior.LightMovement(mainGame.getMap());
+			mainGame.assignTasks();
 			mainGame.doDroneTasks();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();

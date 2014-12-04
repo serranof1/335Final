@@ -1,34 +1,19 @@
 package game;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Timer;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 
-
-
-
-
-import buildings.Base;
-import buildings.Building;
-import buildings.SolarPlant;
 import model.Battery;
 import model.Drone;
-import model.WeatherBehavior;
-import resources.Hydrogen;
+import task.BuildTask;
+import task.ItemBuildTask;
+import task.ResourceTask;
 import tiles.Tile;
-import view.GraphicView;
-import view.TextView;
-import model.*;
-import resources.*;
-import task.*;
-import tiles.*;
-import view.*;
+import view.MainGUI;
+import buildings.Base;
+import buildings.Building;
 
 public class MainGame {
 
@@ -84,6 +69,9 @@ public class MainGame {
 		map.build(base);
 		base.setFinished();
 		buildingList.add(base);
+		
+
+		
 	}
 	/**
 	 * @author Cody Jensen
@@ -129,7 +117,7 @@ public class MainGame {
 	
 	}
 	
-	private void assignTasks(){
+	public void assignTasks(){
 		buildTasks();
 		mineTasks();
 		itemBuildTasks();
@@ -146,7 +134,7 @@ public class MainGame {
 		
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
-				if(!buildingList.get(i).isFinished()){
+				if(!buildingList.get(i).isAssigned()){
 						builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
 						System.out.println("Builder has been assigned a building task.");
 				}

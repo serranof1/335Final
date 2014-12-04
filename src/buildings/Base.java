@@ -17,7 +17,7 @@ public class Base extends Building {
 	
 	
 	public Base(int x, int y) {
-		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.BASE);
+		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, 0, BUILDING_NAME, BuildingEnum.BASE);
 	}
 
 	@Override
@@ -28,6 +28,12 @@ public class Base extends Building {
 
 	@Override
 	public void construct() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void collectResource(Map map) {
 		// TODO Auto-generated method stub
 		
 	}
