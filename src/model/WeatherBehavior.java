@@ -72,6 +72,7 @@ public class WeatherBehavior {
 						eachDrone.getLocationY() < eachStorm.getYCorner() + eachStorm.getSize());
 					if (eachStorm.execute(eachDrone, stormEffect)) {
 						eachStorm.endStorm(map);
+						stormList.remove(eachStorm);
 					}
 				}				
 			}
