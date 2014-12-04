@@ -266,7 +266,9 @@ public class Map {
 		int x = b.getLocation().x;
 		int y = b.getLocation().y;
 		
-		if (b.canBuild(map[x][y])) {
+		if (b.canBuild(map[x][y])) { //I think this should be switched, for the x/y issue
+			//not that it currently has an issue, since we're working with squares, but
+			//to be correct
 			/*
 			 * Just like in the loop in Building, where it checks if it can build,
 			 * this loop sets each tile to have the appropriate type of building.
