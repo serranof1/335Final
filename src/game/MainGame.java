@@ -50,6 +50,8 @@ public class MainGame {
 
 	private static Drone startDroneOne, startDroneTwo, startDroneThree, startDroneFour, startDroneFive;
 	private static Building base, plant1;
+	
+	private static WeatherBehavior wb = new WeatherBehavior();
 
 	/**
 	 * @author Cody Jensen
@@ -187,6 +189,9 @@ public class MainGame {
 		return this.map;
 	}
 
+	public void doWeather() {
+		wb.LightMovement(map);
+	}
 
 
 }
