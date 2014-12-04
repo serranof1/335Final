@@ -82,7 +82,7 @@ public class MainGame {
 		map.build(base);
 		base.setFinished();
 		buildingList.add(base);
-		
+		wb.addTestStorm(map);
 
 		
 	}
@@ -191,6 +191,7 @@ public class MainGame {
 
 	public void doWeather() {
 		wb.LightMovement(map);
+		wb.StormActions(allDrones, map);
 	}
 
 
