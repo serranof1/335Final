@@ -338,10 +338,10 @@ public class Map {
 	//returns Manhattan Distance between two Tiles
 	public double rankPath(Tile pathTile, Tile goal){
 		
-		int dx = Math.abs(goal.getX() - pathTile.getX());
-	    int dy = Math.abs(goal.getY() - pathTile.getY());
+		double dx = Math.pow(goal.getX() - pathTile.getX(), 2);
+	    double dy = Math.pow(goal.getY() - pathTile.getY(), 2);
 	    
-	    double pathRank = dx+dy;
+	    double pathRank = Math.sqrt(dx+dy);
 		
 		return pathRank; 
 		
@@ -349,15 +349,9 @@ public class Map {
 	
 	private boolean checkTileOccupied(Tile input, int canMove) {
 		
-		//if(input.getHasDrone()){
-		//	return false;
-		//}
-		/*if(input.getBuilding().drawTextForm().equals("") != true){
-			return false;
-		}*/
-		if(input.getGround().getMovementCost() > canMove){
-			return false;
-		}
+		if(input.canMove() == true){
 		return true;
+		}
+		return false;
 	}
 }

@@ -135,7 +135,12 @@ public class Tile {
 	}
 	
 	public boolean canMove() {
-		int moveCost = ((GroundTile)tileStack[0]).getMovementCost();		
+		int moveCost = ((GroundTile)tileStack[0]).getMovementCost();
+		
+		if(((BuildingTile)tileStack[2]).getBuildingType() != BuildingEnum.NOTHING) {
+			return false;
+		}
+		
 		return moveCost <= 1 && !hasDrone; //the canMove will have to be dependent on the tile
 		//to which it is moving. We probably want to pass a tile to it
 	}
