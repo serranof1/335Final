@@ -24,7 +24,7 @@ public class RepairTask extends Task {
 		} else {
 			Tile repairTile = map.getTile(10, 10);
 			//drone.getTaskList().push(new ChargeTask(drone));
-			drone.getTaskList().push(new MoveTask(drone, repairTile));
+			drone.getTaskList().push(new MoveTask(drone, repairTile, true));
 			drone.getTaskList().pop().execute(map);
 		}
 	}

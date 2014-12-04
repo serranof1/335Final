@@ -254,7 +254,7 @@ public class Map {
 	}
 	
 	public Tile getTile(int i, int j) {
-		return map[i][j];
+		return map[j][i];
 	}
 	
 	public void setTile(Tile t, int x, int y) {
@@ -289,7 +289,7 @@ public class Map {
 		}
 	}
 	
-	public LinkedList<Point> findPath(Tile current, Tile goal, int canMove){
+	public LinkedList<Point> findPath(Tile current, Tile goal){
 		
 		ArrayList<Tile> closedList = new ArrayList<Tile>();
 		ArrayList<Tile> openList = new ArrayList<Tile>();
@@ -297,38 +297,53 @@ public class Map {
 		Tile pathTile = current;
 		double pathRank = 0.0;
 		
-		openList.add(current);
-			
+		//openList.add(current);
+		System.out.println("dronepos: " +current.getX() +"   " +current.getY());
+		System.out.println("northpos: " +current.getNorth().getX() +"    " + current.getNorth().getY());
+		
 		while(pathTile != goal){
 			//add eligible tiles to the open list
-			if(checkTileOccupied(pathTile.getNorth(), canMove)){
+			if(pathTile.getNorth().canMove()){
 				openList.add(pathTile.getNorth());
 			}
-			if(checkTileOccupied(pathTile.getSouth(), canMove)){
+			if(pathTile.getSouth().canMove()){
 				openList.add(pathTile.getSouth());
 			}
-			if(checkTileOccupied(pathTile.getEast(), canMove)){
+			if(pathTile.getEast().canMove()){
 				openList.add(pathTile.getEast());
 			}
-			if(checkTileOccupied(pathTile.getWest(), canMove)){
+			if(pathTile.getWest().canMove()){
 				openList.add(pathTile.getWest());
 			}
 			
-			
-			for(int i = 0; i < openList.size(); i++){
-				Tile tile = openList.get(i);
-				
-				Point pointToAdd = null;
-				if(rankPath(pathTile, goal) > rankPath(tile, goal)){
-					pointToAdd = new Point(pathTile.getX(), pathTile.getY());
-					closedList.add(tile);
-					pathTile = tile;
-					path.add(pointToAdd);
-					openList.remove(tile);
-				}
-				
+			for(Tile testTile : openList){
+				System.out.print("X : " +testTile.getX() + "   Y:  " + testTile.getY());
 			}
 			
+			if(openList.size() == 0){
+				System.out.println("NO TILE IN OPEN LIST");
+				break;
+			}
+	
+			Point pointToAdd = null;
+			Tile tile = openList.get(0);
+			
+			for(int i = 0; i < openList.size() - 1; i++){
+				
+				tile = openList.get(i);
+				
+				
+				if(rankPath(tile , goal) > rankPath(openList.get(i +1), goal)){
+					tile = openList.get(i+1);
+				}else{
+					closedList.add(openList.get(i+1));
+					openList.remove(i+1);
+					
+				}	
+			}
+			pathTile = tile;
+			pointToAdd = new Point(tile.getX(), tile.getY());
+			path.add(pointToAdd);
 		}
 		Point pointToAdd = new Point(pathTile.getX(), pathTile.getY());
 		path.add(pointToAdd);
@@ -347,11 +362,4 @@ public class Map {
 		
 	}
 	
-	private boolean checkTileOccupied(Tile input, int canMove) {
-		
-		if(input.canMove() == true){
-		return true;
-		}
-		return false;
-	}
 }

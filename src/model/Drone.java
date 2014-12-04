@@ -127,25 +127,37 @@ public class Drone {
 	 */
 	public void executeTaskList(Map map) {
 		System.out.println(this.getName() + " Current Power: " + power);
-		System.out.println(this.getTaskList());
-		System.out.println(this.getPath());
-		System.out.println();
-		if (currentPath.isEmpty() == false && power >= 80 && repair >= 30) {
-			taskList.push(new MoveTask(this, null));
-		} else if (power > 80) {
-			taskList.push(new RepairTask(this));
-			System.out.println("Too damaged to continue; repairing.");
-		} else if (power > 0 && repair > 0) {
-			System.out.println("Insufficient power, need to recharge");
+		if(!currentPath.isEmpty() && power > 80 && repair > 30){
+			taskList.push(new MoveTask(this, null, false));
+		} else if(power < 80 && repair > 0){
 			taskList.push(new ChargeTask(this));
+		} else if(power > 80 && repair < 30){
+			taskList.push(new RepairTask(this));
 		} else {
-			System.out.println(this.toString()
-					+ " has died and should be reclaimed");
-			taskList.push(new DeadTask(this));
+		
 		}
+		
+		
+		
+		taskList.pop().execute(map);
+//		System.out.println(this.getTaskList());
+//		System.out.println(this.getPath());
+//		System.out.println();
+//		if (currentPath.isEmpty() == false && power >= 80 && repair >= 30) {
+//			taskList.push(new MoveTask(this, null));
+//		} else if (power > 80 && repair < 30) {
+//			taskList.push(new RepairTask(this));
+//			System.out.println("Too damaged to continue; repairing.");
+//		} else if (power > 0 && repair > 0) {
+//			System.out.println("Insufficient power, need to recharge");
+//			taskList.push(new ChargeTask(this));
+//		} else {
+//			System.out.println(this.toString()
+//					+ " has died and should be reclaimed");
+//			taskList.push(new DeadTask(this));
+//		}
 
 		// System.out.println(this.getTaskList());
-		taskList.pop().execute(map);
 
 
 	}

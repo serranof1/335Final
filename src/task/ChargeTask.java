@@ -33,8 +33,8 @@ public class ChargeTask extends Task{
 		}else{
 			
 			Tile chargingTile = map.getTile(10, 15);
-			//drone.getTaskList().push(new ChargeTask(drone));
-			drone.getTaskList().push(new MoveTask(drone, chargingTile));
+			drone.getTaskList().push(new ChargeTask(drone));
+			drone.getTaskList().push(new MoveTask(drone, chargingTile, true));
 			drone.getTaskList().pop().execute(map);
 			//System.out.println("Moving To power supply!");
 		}

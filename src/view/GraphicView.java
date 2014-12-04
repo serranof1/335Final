@@ -64,7 +64,7 @@ public class GraphicView extends JPanel{
 		for (int i = 0; i < viewHeight; i++){
 			for (int j = viewLength; j > 0; j--) { // Changed loop condition here.
 				
-				map.getTile(row, col).draw(g, (viewLength - j) * 50, i * 50);
+				map.getTile(col, row).draw(g, (viewLength - j) * 50, i * 50);
 				col++;
 			}
 			col = leftCol;

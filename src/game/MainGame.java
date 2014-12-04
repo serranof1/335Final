@@ -57,8 +57,8 @@ public class MainGame {
 	
 	private void debugMethod() {
 		
-		Drone moveDrone = new Drone("moveDrone", 400.0, map.getTile(10, 30));
-		moveDrone.getTaskList().push(new MoveTask(moveDrone, map.getTile(10,10)));
+		Drone moveDrone = new Drone("moveDrone", 400.0, map.getTile(10, 20));
+		moveDrone.getTaskList().push(new MoveTask(moveDrone, map.getTile(10,10), true));
 		defaultList.add(moveDrone);
 		
 		
@@ -70,7 +70,7 @@ public class MainGame {
 		
 		//when a game is started if main base cannot be built generate new map
 		if(base.canBuild(map.getTile(10,10)) != true){
-			map = new Map(6);
+			map = new Map(5);
 			mapSpawnCheck();
 		}
 		initializeBuildings();
@@ -94,7 +94,7 @@ public class MainGame {
 	private static void initializeDrones() {
 
 		
-		startDroneOne = new Drone("startDroneOne", 400.0, map.getTile(10,15));	
+		/*startDroneOne = new Drone("startDroneOne", 400.0, map.getTile(10,15));	
 		startDroneTwo = new Drone("startDroneTwo", 400.0, map.getTile(15,15));
 		startDroneThree = new Drone("startDroneThree", 400.0, map.getTile(17,17));
 		startDroneFour = new Drone("startDroneFour", 400.0, map.getTile(20,21));
@@ -104,7 +104,7 @@ public class MainGame {
 		defaultList.add(startDroneTwo);
 		defaultList.add(startDroneThree);
 		defaultList.add(startDroneFour);
-		defaultList.add(startDroneFive);
+		defaultList.add(startDroneFive);*/
 
 		allDrones.add(defaultList);
 		allDrones.add(miners);
