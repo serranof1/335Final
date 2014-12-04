@@ -15,31 +15,30 @@ import task.Task;
 import tiles.Tile;
 
 public class Drone {
-	
+
 	private int locationX;
 	private int locationY;
 	private String name;
-	
+
 	/**
-	 * Variable keeps track of if a drone has died and can be consumed for resources
+	 * Variable keeps track of if a drone has died and can be consumed for
+	 * resources
 	 */
 	private boolean reclaim = true;
-	
+
 	private Items currentItem;
-	
+
 	/**
-	 * List of tiles that a drone has been assigned, with the first tile
-	 * always being adjacent to the drone's current tile
+	 * List of tiles that a drone has been assigned, with the first tile always
+	 * being adjacent to the drone's current tile
 	 */
 	private LinkedList<Point> currentPath = new LinkedList<Point>();
-	
-	
+
 	/**
-	 * @author Cody Jensen
-	 * Queue of task for drone to execute
+	 * @author Cody Jensen Queue of task for drone to execute
 	 */
 	private LinkedList<Task> taskList = new LinkedList<Task>();
-	
+
 	/**
 	 * Keeps track of the drone's current power level. Depletes over time by
 	 * some factor (-.5?) when in standby and when doing tasks increases the
@@ -53,31 +52,34 @@ public class Drone {
 
 	/**
 	 * Instance variable for the amount of materials a drone currently holds.
-	 * Later we can implement a cap, and increase movement cost if the drone
-	 * 	has more things.
+	 * Later we can implement a cap, and increase movement cost if the drone has
+	 * more things.
 	 */
 	private double materials;
-	
+
 	/**
 	 * Instance variable for the current tile the drone is on.
 	 */
 	protected Tile currentTile;
-	
+
 	/**
-	 * Instance keeps track of the drones charging state;
-	 * This may not be needed.
+	 * Instance keeps track of the drones charging state; This may not be
+	 * needed.
 	 */
-	//private boolean charging;
-	
+	// private boolean charging;
+
 	/**
-	 * Creates a drone with a set amount of starting power, and a default job of do nothing
+	 * Creates a drone with a set amount of starting power, and a default job of
+	 * do nothing
 	 * 
-	 * @param power 	The initial power that a drone starts with
-	 * @param defaultJob 	The Default job that a drone will always do
+	 * @param power
+	 *            The initial power that a drone starts with
+	 * @param defaultJob
+	 *            The Default job that a drone will always do
 	 */
-	
+
 	private int movementAbility = 10;
-	
+
 	private int repair;
 	private int maxRepair = 100;
 
@@ -86,81 +88,74 @@ public class Drone {
 		this.power = power;
 		maxPower = 400;
 		repair = 100;
-		//if (this.power > maxPower) {
-		//	this.power = maxPower;
-		//}
+		// if (this.power > maxPower) {
+		// this.power = maxPower;
+		// }
 		currentTile = start;
 		currentTile.setHasDrone(true);
 		materials = 0;
 		taskList.push(new DefaultTask(this));
 	}
-	
-	//Getters and setters for location
-	public int getLocationX(){
+
+	// Getters and setters for location
+	public int getLocationX() {
 		return locationX;
 	}
-	
-	public void setLocationX(int newX){
+
+	public void setLocationX(int newX) {
 		locationX = newX;
 	}
-	
-	public int getLocationY(){
+
+	public int getLocationY() {
 		return locationY;
 	}
-	
-	public void setLocationY(int newY){
+
+	public void setLocationY(int newY) {
 		locationY = newY;
 	}
 
 	public LinkedList<Point> getPath() {
 		return currentPath;
 	}
-//	public boolean isCharging() {
-//		return charging;
-//	}
+
+	// public boolean isCharging() {
+	// return charging;
+	// }
 
 	/**
 	 * 
 	 */
-	public void executeTaskList(Map map){
+	public void executeTaskList(Map map) {
 		System.out.println(this.getName() + " Current Power: " + power);
 		System.out.println(this.getTaskList());
 		System.out.println(this.getPath());
 		System.out.println();
-		if(currentPath.isEmpty() == false && power >= 80 && repair >= 30){
+		if (currentPath.isEmpty() == false && power >= 80 && repair >= 30) {
 			taskList.push(new MoveTask(this, null));
-			//taskList.pop().execute(map);
-		}else if(power > 80){
-			//taskList.pop().execute(map);
+		} else if (power > 80) {
 			taskList.push(new RepairTask(this));
 			System.out.println("Too damaged to continue; repairing.");
-		}else if(power > 0 && repair > 0){
+		} else if (power > 0 && repair > 0) {
 			System.out.println("Insufficient power, need to recharge");
-			taskList.push(new ChargeTask(this)); 
-			//taskList.pop().execute(map);
-		}else{
-			System.out.println(this.toString() + " has died and should be reclaimed");
+			taskList.push(new ChargeTask(this));
+		} else {
+			System.out.println(this.toString()
+					+ " has died and should be reclaimed");
 			taskList.push(new DeadTask(this));
-			//taskList.pop().execute(map);
 		}
-		
-//		System.out.println(this.getTaskList());
+
+		// System.out.println(this.getTaskList());
 		taskList.pop().execute(map);
-		
-//		if(power>0){
-//			power -=5;
-//			if(power<0){
-//				power = 0;
-//			}
-//		}
+
+
 	}
 
 	private String getName() {
-	// TODO Auto-generated method stub
-	return name;
-}
+		// TODO Auto-generated method stub
+		return name;
+	}
 
-	public double getPower() {	
+	public double getPower() {
 		return power;
 	}
 
@@ -171,11 +166,11 @@ public class Drone {
 			power = newPower;
 		}
 	}
-	
+
 	public void setMaxPower(double newMax) {
 		maxPower = newMax;
 	}
-	
+
 	public double getMaxPower() {
 		return maxPower;
 	}
@@ -188,42 +183,41 @@ public class Drone {
 		currentTile.setHasDrone(false);
 		currentTile = input;
 		currentTile.setHasDrone(true);
-		
+
 	}
-	
+
 	public Tile getCurrentTile() {
 		return currentTile;
 	}
 
-	
 	public void giveItem(Items item) {
 		currentItem = item;
 	}
 
-	public Point getNextTile(){
+	public Point getNextTile() {
 		return currentPath.getFirst();
 	}
-	
+
 	public void setPath(LinkedList<Point> newPath) {
-		for(Point point : newPath){
+		for (Point point : newPath) {
 			currentPath.add(point);
-		}	
+		}
 	}
-	
+
 	public void setMovementAbility(int i) {
 		movementAbility = i;
 	}
-	
+
 	public int getMovementAbility() {
 		return movementAbility;
 	}
 
 	public boolean hasItem() {
 		// TODO Auto-generated method stub
-		if(currentItem != null){
+		if (currentItem != null) {
 			return true;
-			
-		}else{
+
+		} else {
 			return false;
 		}
 	}
@@ -235,15 +229,15 @@ public class Drone {
 	public int getInventory() {
 		return 10;
 	}
-	
+
 	public int getRepair() {
 		return repair;
 	}
-	
+
 	public void setRepair(int i) {
 		repair = i;
 	}
-	
+
 	public int getMaxRepair() {
 		return maxRepair;
 	}

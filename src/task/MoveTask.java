@@ -27,8 +27,8 @@ public class MoveTask extends Task {
 		
 		if(drone.getPath().isEmpty()){
 			System.out.println("Drone doesn't have a path. Creating a new one");
-//			drone.setPath(map.findPath(current, goal, drone.getMovementAbility()));
-			drone.setPath(new Path(current, goal, drone.getMovementAbility()).getPath());
+			drone.setPath(map.findPath(current, goal, drone.getMovementAbility()));
+//			drone.setPath(new Path(current, goal, drone.getMovementAbility()).getPath());
 		}
 		
 		Point nextCoord = drone.getNextTile();
@@ -36,11 +36,6 @@ public class MoveTask extends Task {
 		drone.setCurrentTile(map.getTile(nextCoord.x, nextCoord.y));
 		drone.getPath().removeFirst();
 		
-		
-		
-//		if(!drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT)){
-//			drone.getTaskList().push(new MoveTask(drone, goal));
-//		}
 		
 	}
 }

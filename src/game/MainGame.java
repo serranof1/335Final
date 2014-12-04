@@ -10,6 +10,7 @@ import model.Drone;
 import model.WeatherBehavior;
 import task.BuildTask;
 import task.ItemBuildTask;
+import task.MoveTask;
 import task.ResourceTask;
 import tiles.Tile;
 import view.MainGUI;
@@ -50,9 +51,18 @@ public class MainGame {
 		setupVariables();
 		mapSpawnCheck();
 		initializeDrones();	
+		debugMethod();
 		
 	}
 	
+	private void debugMethod() {
+		
+		Drone moveDrone = new Drone("moveDrone", 400.0, map.getTile(10, 30));
+		moveDrone.getTaskList().push(new MoveTask(moveDrone, map.getTile(10,10)));
+		defaultList.add(moveDrone);
+		
+		
+	}
 	
 	private void mapSpawnCheck() {
 		

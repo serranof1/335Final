@@ -13,8 +13,8 @@ public class MainGUI extends JFrame{
 
 	private static GraphicView graphics;
 	private TextView textView;
+	private floatingPanel floating;
 	
-	private JTabbedPane panes;
 	private MainGame mainGame;
 	private Timer timer;
 	
@@ -30,9 +30,12 @@ public class MainGUI extends JFrame{
 	public MainGUI(){
 		
 		mainGame = new MainGame();
+		floating = new floatingPanel();
+		
+		this.add(floating);
 		setupMapPane();
 		this.setVisible(true);
-		this.setSize(1000, 1000);
+		this.setSize(1020,1020);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		runGameLoop();
 		
@@ -40,8 +43,6 @@ public class MainGUI extends JFrame{
 	}
 	
 	private void setupMapPane() {
-		panes = new JTabbedPane();
-		panes.setFocusable(false);
 		
 		textView = new TextView(mainGame.getMap(), 5, 5, 20, 20);
 		graphics = new GraphicView(mainGame.getMap(), 5 ,5, 20, 20, textView);
@@ -51,17 +52,15 @@ public class MainGUI extends JFrame{
 		textView.setFocusable(true);
 		
 		System.out.println(graphics.isFocusOwner());
-		panes.add("Text View", textView);
-		panes.add("Graphic View", graphics);
-	
-		this.add(panes);
+		
+		this.add(graphics);
 		
 	}
 
 	public void drawGame(){
-		System.out.println(graphics);
 		graphics.repaint();
 		textView.repaint();
+		floating.repaint();
 	}
 
 

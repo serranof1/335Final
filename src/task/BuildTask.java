@@ -26,7 +26,6 @@ public class BuildTask extends Task{
 	public void execute(Map map) {
 		drone.setPower(drone.getPower() - 10);
 		drone.setRepair(drone.getRepair() - 1);
-		// TODO Auto-generated method stub
 		buildLoc = map.getTile(10,15);
 		
 		/*if(!toBuild.isFinished()){
