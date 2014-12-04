@@ -45,12 +45,13 @@ public class Path {
 
 			// canMoveTiles.poll();
 			// canMoveTiles.removeLast();
+			/*
 			System.out.println(">>>>>>>>>>>> " + destination.getX() + "     "
 					+ destination.getY() + "	" + "drone power		" + dronePower);
 			for (Tile tile : canMoveTiles) {
 				System.out.println("---> " + tile.getX() + "     "
 						+ tile.getY());
-			}
+			}*/
 			// int currentInPath = path.size();
 			for (Tile tile : canMoveTiles) {
 
@@ -65,15 +66,15 @@ public class Path {
 					if (!findPath(tile, temp, (dronePower - tile.getGround()
 							.getMovementCost()))
 							&& !path.isEmpty()) {
-						System.out.println("tile " + tile.getX() + tile.getY() + "is removed!");
-						System.out.println("current tile is " + tile.getX() + tile.getY());
+						//System.out.println("tile " + tile.getX() + tile.getY() + "is removed!");
+						//System.out.println("current tile is " + tile.getX() + tile.getY());
 						path.remove(tile);
 					} else {
 						return true;
 					}
 				} else {
-					System.out.println("The tile was " + tile.getGround().getGround());
-					System.out.println("The tile has drone " + tile.getHasDrone());
+					//System.out.println("The tile was " + tile.getGround().getGround());
+					//System.out.println("The tile has drone " + tile.getHasDrone());
 				}
 			}
 			return false;

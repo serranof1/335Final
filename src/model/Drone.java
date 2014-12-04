@@ -10,6 +10,7 @@ import task.ChargeTask;
 import task.DeadTask;
 import task.DefaultTask;
 import task.MoveTask;
+import task.RepairTask;
 import task.Task;
 import tiles.Tile;
 
@@ -131,6 +132,8 @@ public class Drone {
 			//taskList.pop().execute(map);
 		}else if(power > 80){
 			//taskList.pop().execute(map);
+			taskList.push(new RepairTask(this));
+			System.out.println("Too damaged to continue; repairing.");
 		}else if(power > 0 && repair > 0){
 			System.out.println("Insufficient power, need to recharge");
 			taskList.push(new ChargeTask(this)); 
@@ -239,5 +242,9 @@ public class Drone {
 	
 	public void setRepair(int i) {
 		repair = i;
+	}
+	
+	public int getMaxRepair() {
+		return maxRepair;
 	}
 }
