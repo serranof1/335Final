@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import model.Battery;
 import model.Drone;
 import model.WeatherBehavior;
+import pathfinding.AStarPathFinder;
 import task.BuildTask;
 import task.ChargeTask;
 import task.ItemBuildTask;
@@ -42,6 +43,9 @@ public class MainGame {
 	
 	private static WeatherBehavior wb = new WeatherBehavior();
 
+	private Drone testMove;
+	
+	
 	/**
 	 * @author Cody Jensen
 	 * 
@@ -53,16 +57,15 @@ public class MainGame {
 		setupVariables();
 		mapSpawnCheck();
 		initializeDrones();	
-//		debugMethod();
+		debugMethod();
 		
 	}
 	
 	private void debugMethod() {
 		
-		Drone moveDrone = new Drone("moveDrone", 400.0, map.getTile(10, 20));
-		moveDrone.getTaskList().push(new MoveTask(moveDrone, map.getTile(10,10), true));
-		defaultList.add(moveDrone);
-		
+		testMove = new Drone("test", 400.0, map.getTile(30, 30));
+		testMove.getTaskList().push(new MoveTask(testMove, map.getTile(10, 10), false));
+		defaultList.add(testMove);
 		
 	}
 	
@@ -130,6 +133,7 @@ public class MainGame {
 			map = new Map(6, Long.parseLong(s));
 		}
 	
+		
 	}
 	
 	public void assignTasks(){
@@ -211,9 +215,8 @@ public class MainGame {
 	
 	public void doDroneTasksTest() {
 		
-		Drone testMove = new Drone("test", 400.0, map.getTile(30, 10));
-		testMove.getTaskList().push(new MoveTask(testMove, map.getTile(10, 13), true));
-		defaultList.add(testMove);
+		
+		
 		
 		System.out.println("**************************************************************");
 		for(int i = 0; i < allDrones.size(); i++){

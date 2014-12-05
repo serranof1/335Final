@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import pathfinding.Mover;
 import task.ChargeTask;
 import task.DeadTask;
 import task.DefaultTask;
@@ -13,9 +14,12 @@ import task.MoveTask;
 import task.RepairTask;
 import task.Task;
 import tiles.Tile;
+import pathfinding.Path;
 
-public class Drone {
+public class Drone implements Mover{
 
+	private Path myPath;
+	
 	private int locationX;
 	private int locationY;
 	private String name;
@@ -61,7 +65,7 @@ public class Drone {
 	 * Instance variable for the current tile the drone is on.
 	 */
 	protected Tile currentTile;
-
+	
 	/**
 	 * Instance keeps track of the drones charging state; This may not be
 	 * needed.
@@ -94,6 +98,8 @@ public class Drone {
 		currentTile = start;
 		currentTile.setHasDrone(true);
 		materials = 0;
+		locationX = start.getX();
+		locationY = start.getY();
 		taskList.push(new DefaultTask(this));
 	}
 
@@ -219,5 +225,13 @@ public class Drone {
 
 	public int getMaxRepair() {
 		return maxRepair;
+	}
+
+	public Path getMyPath() {
+		return myPath;
+	}
+
+	public void setMyPath(Path myPath) {
+		this.myPath = myPath;
 	}
 }

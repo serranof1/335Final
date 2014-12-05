@@ -12,7 +12,7 @@ import resources.Resource;
 public class Tile {
 	private TileWrapper[] tileStack = new TileWrapper[4];
 	private int x, y;
-	private boolean hasDrone;
+	private boolean hasDrone, visited;
 	private Tile north, south, east, west;
 	private Color color;
 	private BufferedImage droneImage;
@@ -34,6 +34,7 @@ public class Tile {
 			e.printStackTrace();
 		}
 		hasDrone = false;
+		visited = false;
 	}
 	
 	public Tile(TileWrapper ground, TileWrapper resource, TileWrapper building, TileWrapper weather) {
@@ -137,11 +138,19 @@ public class Tile {
 	public boolean canMove() {
 		int moveCost = ((GroundTile)tileStack[0]).getMovementCost();
 		
-		if(((BuildingTile)tileStack[2]).getBuildingType() != BuildingEnum.NOTHING) {
+		/*if(((BuildingTile)tileStack[2]).getBuildingType() != BuildingEnum.NOTHING) {
 			return false;
-		}
+		}*/
 		
 		return moveCost <= 1 && !hasDrone; //the canMove will have to be dependent on the tile
 		//to which it is moving. We probably want to pass a tile to it
+	}
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
 	}
 }

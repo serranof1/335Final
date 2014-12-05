@@ -6,6 +6,9 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import pathfinding.AStarPathFinder;
+import pathfinding.Mover;
+import pathfinding.PathFinder;
 import model.Items;
 import tiles.BuildingEnum;
 import tiles.BuildingTile;
@@ -28,6 +31,8 @@ public class Map {
 	private float groundThreshold = .45f;
 	private float sandThreshold = .3f;
 	
+	private AStarPathFinder finder;
+	
 	private BufferedImage droneImage;
 	//I think, for a map of any particular size, the linkedlist of resources becomes difficult to use
 	//so I did not implement it here. We may need to figure this out.
@@ -44,6 +49,7 @@ public class Map {
 		this.seed = seed;
 		rand = new Random(seed);
 		map = buildNodeMap();
+		finder = new AStarPathFinder(this, 100, false);
 	}
 	
 	public Map(int n) {
@@ -60,6 +66,7 @@ public class Map {
 		rand = new Random(seed);
 		System.out.println("Your seed is: " + seed);
 		map = buildNodeMap();
+		finder = new AStarPathFinder(this, 100, false);
 	}
 	
 	private float[][] buildFloatMap() {
@@ -302,5 +309,27 @@ public class Map {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	public void pathFinderVisited(int x, int y) {
+		map[x][y].setVisited(true);
+		
+	}
+
+	public float getCost(Mover mover, int sx, int sy, int tx, int ty) {
+		
+		return 1;
+	}
+
+	public void clearVisited() {
+		for(int i = 0; i < map.length; i++){
+			for(int j = 0; j < map.length; j ++){
+				map[i][j].setVisited(false);
+			}
+		}
+		
+	}
+
+	public AStarPathFinder getFinder() {
+		return finder;
+	}	
 }
