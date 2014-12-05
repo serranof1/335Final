@@ -66,12 +66,12 @@ public class WeatherBehavior {
 			eachStorm.setTimeRemaining(eachStorm.getTimeRemaining() - 1);
 			for (ArrayList<Drone> eachList : droneList) {
 				for (Drone eachDrone : eachList) {
-					stormEffect = (eachDrone.getLocationX() > eachStorm.getXCorner() &&
-						eachDrone.getLocationX() < eachStorm.getXCorner() + eachStorm.getSize() &&
-						eachDrone.getLocationY() > eachStorm.getYCorner() &&
-						eachDrone.getLocationY() < eachStorm.getYCorner() + eachStorm.getSize());
-					if (eachStorm.execute(eachDrone, stormEffect)) {
-						eachStorm.endStorm(map);
+					stormEffect = (eachDrone.getLocationX() > eachStorm.getX() - eachStorm.getSize() &&
+						eachDrone.getLocationX() < eachStorm.getX() + eachStorm.getSize() &&
+						eachDrone.getLocationY() > eachStorm.getY() - eachStorm.getSize() &&
+						eachDrone.getLocationY() < eachStorm.getY() + eachStorm.getSize());
+					if (eachStorm.execute(eachDrone, stormEffect, map)) {
+						//eachStorm.endStorm(map);
 						stormList.remove(eachStorm);
 					}
 				}				
@@ -84,25 +84,41 @@ public class WeatherBehavior {
 	}
 	
 	private class Storm {
-		private int xCorner, yCorner, size, timeRemaining;
+		private int x, y, size, timeRemaining, currentRadius;
 		private final WeatherTile stormTile = new WeatherTile(WeatherEnum.STORM);
 		private final WeatherTile dayTile = new WeatherTile(WeatherEnum.DAY);
 		private final WeatherTile nightTile = new WeatherTile(WeatherEnum.NIGHT);
 		
 		public Storm(int x, int y, int size, Map map) {
-			xCorner = x;
-			yCorner = y;
+			this.x = x;
+			this.y = y;
 			this.size = size;
-			for (int i = yCorner; i < yCorner + size; i++) {
-				for (int j = xCorner; j < xCorner + size; j++) {
-					map.getTile(i, j).setWeather(stormTile);
-				}
-			}
-			timeRemaining = 5;
+			//for (int i = y; i < y + size; i++) {
+			//	for (int j = x; j < x + size; j++) {
+			//		map.getTile(j, i).setWeather(stormTile);
+			//	}
+			//}
+			map.getTile(x, y).setWeather(stormTile);
+			timeRemaining = 2 * size;
+			currentRadius = 1;
 		}
 		
-		public boolean execute(Drone drone, boolean stormEffect) {
+		public boolean execute(Drone drone, boolean stormEffect, Map map) {
 			System.out.println("Time remaining: " + timeRemaining);
+			if (timeRemaining < size) {
+				currentRadius++;
+			} else {
+				currentRadius--;
+			}
+			for (int i = y - currentRadius; i < y + currentRadius; i++) {
+				for (int j = x - currentRadius; j < x + currentRadius; j++) {
+					if ((i - y) * (i - y) + (j - x) * (j - x) < size * size) {
+						map.getTile(j, i).setWeather(stormTile);
+					} else {
+						map.getTile(j, i).setWeather((map.getTile(j, y + size)).getNorth().getWeather());
+					}
+				}
+			}
 			if (stormEffect) {
 				drone.setRepair(drone.getRepair() / 20);
 			}
@@ -112,12 +128,12 @@ public class WeatherBehavior {
 			return false;
 		}
 		
-		public int getXCorner() {
-			return xCorner;
+		public int getX() {
+			return x;
 		}
 		
-		public int getYCorner() {
-			return yCorner;
+		public int getY() {
+			return y;
 		}
 		
 		public int getSize() {
@@ -138,10 +154,10 @@ public class WeatherBehavior {
 		//border1 is initially on the right
 		//border2 initially on the left
 		public void endStorm(Map map) {
-			for (int i = yCorner; i < yCorner + size; i++) {
-				for (int j = xCorner; j < xCorner + size; j++) {
+			for (int i = y - size; i < y + size; i++) {
+				for (int j = x - size; j < x + size; j++) {
 					//map.getTile(i, j).setWeather(nightTile);
-					map.getTile(i, j).setWeather((map.getTile(yCorner, j)).getNorth().getWeather());
+					map.getTile(j, i).setWeather((map.getTile(j, y)).getNorth().getWeather());
 				}
 			}
 		}
