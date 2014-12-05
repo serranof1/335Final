@@ -97,9 +97,10 @@ public class MainGUI extends JFrame{
 		int x = 0;
 		public void run() //this becomes the loop
 		{
-			//mainGame.assignTasks();
-			//mainGame.doWeather();
-			mainGame.doDroneTasks();
+//			mainGame.assignTasks();
+//			mainGame.doWeather();
+//			mainGame.doBuildingTasks();
+			mainGame.doDroneTasksTest();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;

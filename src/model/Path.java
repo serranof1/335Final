@@ -12,17 +12,17 @@ public class Path {
 	private LinkedList<Tile> secPath;
 	private Tile destination;
 
-	public Path(Tile currTile, Tile destTile, int dronePower) {
+	public Path(Tile currTile, Tile destTile, int droneSpeed) {
 		// TODO Auto-generated constructor stub
 		path = new LinkedList<Tile>();
 		secPath = new LinkedList<Tile>();
 		destination = destTile;
 		path.add(currTile);
 		secPath.add(currTile);
-		findPath(currTile, currTile, dronePower);
+		findPath(currTile, currTile, droneSpeed);
 	}
 
-	private boolean findPath(Tile curr, Tile prev, int dronePower) {
+	private boolean findPath(Tile curr, Tile prev, int droneSpeed) {
 
 		// LinkedList<Tile> canMoveTiles = new LinkedList<Tile>();
 		Comparator<Tile> comparator = new DistantComparator();
@@ -32,7 +32,7 @@ public class Path {
 		if (curr.getX() == destination.getX()
 				&& curr.getY() == destination.getY()) {
 			return true;
-		} else if (dronePower > 0) {
+		} else if (droneSpeed > 0) {
 			// canMoveTiles = new LinkedList<Tile>();
 			if (curr.getEast() != prev && !path.contains(curr.getEast()))
 				canMoveTiles.add(curr.getEast());
@@ -45,26 +45,26 @@ public class Path {
 
 			// canMoveTiles.poll();
 			// canMoveTiles.removeLast();
-			/*
-			System.out.println(">>>>>>>>>>>> " + destination.getX() + "     "
-					+ destination.getY() + "	" + "drone power		" + dronePower);
+			
+			/*System.out.println(">>>>>>>>>>>> " + destination.getX() + "     "
+					+ destination.getY() + "	" + "drone power		" + droneSpeed);
 			for (Tile tile : canMoveTiles) {
 				System.out.println("---> " + tile.getX() + "     "
 						+ tile.getY());
 			}*/
 			// int currentInPath = path.size();
+			System.out.println(path.toString());
 			for (Tile tile : canMoveTiles) {
-
+				
 				if (tile.canMove()) {
 //					int dr = Math.abs(destination.getX() - tile.getX());
 //					int dc = Math.abs(destination.getY() - tile.getY());
 					Tile temp = curr;
-
+					
 					path.add(tile);
 					// System.out.println("--> " + tile.getX() + "===> " +
 					// tile.getY());
-					if (!findPath(tile, temp, (dronePower - tile.getGround()
-							.getMovementCost()))
+					if (!findPath(tile, temp, droneSpeed)
 							&& !path.isEmpty()) {
 						//System.out.println("tile " + tile.getX() + tile.getY() + "is removed!");
 						//System.out.println("current tile is " + tile.getX() + tile.getY());

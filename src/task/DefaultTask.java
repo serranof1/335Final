@@ -36,7 +36,6 @@ public class DefaultTask extends Task {
 		} else {
 			drone.setCurrentTile(drone.getCurrentTile().getWest());
 		}
-		drone.getTaskList().push(new DefaultTask(drone));
 	}
 	
 	

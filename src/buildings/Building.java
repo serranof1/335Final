@@ -10,24 +10,9 @@ import tiles.BuildingEnum;
 import tiles.GroundEnum;
 import tiles.Tile;
 
-/**
- * This class contain the basic attributes for the buildings.
- * 
- * @author Yuanjun Ma
- *
- */
 
 public abstract class Building {
-	/*
-	 * I think we don't need Building to extend TileWrapper; we should use the
-	 * Building class for the LinkedList of Buildings that execute their duties
-	 * each game loop; what gets put on the map can just be the BuildingTile
-	 * that already exists, with the Enum format. (The enum is basically the
-	 * textual representation and location on the map for the drones.)
-	 * 
-	 * Also, I am wondering why Building is not abstract, since SolarPlant
-	 * extends it?
-	 */
+
 	private String buildingName;
 	private BuildingEnum typeOfBuilding;
 
@@ -70,13 +55,13 @@ public abstract class Building {
 	 *            an {@link Integer} represent the length of the building on the
 	 *            map.
 	 */
-	public Building(int locX, int locY, int width, int length, int cap,
+	public Building(int locX, int locY, int wid, int len, int cap,
 			int time, String name, BuildingEnum type) {
 		buildingName = name;
 		typeOfBuilding = type;
 		location = new Point(locX, locY);
-		this.width = width;
-		this.length = length;
+		width = wid;
+		length = len;
 
 		health = 100;
 		resourceCurr = 0;
@@ -95,10 +80,20 @@ public abstract class Building {
 		for (int index = 0; index < droneList.size(); index++) {
 			if (droneList.get(index) == null) {
 				droneList.add(index, drone);
+				tileList.get(index).setHasDrone(true);
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public void removeDrone(Drone drone){
+		for (int index = 0; index < droneList.size(); index++) {
+			droneList.get(index).getName().equals(drone.getName());
+			droneList.remove(index);
+			tileList.get(index).setHasDrone(false);
+			break;
+		}
 	}
 
 	// Check the surrounding surface of the tile, make sure there are enough
@@ -129,31 +124,7 @@ public abstract class Building {
 
 			for (int j = 0; j < length; j++) {
 				if (curr.getGround().getGround() == GroundEnum.PLAIN
-						|| curr.getGround().getGround() == GroundEnum.SAND) { // Sorry
-																				// about
-																				// the
-																				// bad
-																				// naming
-																				// here.
-																				// Tile's
-																				// getGround
-																				// method
-																				// gives
-																				// a
-																				// GroundTile
-																				// whose
-																				// getGround
-																				// method
-																				// gives
-																				// the
-																				// Ground
-																				// enum,
-																				// if
-																				// it's
-																				// PLAIN,
-																				// it
-																				// can
-																				// build
+						|| curr.getGround().getGround() == GroundEnum.SAND) { 
 					curr = curr.getEast();
 				} else {
 					return false;
@@ -224,6 +195,13 @@ public abstract class Building {
 
 	public void addTile(Tile addTile) {
 		tileList.add(addTile);
+	}
+	public ArrayList<Tile> getTileList(){
+		return tileList;
+	}
+	
+	public ArrayList<Drone> getDroneList(){
+		return droneList;
 	}
 
 	public Tile getEmptyTile() {

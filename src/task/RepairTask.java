@@ -1,25 +1,28 @@
 package task;
 
+import buildings.Building;
 import tiles.Tile;
 import model.Drone;
 import game.Map;
 
 public class RepairTask extends Task {
-
-	public RepairTask(Drone drone) {
+	Building building;
+	Tile goal;
+	public RepairTask(Drone drone, Building building, Tile tile) {
 		super(drone);
+		this.building = building;
+		goal = tile;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void execute(Map map) {
-		// TODO Auto-generated method stub
-		if(drone.getCurrentTile() == map.getTile(10, 10)){
+		if(drone.getCurrentTile() == goal){
 			if (drone.getRepair() > drone.getMaxRepair()) {
 				drone.setRepair(drone.getMaxRepair());
 			} else {
 				drone.setRepair(drone.getRepair() + 20);
-				drone.getTaskList().push(new RepairTask(drone));
+				drone.getTaskList().push(new RepairTask(drone, building, goal));
 			}
 		} else {
 			Tile repairTile = map.getTile(10, 10);

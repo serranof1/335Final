@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.LinkedList;
 
 import model.Drone;
+import model.Path;
 import tiles.Tile;
 
 
@@ -26,11 +27,14 @@ public class MoveTask extends Task {
 		drone.setPower(drone.getPower() - 5);
 		drone.setRepair(drone.getRepair() - 1);
 		Tile current = drone.getCurrentTile();
-		
+		if(drone.getCurrentTile() == goal){
+			drone.getTaskList().pop();
+			System.out.println("DRONE HAS ARRIVED AT DESTINATION");
+		}
 		if(drone.getPath().isEmpty() || newPath == true){
 			System.out.println("Drone doesn't have a path. Creating a new one");
-			drone.setPath(map.findPath(current, goal));
-//			drone.setPath(new Path(current, goal, drone.getMovementAbility()).getPath());
+			//drone.setPath(map.findPath(current, goal));
+			drone.setPath(new Path(current, goal, drone.getMovementAbility()).getPath());
 		}
 		//Check next tile if available
 	
@@ -40,8 +44,9 @@ public class MoveTask extends Task {
 			drone.getPath().removeFirst();
 		} else {
 			drone.setPath(new LinkedList<Point>());
+			drone.getTaskList().pop();
 			drone.getTaskList().push(new MoveTask(drone, goal, true));
-			drone.getTaskList().pop().execute(map);
+			drone.getTaskList().peek().execute(map);
 		}
 		
 		

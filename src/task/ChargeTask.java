@@ -1,5 +1,7 @@
 package task;
 
+import buildings.Building;
+import buildings.SolarPlant;
 import model.Drone;
 import game.Map;
 import tiles.BuildingEnum;
@@ -7,52 +9,37 @@ import tiles.Tile;
 
 
 public class ChargeTask extends Task{
-
-	public ChargeTask(Drone drone ) {
+	
+	SolarPlant plant;
+	Tile goal;
+	
+	public ChargeTask(Drone drone, Building plant, Tile tile ) {
 		super(drone);
+		this.plant = (SolarPlant) plant;
+		goal = tile;
 		
 	}
 
 	@Override
 	public void execute(Map map) {
 		drone.setPower(drone.getPower() - 3);
-//		if(drone.getCurrentTile().equals(BuildingEnum
-		if(drone.getCurrentTile() == map.getTile(10, 15)){
-			//System.out.println("Drone is next to power Supply");
+//		if(drone.getCurrentTile().getBuilding().equals(BuildingEnum.POWERPLANT)){
+		if(drone.getCurrentTile() == goal){
+			plant.addDrone(drone);
 			if(drone.getPower() < drone.getMaxPower()){
-				drone.setPower(drone.getPower()+50);
-				//System.out.println("Incremented Charge by 50");
-				//We shouldn't need any code like this with the way maxPower is handled
-				//if(drone.getPower()> drone.getMaxPower()){
-				//	System.out.println("Done Charging");
-				//	drone.setPower(400);
+				plant.charge(drone);
+				
+				
+				
 				}else{
-					drone.getTaskList().push(new ChargeTask(drone));
+					drone.getTaskList().push(new ChargeTask(drone, plant, goal));
 				}
 			
 		}else{
 			
-			Tile chargingTile = map.getTile(10, 15);
-			drone.getTaskList().push(new ChargeTask(drone));
-			drone.getTaskList().push(new MoveTask(drone, chargingTile, true));
-			drone.getTaskList().pop().execute(map);
-			//System.out.println("Moving To power supply!");
+			drone.getTaskList().push(new ChargeTask(drone, plant, goal));
+			drone.getTaskList().push(new MoveTask(drone, plant.getTileList().get(0), true));
+			drone.getTaskList().peek().execute(map);
 		}
 	}
-
-	private boolean nextToPower() {
-		//System.out.println("POOWER PLANT:  " +drone.currentTile.getBuilding().equals(BuildingEnum.POWERPLANT));
-		if(drone.getCurrentTile().getBuilding().equals(BuildingEnum.POWERPLANT))
-			return true;
-		else
-			return false;
-	}
-
-/*	private void moveToPower() {
-		
-		Tile chargingTile = map.getTile(10, 15);
-		
-		drone.getTaskList().push(new MoveTask(drone, chargingTile));
-		
-	}*/
 }

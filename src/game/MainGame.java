@@ -9,8 +9,10 @@ import model.Battery;
 import model.Drone;
 import model.WeatherBehavior;
 import task.BuildTask;
+import task.ChargeTask;
 import task.ItemBuildTask;
 import task.MoveTask;
+import task.RepairTask;
 import task.ResourceTask;
 import tiles.Tile;
 import view.MainGUI;
@@ -51,7 +53,7 @@ public class MainGame {
 		setupVariables();
 		mapSpawnCheck();
 		initializeDrones();	
-		debugMethod();
+//		debugMethod();
 		
 	}
 	
@@ -140,6 +142,8 @@ public class MainGame {
 	private void resourceTasks() {
 		for (int i = 0; i < resourceCollectors.size(); i++) {
 			resourceCollectors.get(i).getTaskList().push(new ResourceTask(resourceCollectors.get(i), buildingList.get(0)));
+			checkNeeds(resourceCollectors.get(i));
+			
 		}
 	}
 	
@@ -147,29 +151,51 @@ public class MainGame {
 		
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
-				if(!buildingList.get(i).isAssigned()){
+				if(!buildingList.get(i).isAssigned() && !buildingList.get(i).isFinished()){
 						builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
+						checkNeeds(builders.get(j));
 						System.out.println("Builder has been assigned a building task.");
 				}
 			}
 		}
 	}
-	
+
 	private void mineTasks() {
 		//
 		
 	}
 	
 	private void itemBuildTasks() {
-		try {
-			Drone drone = allDrones.get(0).get(0);
-			if (drone.getPower() / drone.getMaxPower() < .5 && !drone.hasItem()) {
-				System.out.println("Time to make a battery");
-				drone.getTaskList().push(new ItemBuildTask(drone, new Battery()));
-			}
-		} catch (Exception e) {}
+			Battery battery = new Battery();
+		for (int i = 0; i < itemBuilders.size(); i++) {
+			
+			itemBuilders.get(i).getTaskList().push(new ItemBuildTask(itemBuilders.get(i), battery, map.whereToBuild(battery)));
+			checkNeeds(resourceCollectors.get(i));
+			
+		}
+			
 	}
 	
+	private void checkNeeds(Drone drone){
+		if(drone.getRepair()<30){
+			Building repairAt = map.findNearestRepair(drone.getCurrentTile());
+			drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile() ));
+		}
+		if(drone.getPower() < 80){
+			Building chargeAt = map.findNearestPower(drone.getCurrentTile());
+			drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
+		}
+	}
+	
+	public void doBuildingTasks() {
+		for(Building building: buildingList){
+			if(building.isFinished())
+				building.executeOnBuilding(map);
+		}
+	}
+	
+	
+
 	public void doDroneTasks() {
 		// Goes through every drone, checks if they're dead and removes them if they are. 
 		// Then it calls execute on every drone's current task.
@@ -178,6 +204,21 @@ public class MainGame {
 			for(int j = 0; j< allDrones.get(i).size(); j++){
 				allDrones.get(i).get(j).executeTaskList(map);
 				System.out.println("Repair: " + allDrones.get(i).get(j).getRepair());
+			}
+		}
+		System.out.println("**************************************************************");
+	}
+	
+	public void doDroneTasksTest() {
+		
+		Drone testMove = new Drone("test", 400.0, map.getTile(30, 10));
+		testMove.getTaskList().push(new MoveTask(testMove, map.getTile(10, 13), true));
+		defaultList.add(testMove);
+		
+		System.out.println("**************************************************************");
+		for(int i = 0; i < allDrones.size(); i++){
+			for(int j = 0; j< allDrones.get(i).size(); j++){
+				allDrones.get(i).get(j).executeTaskList(map);
 			}
 		}
 		System.out.println("**************************************************************");
@@ -193,6 +234,7 @@ public class MainGame {
 		wb.LightMovement(map);
 		wb.StormActions(allDrones, map);
 	}
+
 
 
 }

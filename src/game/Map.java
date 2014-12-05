@@ -1,15 +1,12 @@
 package game;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import buildings.Building;
+import model.Items;
 import tiles.BuildingEnum;
 import tiles.BuildingTile;
 import tiles.GroundEnum;
@@ -19,6 +16,7 @@ import tiles.ResourceTile;
 import tiles.Tile;
 import tiles.WeatherEnum;
 import tiles.WeatherTile;
+import buildings.Building;
 
 public class Map {
 	private Tile[][] map;
@@ -258,7 +256,7 @@ public class Map {
 	}
 	
 	public void setTile(Tile t, int x, int y) {
-		map[x][y] = t;
+		map[y][x] = t;
 	}
 	
 	public void build(Building b) {
@@ -289,77 +287,20 @@ public class Map {
 		}
 	}
 	
-	public LinkedList<Point> findPath(Tile current, Tile goal){
-		
-		ArrayList<Tile> closedList = new ArrayList<Tile>();
-		ArrayList<Tile> openList = new ArrayList<Tile>();
-		LinkedList<Point> path = new LinkedList<Point>();;		
-		Tile pathTile = current;
-		double pathRank = 0.0;
-		
-		//openList.add(current);
-		System.out.println("dronepos: " +current.getX() +"   " +current.getY());
-		System.out.println("northpos: " +current.getNorth().getX() +"    " + current.getNorth().getY());
-		
-		while(pathTile != goal){
-			//add eligible tiles to the open list
-			if(pathTile.getNorth().canMove()){
-				openList.add(pathTile.getNorth());
-			}
-			if(pathTile.getSouth().canMove()){
-				openList.add(pathTile.getSouth());
-			}
-			if(pathTile.getEast().canMove()){
-				openList.add(pathTile.getEast());
-			}
-			if(pathTile.getWest().canMove()){
-				openList.add(pathTile.getWest());
-			}
-			
-			for(Tile testTile : openList){
-				System.out.print("X : " +testTile.getX() + "   Y:  " + testTile.getY());
-			}
-			
-			if(openList.size() == 0){
-				System.out.println("NO TILE IN OPEN LIST");
-				break;
-			}
-	
-			Point pointToAdd = null;
-			Tile tile = openList.get(0);
-			
-			for(int i = 0; i < openList.size() - 1; i++){
-				
-				tile = openList.get(i);
-				
-				
-				if(rankPath(tile , goal) > rankPath(openList.get(i +1), goal)){
-					tile = openList.get(i+1);
-				}else{
-					closedList.add(openList.get(i+1));
-					openList.remove(i+1);
-					
-				}	
-			}
-			pathTile = tile;
-			pointToAdd = new Point(tile.getX(), tile.getY());
-			path.add(pointToAdd);
-		}
-		Point pointToAdd = new Point(pathTile.getX(), pathTile.getY());
-		path.add(pointToAdd);
-		return path;
-
+	//Method checks to see what item is being built, then gives the location of the 
+	public Tile whereToBuild(Items item) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	//returns Manhattan Distance between two Tiles
-	public double rankPath(Tile pathTile, Tile goal){
-		
-		double dx = Math.pow(goal.getX() - pathTile.getX(), 2);
-	    double dy = Math.pow(goal.getY() - pathTile.getY(), 2);
-	    
-	    double pathRank = Math.sqrt(dx+dy);
-		
-		return pathRank; 
-		
+
+	public Building findNearestRepair(Tile start) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Building findNearestPower(Tile start) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

@@ -8,25 +8,26 @@ import game.Map;
 public class ItemBuildTask extends Task {
 	
 	Items toBeBuilt;
+	Tile goal;
 	
-	public ItemBuildTask(Drone drone, Items item) {
+	public ItemBuildTask(Drone drone, Items item, Tile buildLoc) {
 		super(drone);
 		toBeBuilt = item;
+		goal = buildLoc;
 	}
 
 	@Override
 	public void execute(Map map) {
 		drone.setPower(drone.getPower() - 7);
 		drone.setRepair(drone.getRepair() - 1);
-		if (drone.getCurrentTile().getBuilding().getBuildingType() == toBeBuilt.getRequiredBuilding()) {
+		if (drone.getCurrentTile() == goal) {
 			toBeBuilt.execute(drone);
 			drone.giveItem(toBeBuilt);
+			drone.getTaskList().pop();
 			System.out.println("I made myself a battery!");
 		} else {
-			Tile chargingTile = map.getTile(10, 15);
-			drone.getTaskList().push(new ItemBuildTask(drone, toBeBuilt));
-			drone.getTaskList().push(new MoveTask(drone, chargingTile, true));
-			drone.getTaskList().pop().execute(map);
+			drone.getTaskList().push(new MoveTask(drone, goal, true));
+			drone.getTaskList().peek().execute(map);
 			System.out.println("Moving To Power Plant to make a battery!");
 		}
 	}
