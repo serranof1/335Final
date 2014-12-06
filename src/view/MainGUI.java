@@ -112,7 +112,7 @@ public class MainGUI extends JFrame{
 			if(x == 20){
 				mainGame.debugMethod2();
 			}
-			//if (!running) //Comment out this if-statement to show the win condition triggering.
+			if (!running) //Comment out this if-statement to show the win condition triggering.
 				//Getting the master up-to-date was a little weird, since both Cody and I pushed stuff separately
 
 			if (!running || win)

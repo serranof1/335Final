@@ -27,8 +27,8 @@ public class Map {
 	private long seed;
 	private Random rand;
 	
-	private float mountainThreshold = .8f;
-	private float groundThreshold = .45f;
+	private float mountainThreshold = .85f;
+	private float groundThreshold = .4f;
 	private float sandThreshold = .3f;
 	
 	private AStarPathFinder finder;
