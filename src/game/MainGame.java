@@ -44,6 +44,10 @@ public class MainGame {
 	private static WeatherBehavior wb = new WeatherBehavior();
 
 	private Drone testMove;
+	private Drone testMove2;
+
+
+	private Drone testMove3;
 	
 	
 	/**
@@ -61,11 +65,19 @@ public class MainGame {
 		
 	}
 	
+	public void debugMethod2(){
+		defaultList.add(testMove3);
+	}
+	
 	private void debugMethod() {
 		
-		testMove = new Drone("test", 400.0, map.getTile(30, 30));
+		testMove = new Drone("test1", 400.0, map.getTile(30, 30));
+		testMove2 = new Drone("test2", 400.0, map.getTile(10, 30));
+		testMove3 = new Drone("test3", 400.0, map.getTile(10, 10));
 		testMove.getTaskList().push(new MoveTask(testMove, map.getTile(10, 10), false));
+		testMove2.getTaskList().push(new MoveTask(testMove2, map.getTile(10, 10), false));
 		defaultList.add(testMove);
+		defaultList.add(testMove2);
 		
 	}
 	

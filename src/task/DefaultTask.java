@@ -27,14 +27,16 @@ public class DefaultTask extends Task {
 		int randomNumber = random.nextInt(max - min) + min; 
 		drone.setPower(drone.getPower() - 5);
 		drone.setRepair(drone.getRepair() - 1);
-		if(randomNumber == 1){
+		if(randomNumber == 1 && drone.getCurrentTile().getNorth().canMove()){
 			drone.setCurrentTile(drone.getCurrentTile().getNorth());
-		} else if(randomNumber == 2){
+		} else if(randomNumber == 2 && drone.getCurrentTile().getSouth().canMove()){
 			drone.setCurrentTile(drone.getCurrentTile().getSouth());
-		} else if(randomNumber == 3){
+		} else if(randomNumber == 3 &&  drone.getCurrentTile().getEast().canMove()){
 			drone.setCurrentTile(drone.getCurrentTile().getEast());
-		} else {
+		} else if (randomNumber == 4 && drone.getCurrentTile().getWest().canMove()) {
 			drone.setCurrentTile(drone.getCurrentTile().getWest());
+		} else {
+			//do nothing if no tiles aroudn can be moved into
 		}
 	}
 	

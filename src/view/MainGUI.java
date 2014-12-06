@@ -104,6 +104,11 @@ public class MainGUI extends JFrame{
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;
+			
+			//for debug purposes!!!
+			if(x == 20){
+				mainGame.debugMethod2();
+			}
 			if (!running)
 			{
 				timer.cancel();

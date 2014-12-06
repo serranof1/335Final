@@ -69,7 +69,7 @@ public class AStarPathFinder implements PathFinder {
 	 */
 	public Path findPath(Mover mover, int sx, int sy, int tx, int ty) {
 		// easy first check, if the destination is blocked, we can't get there
-		System.out.println(map.getTile(tx, ty).canMove());
+		
 		if (!map.getTile(tx, ty).canMove()) {
 			return null;
 		}
