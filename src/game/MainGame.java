@@ -250,6 +250,10 @@ public class MainGame {
 		wb.StormActions(allDrones, map);
 	}
 
+	public boolean checkWin() {
+		return map.getTerraformed() > 15;
+	}
+
 
 
 }

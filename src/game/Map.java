@@ -37,6 +37,8 @@ public class Map {
 	//I think, for a map of any particular size, the linkedlist of resources becomes difficult to use
 	//so I did not implement it here. We may need to figure this out.
 	
+	private int numOfTerraformedTiles;
+	
 	public Map(int n, long seed) {
 		try {
 			droneImage = ImageIO.read(new File("images/drone.png"));
@@ -50,6 +52,7 @@ public class Map {
 		rand = new Random(seed);
 		map = buildNodeMap();
 		finder = new AStarPathFinder(this, 100, false);
+		numOfTerraformedTiles = 0;
 	}
 	
 	public Map(int n) {
@@ -67,6 +70,7 @@ public class Map {
 		System.out.println("Your seed is: " + seed);
 		map = buildNodeMap();
 		finder = new AStarPathFinder(this, 100, false);
+		numOfTerraformedTiles = 0;
 	}
 	
 	private float[][] buildFloatMap() {
@@ -332,4 +336,12 @@ public class Map {
 	public AStarPathFinder getFinder() {
 		return finder;
 	}	
+	
+	public void addToTerraformed(int n) {
+		numOfTerraformedTiles += n;
+	}
+	
+	public int getTerraformed() {
+		return numOfTerraformedTiles;
+	}
 }
