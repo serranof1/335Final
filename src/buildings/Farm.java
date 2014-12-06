@@ -32,7 +32,7 @@ public class Farm extends Building {
 		yGrass = y - 1;
 		widGrass = BASE_WIDTH + 1;
 		lenGrass = BASE_LENGTH + 1;
-		amount = 2;
+		amount = 3;
 	}
 
 	@Override

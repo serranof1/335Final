@@ -256,7 +256,7 @@ public class MainGame {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > 30;
+		return map.getTerraformed() > 80;
 	}
 
 
