@@ -104,22 +104,22 @@ public class WeatherBehavior {
 			//}
 			map.getTile(x, y).setWeather(stormTile);
 			timeRemaining = 2 * size;
-			currentRadius = 1;
+			currentRadius = 0;
 		}
 		
 		public boolean execute(Drone drone, boolean stormEffect, Map map) {
 			System.out.println("Time remaining: " + timeRemaining);
-			if (timeRemaining > size) {
+			if (size < timeRemaining) {
 				currentRadius++;
 			} else {
 				currentRadius--;
 			}
 			for (int i = y - size; i < y + size; i++) {
 				for (int j = x - size; j < x + size; j++) {
-					if ((i - y) * (i - y) + (j - x) * (j - x) < currentRadius * currentRadius) {
+					if (Math.sqrt(Math.pow(y-i, 2) + Math.pow(x-j,  2)) < currentRadius) {
 						map.getTile(j, i).setWeather(stormTile);
 					} else {
-						map.getTile(j, i).setWeather((map.getTile(j, y + size)).getNorth().getWeather());
+						map.getTile(j, i).setWeather((map.getTile(j, y - size - 1)).getNorth().getWeather());
 					}
 				}
 			}
