@@ -100,7 +100,7 @@ public class MainGUI extends JFrame{
 		{
 //			mainGame.assignTasks();
 			mainGame.doWeather();
-//			mainGame.doBuildingTasks();
+			mainGame.doBuildingTasks();
 			mainGame.doDroneTasksTest();
 			win = mainGame.checkWin();
 			System.out.println("Current Game Loop Update: " + x);

@@ -19,6 +19,7 @@ import tiles.Tile;
 import view.MainGUI;
 import buildings.Base;
 import buildings.Building;
+import buildings.Farm;
 
 public class MainGame {
 
@@ -99,6 +100,10 @@ public class MainGame {
 		map.build(base);
 		base.setFinished();
 		buildingList.add(base);
+		Building farmTest = new Farm(3, 3);
+		map.build(farmTest);
+		farmTest.setFinished();
+		buildingList.add(farmTest);
 		wb.addTestStorm(map);
 
 		
@@ -251,7 +256,7 @@ public class MainGame {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > 15;
+		return map.getTerraformed() > 30;
 	}
 
 

@@ -292,6 +292,9 @@ public class Map {
 				for (int j = y; j < b.getLength()+y; j++) {
 					map[i][j].setBuilding(new BuildingTile(b.getTypeOfBuilding()));
 					b.addTile(map[i][j]);
+					if (b.getTypeOfBuilding() == BuildingEnum.FARM) {
+						System.out.println("check");
+					}
 				}	
 				
 			}

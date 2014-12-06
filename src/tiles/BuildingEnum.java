@@ -10,7 +10,8 @@ public enum BuildingEnum {
 	NOTHING ("", "transparentplaceholder.png"),
 	POWERPLANT ("P", "genericbuilding.png"),
 	MINE ("X", "genericbuilding.png"), 
-	BASE ("B", "genericbuilding.png");
+	BASE ("B", "genericbuilding.png"),
+	FARM ("F", "genericbuilding.png");
 	
 	private String textRepresentation;
 	private BufferedImage image;
