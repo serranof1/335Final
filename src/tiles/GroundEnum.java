@@ -10,7 +10,8 @@ public enum GroundEnum {
 	OCEAN ("~", 2, "ocean.png"),
 	SAND (",", 1, "sand.png"),
 	PLAIN ("_", 0, "plain.png"),
-	MOUNTAIN ("M", 3, "mountain.png");
+	MOUNTAIN ("M", 3, "mountain.png"),
+	GRASS ("G", 0, "mountain.png");
 	
 	private String textRepresentation;
 	private int movementCost;

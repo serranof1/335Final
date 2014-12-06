@@ -21,6 +21,7 @@ public class MainGUI extends JFrame{
 	private boolean running = true;
 	private boolean paused = false;
 	private int frameCount = 0;
+	private boolean win = false;
 	
 	public static void main(String[] args){
 		new MainGUI();
@@ -101,12 +102,14 @@ public class MainGUI extends JFrame{
 			mainGame.doWeather();
 //			mainGame.doBuildingTasks();
 			mainGame.doDroneTasksTest();
+			win = mainGame.checkWin();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;
-			if (!running)
+			if (!running || win)
 			{
 				timer.cancel();
+				System.out.println("You won.");
 			}
 		}
 	}

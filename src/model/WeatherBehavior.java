@@ -114,6 +114,7 @@ public class WeatherBehavior {
 				currentRadius--;
 			}
 			System.out.println("Current radius: " + currentRadius);
+			//This will need to be converted to node logic.
 			for (int i = y - size; i < y + size; i++) {
 				for (int j = x - size; j < x + size; j++) {
 					if (Math.sqrt(Math.pow(y-i, 2) + Math.pow(x-j,  2)) <= currentRadius) {
