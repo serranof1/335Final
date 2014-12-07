@@ -7,7 +7,7 @@ public class Converter extends Building {
 
 	public Converter(int locX, int locY, int wid, int len, int cap, int time,
 			String name, BuildingEnum type) {
-		super(locX, locY, wid, len, cap, time, name, type);
+		super(locX, locY, wid, len, cap, name, type);
 		// TODO Auto-generated constructor stub
 	}
 

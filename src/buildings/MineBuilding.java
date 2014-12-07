@@ -14,7 +14,7 @@ public class MineBuilding extends Building{
 	private final static int BUILD_TIME = 8;
 	
 	public MineBuilding(int x, int y, Resource source) {
-		super(x, y, MINE_WIDTH, MINE_LENGTH, MAX_CAP, BUILD_TIME, BUILDING_NAME, BuildingEnum.MINE);
+		super(x, y, MINE_WIDTH, MINE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.MINE);
 	}
 
 	@Override

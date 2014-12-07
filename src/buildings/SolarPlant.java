@@ -18,7 +18,7 @@ public class SolarPlant extends Building {
 	private final static int BUILD_TIME = 4;
 
 	public SolarPlant(int x, int y) {
-		super(x, y, SOLAR_WIDTH, SOLAR_HEIGHT, MAX_CAP, BUILD_TIME,
+		super(x, y, SOLAR_WIDTH, SOLAR_HEIGHT, MAX_CAP,
 				BUILDING_NAME, BuildingEnum.POWERPLANT);
 	}
 

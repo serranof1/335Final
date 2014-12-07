@@ -15,9 +15,9 @@ public class Farm extends Building {
 	//amount will need to eventually be three separate values for resources, or something.
 	private final GroundTile grass = new GroundTile(GroundEnum.GRASS);
 
-	public Farm(int locX, int locY, int wid, int len, int cap, int time,
+	public Farm(int locX, int locY, int wid, int len, int cap,
 			String name, BuildingEnum type) {
-		super(locX, locY, wid, len, cap, time, name, type);
+		super(locX, locY, wid, len, cap, name, type);
 		// TODO Auto-generated constructor stub
 		xGrass = locX - 1;
 		yGrass = locY - 1;
@@ -27,7 +27,7 @@ public class Farm extends Building {
 	}
 	
 	public Farm(int x, int y) {
-		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, 0, BUILDING_NAME, BuildingEnum.FARM);
+		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.FARM);
 		xGrass = x - 1;
 		yGrass = y - 1;
 		widGrass = BASE_WIDTH + 1;
