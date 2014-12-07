@@ -372,7 +372,7 @@ public class Map {
 		minY = 10000;
 		Building nearestBuilding = null;
 		for (Building build : allBuildings) {
-			if (build.getTypeOfBuilding() == BuildingEnum.GASSTATION) {
+			if (build.getTypeOfBuilding() == BuildingEnum.METHANEPLANT) {
 				buildX = (int) build.getLocation().getX();
 				buildY = (int) build.getLocation().getY();
 				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {

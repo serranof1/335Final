@@ -13,9 +13,8 @@ public enum BuildingEnum {
 	BASE ("B", "genericbuilding.png"),
 	FARM ("F", "genericbuilding.png"),
 	ENGINEERING("E", "genericbuilding.png"),
-	MATHANEPLANT("MP", "genericbuilding.png"),
-	REPAIR ("R", "genericbuilding.png"),
-	GASSTATION ("G", "genericbuilding.png");
+	METHANEPLANT("MP", "genericbuilding.png"),
+	REPAIR ("R", "genericbuilding.png");
 
 	
 	private String textRepresentation;

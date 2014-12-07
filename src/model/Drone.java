@@ -257,4 +257,8 @@ public class Drone implements Mover{
 		maxGas = g;
 	}
 
+	public void setMaxRepair(int i) {
+		maxRepair = i;
+	}
+
 }

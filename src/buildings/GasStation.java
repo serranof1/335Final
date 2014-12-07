@@ -18,7 +18,7 @@ public class GasStation extends Building {
 	}
 	
 	public GasStation (int x, int y) {
-		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.GASSTATION);
+		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.METHANEPLANT);
 	}
 
 	@Override
