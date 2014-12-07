@@ -123,12 +123,13 @@ public class Tile {
 	}
 	
 	public void draw(Graphics g, int x, int y) {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			g.drawImage(tileStack[i].getImage(), x, y, null);
 		}
 		if (hasDrone) {
 			g.drawImage(droneImage, x, y, null);
 		}
+		g.drawImage(tileStack[3].getImage(), x, y, null);
 	}
 	//Quick method to check if the tile is in sunlight
 	public boolean daytime() {
