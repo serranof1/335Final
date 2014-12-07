@@ -85,11 +85,37 @@ public class GraphicView extends JPanel{
 			int topLeftX = startPointX / 50;
 			int topLeftY = startPointY / 50;
 			int bottomRightX = endPointX / 50;
-			int bottomLeftY = endPointY / 50;
+			int bottomRightY = endPointY / 50;
 			Color myGreen = new Color(0 , 255 , 0, 125);
-			System.out.println("drawing a rectangle:  "+topLeftX +"  " +topLeftY);
-			g.setColor(myGreen);
-			g.fillRect(topLeftX * 50, topLeftY * 50, (bottomRightX - topLeftX) * 50, (bottomLeftY - topLeftY) * 50);
+
+
+			if (topLeftX > bottomRightX && topLeftY > bottomRightY) {
+				g.setColor(myGreen);	
+				g.fillRect( bottomRightX * 50, bottomRightY * 50, (topLeftX - bottomRightX) * 50, (topLeftY - bottomRightY) * 50);
+				
+				g.setColor(Color.GREEN);
+				g.drawRect( bottomRightX * 50, bottomRightY * 50, (topLeftX - bottomRightX) * 50, (topLeftY - bottomRightY) * 50);
+				
+			} else if (topLeftX < bottomRightX && topLeftY > bottomRightY) {
+				g.setColor(myGreen);
+				g.fillRect(topLeftX * 50, bottomRightY * 50, (bottomRightX - topLeftX) * 50, (topLeftY - bottomRightY) * 50);
+				
+				g.setColor(Color.GREEN);
+				g.drawRect(topLeftX * 50, bottomRightY * 50, (bottomRightX - topLeftX) * 50, (topLeftY - bottomRightY) * 50);
+			} else if (topLeftX > bottomRightX && topLeftY < bottomRightY) {
+				g.setColor(myGreen);	
+				g.fillRect(bottomRightX * 50, topLeftY * 50, (topLeftX -bottomRightX) * 50, (bottomRightY - topLeftY) * 50);
+				
+				g.setColor(Color.GREEN);
+				g.drawRect(bottomRightX * 50, topLeftY * 50, (topLeftX -bottomRightX) * 50, (bottomRightY - topLeftY) * 50);
+			} else {
+				g.setColor(myGreen);	
+				g.fillRect(topLeftX * 50, topLeftY * 50 , (bottomRightX - topLeftX) * 50, (bottomRightY - topLeftY) * 50);
+				
+				g.setColor(Color.GREEN);
+				g.drawRect(topLeftX * 50, topLeftY * 50 , (bottomRightX - topLeftX) * 50, (bottomRightY - topLeftY) * 50);
+			}
+			
 		}
 
 	}
