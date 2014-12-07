@@ -206,6 +206,9 @@ public class MainGame {
 			Building chargeAt = map.findNearestPower(drone.getCurrentTile());
 			drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
 		}
+		if (drone.getGas() < 50) {
+			
+		}
 	}
 	
 	public void doBuildingTasks() {

@@ -11,7 +11,9 @@ public enum BuildingEnum {
 	POWERPLANT ("P", "genericbuilding.png"),
 	MINE ("X", "genericbuilding.png"), 
 	BASE ("B", "genericbuilding.png"),
-	FARM ("F", "genericbuilding.png");
+	FARM ("F", "genericbuilding.png"),
+	REPAIR ("R", "genericbuilding.png"),
+	GASSTATION ("G", "genericbuilding.png");
 	
 	private String textRepresentation;
 	private BufferedImage image;

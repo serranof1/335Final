@@ -2,6 +2,7 @@ package game;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -39,6 +40,8 @@ public class Map {
 	
 	private int numOfTerraformedTiles;
 	
+	private LinkedList<Building> allBuildings;
+	
 	public Map(int n, long seed) {
 		try {
 			droneImage = ImageIO.read(new File("images/drone.png"));
@@ -53,6 +56,7 @@ public class Map {
 		map = buildNodeMap();
 		finder = new AStarPathFinder(this, 100, false);
 		numOfTerraformedTiles = 0;
+		allBuildings = new LinkedList<Building>();
 	}
 	
 	public Map(int n) {
@@ -71,6 +75,7 @@ public class Map {
 		map = buildNodeMap();
 		finder = new AStarPathFinder(this, 100, false);
 		numOfTerraformedTiles = 0;
+		allBuildings = new LinkedList<Building>();
 	}
 	
 	private float[][] buildFloatMap() {
@@ -285,6 +290,7 @@ public class Map {
 		int y = b.getLocation().y;
 		
 		if (b.canBuild(map[x][y])) { //I think this should be switched, for the x/y issue
+			allBuildings.add(b);
 			//not that it currently has an issue, since we're working with squares, but
 			//to be correct
 			/*
@@ -317,13 +323,66 @@ public class Map {
 	}
 
 	public Building findNearestRepair(Tile start) {
-		// TODO Auto-generated method stub
-		return null;
+		int buildX, buildY, startX, startY, minX, minY;
+		startX = start.getX();
+		startY = start.getY();
+		minX = 10000;
+		minY = 10000;
+		Building nearestBuilding = null;
+		for (Building build : allBuildings) {
+			if (build.getTypeOfBuilding() == BuildingEnum.REPAIR) {
+				buildX = (int) build.getLocation().getX();
+				buildY = (int) build.getLocation().getY();
+				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {
+					minX = buildX;
+					minY = buildY;
+					nearestBuilding = build;
+				}
+			}
+		}
+		return nearestBuilding;
 	}
 
 	public Building findNearestPower(Tile start) {
-		// TODO Auto-generated method stub
-		return null;
+		int buildX, buildY, startX, startY, minX, minY;
+		startX = start.getX();
+		startY = start.getY();
+		minX = 10000;
+		minY = 10000;
+		Building nearestBuilding = null;
+		for (Building build : allBuildings) {
+			if (build.getTypeOfBuilding() == BuildingEnum.POWERPLANT) {
+				buildX = (int) build.getLocation().getX();
+				buildY = (int) build.getLocation().getY();
+				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {
+					minX = buildX;
+					minY = buildY;
+					nearestBuilding = build;
+				}
+			}
+		}
+		return nearestBuilding;
+	}
+	
+	public Building findNearestGas(Tile start) {
+		int buildX, buildY, startX, startY, minX, minY;
+		startX = start.getX();
+		startY = start.getY();
+		minX = 10000;
+		minY = 10000;
+		Building nearestBuilding = null;
+		for (Building build : allBuildings) {
+			if (build.getTypeOfBuilding() == BuildingEnum.GASSTATION) {
+				buildX = (int) build.getLocation().getX();
+				buildY = (int) build.getLocation().getY();
+				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {
+					minX = buildX;
+					minY = buildY;
+					nearestBuilding = build;
+				}
+			}
+		}
+		return nearestBuilding;
 	}
 
 	public void pathFinderVisited(int x, int y) {
