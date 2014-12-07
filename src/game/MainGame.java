@@ -88,7 +88,7 @@ public class MainGame {
 		
 		//when a game is started if main base cannot be built generate new map
 		if(base.canBuild(map.getTile(10,10)) != true){
-			map = new Map(5);
+			map = new Map(7);
 			mapSpawnCheck();
 		}
 		initializeBuildings();

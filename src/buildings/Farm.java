@@ -7,8 +7,8 @@ import tiles.Tile;
 import game.Map;
 
 public class Farm extends Building {
-	private final static int BASE_WIDTH = 4;
-	private final static int BASE_LENGTH = 4;
+	private final static int BASE_WIDTH = 2;
+	private final static int BASE_LENGTH = 2;
 	private final static int MAX_CAP = 0;
 	private final static String BUILDING_NAME = "F";
 	int xGrass, yGrass, widGrass, lenGrass, amount;
