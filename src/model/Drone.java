@@ -86,6 +86,9 @@ public class Drone implements Mover{
 
 	private int repair;
 	private int maxRepair = 100;
+	
+	private int gas;
+	private int maxGas;
 
 	public Drone(String name, double power, Tile start) {
 		this.name = name;
@@ -101,6 +104,9 @@ public class Drone implements Mover{
 		locationX = start.getX();
 		locationY = start.getY();
 		taskList.push(new DefaultTask(this));
+		
+		gas = 100;
+		maxGas = 100;
 	}
 
 	// Getters and setters for location
@@ -233,5 +239,21 @@ public class Drone implements Mover{
 
 	public void setMyPath(Path myPath) {
 		this.myPath = myPath;
+	}
+	
+	public int getGas() {
+		return gas;
+	}
+	
+	public int getMaxGas() {
+		return maxGas;
+	}
+	
+	public void setGas(int g) {
+		gas = g;
+	}
+	
+	public void setMaxGas(int g) {
+		maxGas = g;
 	}
 }
