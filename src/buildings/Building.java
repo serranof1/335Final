@@ -24,10 +24,10 @@ public abstract class Building {
 	private int resourceCurr;
 	private int resourceCap;
 	private int resourceCost;
-	private int buildTime;
-	private int buildProgress;
+//	private int buildTime;
+//	private int buildProgress;
 	private boolean finished;
-	private boolean inProgress;
+//	private boolean inProgress;
 
 	private ArrayList<Drone> droneList;
 	private ArrayList<Tile> tileList;
@@ -56,7 +56,7 @@ public abstract class Building {
 	 *            map.
 	 */
 	public Building(int locX, int locY, int wid, int len, int cap,
-			int time, String name, BuildingEnum type) {
+			String name, BuildingEnum type) {
 		buildingName = name;
 		typeOfBuilding = type;
 		location = new Point(locX, locY);
@@ -65,11 +65,11 @@ public abstract class Building {
 
 		health = 100;
 		resourceCurr = 0;
-		buildTime = time;
-		buildProgress = 0;
+//		buildTime = time;
+//		buildProgress = 0;
 		resourceCap = cap;
 		finished = false;
-		inProgress = false;
+//		inProgress = false;
 
 		droneList = new ArrayList<Drone>(width * length);
 		tileList = new ArrayList<Tile>(width * length);
@@ -152,21 +152,21 @@ public abstract class Building {
 		return length;
 	}
 
-	public boolean contruct() {
-		if (buildProgress >= buildTime) {
-			System.out.println("\n\n");
-			System.out.println("Progress = Buildtime");
-			System.out.println("\n\n");
-			return true;
-		} else {
-			buildProgress += 1;
-			System.out.println("\n\n");
-			System.out.println("Progress != Buildtime\nProgress incremented");
-			System.out.println("\n\n");
-			
-			return false;
-		}
-	}
+//	public boolean contruct() {
+//		if (buildProgress >= buildTime) {
+//			System.out.println("\n\n");
+//			System.out.println("Progress = Buildtime");
+//			System.out.println("\n\n");
+//			return true;
+//		} else {
+//			buildProgress += 1;
+//			System.out.println("\n\n");
+//			System.out.println("Progress != Buildtime\nProgress incremented");
+//			System.out.println("\n\n");
+//			
+//			return false;
+//		}
+//	}
 
 	public BuildingEnum getTypeOfBuilding() {
 		return typeOfBuilding;
@@ -213,8 +213,8 @@ public abstract class Building {
 		return null;
 	}
 
-	public boolean isAssigned() {
-		
-		return inProgress;
-	}
+//	public boolean isAssigned() {
+//		
+//		return inProgress;
+//	}
 }

@@ -172,7 +172,7 @@ public class MainGame {
 		
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
-				if(!buildingList.get(i).isAssigned() && !buildingList.get(i).isFinished()){
+				if(!buildingList.get(i).isFinished()){
 						builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
 						checkNeeds(builders.get(j));
 						System.out.println("Builder has been assigned a building task.");
