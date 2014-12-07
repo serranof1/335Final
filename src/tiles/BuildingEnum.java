@@ -13,9 +13,13 @@ public enum BuildingEnum {
 	BASE ("B", "genericbuilding.png"),
 	FARM ("F", "genericbuilding.png"),
 	ENGINEERING("E", "genericbuilding.png"),
-	MATHANEPLANT("MP", "genericbuilding.png");
+	MATHANEPLANT("MP", "genericbuilding.png"),
+	REPAIR ("R", "genericbuilding.png"),
+	GASSTATION ("G", "genericbuilding.png");
+
 	
 	private String textRepresentation;
+	
 	private BufferedImage image;
 	
 	BuildingEnum(String s, String fileName) {
