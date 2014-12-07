@@ -192,9 +192,12 @@ public class Map {
 				//we may need to switch i and j; I can never remember if the outer loop is the row or the column
 				if (floatMap[i][j] > mountainThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(mountain, iron, noBuilding, day, droneImage);
+						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, day, droneImage);
 					} else {
-						tileMap[i][j] = new Tile(mountain, iron, noBuilding, night, droneImage);
+						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, night, droneImage);
+					}
+					if (rand.nextFloat() < .3) {
+						tileMap[i][j].setResource(iron);
 					}
 				} else if (floatMap[i][j] > groundThreshold) {
 					if (j < size / 2) {
@@ -202,17 +205,23 @@ public class Map {
 					} else {
 						tileMap[i][j] = new Tile(plain, noResource, noBuilding, night, droneImage);
 					}
+					if (rand.nextFloat() < .3) {
+						tileMap[i][j].setResource(carbon);
+					}
 				} else if (floatMap[i][j] > sandThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(sand, carbon, noBuilding, day, droneImage);
+						tileMap[i][j] = new Tile(sand, noResource, noBuilding, day, droneImage);
 					} else {
-						tileMap[i][j] = new Tile(sand, carbon, noBuilding, night, droneImage);
+						tileMap[i][j] = new Tile(sand, noResource, noBuilding, night, droneImage);
 					}
 				} else {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(ocean, methane, noBuilding, day, droneImage);
+						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, day, droneImage);
 					} else {
-						tileMap[i][j] = new Tile(ocean, methane, noBuilding, night, droneImage);
+						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, night, droneImage);
+					}
+					if (rand.nextFloat() < .3) {
+						tileMap[i][j].setResource(methane);
 					}
 				}
 				tileMap[i][j].setX(j);

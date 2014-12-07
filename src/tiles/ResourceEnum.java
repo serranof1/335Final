@@ -9,10 +9,10 @@ import javax.imageio.ImageIO;
 
 public enum ResourceEnum {
 	MINERAL (.1, "m", Color.ORANGE, "layerplaceholder.png"),
-	METHANE (.1, "v", Color.YELLOW, "layerplaceholder.png"),
+	METHANE (.1, "v", Color.YELLOW, "methane.png"),
 	GAS (.1, "g", Color.GREEN, "layerplaceholder.png"),
-	IRON (.1, "i", Color.GRAY, "layerplaceholder.png"),
-	CARBON (.1, "c", Color.RED, "layerplaceholder.png"),
+	IRON (.1, "i", Color.GRAY, "iron.png"),
+	CARBON (.1, "c", Color.RED, "carbon.png"),
 	HYDROGEN (.1, "h", Color.BLUE, "layerplaceholder.png"),
 	OXYGEN (.1, "o", Color.CYAN, "layerplaceholder.png"),
 	DEADDRONE(0, "d", Color.DARK_GRAY, "layerplaceholder.png"),
