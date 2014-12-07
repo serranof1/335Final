@@ -34,18 +34,6 @@ public class SolarPlant extends Building {
 		}
 	}
 
-	@Override
-	public void construct() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void collectResource(Map map) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void charge(Drone drone) {
 		if (getInventory() > 25) {
 			drone.setPower(drone.getPower() + 25);

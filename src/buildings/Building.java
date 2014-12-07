@@ -21,22 +21,18 @@ public abstract class Building {
 	private int length;
 
 	private int health;
-	private int resourceCurr;
+	private int currentResources = 0;
 	private int resourceCap;
 	private int resourceCost;
-//	private int buildTime;
-//	private int buildProgress;
+	private int iron, carbon, electricity, methane;
+	
 	private boolean finished;
-//	private boolean inProgress;
+
 
 	private ArrayList<Drone> droneList;
 	private ArrayList<Tile> tileList;
 
 	public abstract void executeOnBuilding(Map map);
-
-	public abstract void collectResource(Map map);
-
-	public abstract void construct();
 
 	/**
 	 * Construct the Building object, the parameters present the location, size,
@@ -64,12 +60,8 @@ public abstract class Building {
 		length = len;
 
 		health = 100;
-		resourceCurr = 0;
-//		buildTime = time;
-//		buildProgress = 0;
 		resourceCap = cap;
 		finished = false;
-//		inProgress = false;
 
 		droneList = new ArrayList<Drone>(width * length);
 		tileList = new ArrayList<Tile>(width * length);
@@ -152,22 +144,6 @@ public abstract class Building {
 		return length;
 	}
 
-//	public boolean contruct() {
-//		if (buildProgress >= buildTime) {
-//			System.out.println("\n\n");
-//			System.out.println("Progress = Buildtime");
-//			System.out.println("\n\n");
-//			return true;
-//		} else {
-//			buildProgress += 1;
-//			System.out.println("\n\n");
-//			System.out.println("Progress != Buildtime\nProgress incremented");
-//			System.out.println("\n\n");
-//			
-//			return false;
-//		}
-//	}
-
 	public BuildingEnum getTypeOfBuilding() {
 		return typeOfBuilding;
 	}
@@ -182,15 +158,15 @@ public abstract class Building {
 
 	public void depositAll(int x) {
 		System.out.println("Stuff has been deposited");
-		resourceCurr = x;
+		currentResources = x;
 	}
 
 	public int getInventory() {
-		return resourceCurr;
+		return currentResources;
 	}
 
 	public void setInventory(int resourceCurr) {
-		this.resourceCurr = resourceCurr;
+		currentResources = resourceCurr;
 	}
 
 	public void addTile(Tile addTile) {
@@ -212,9 +188,32 @@ public abstract class Building {
 		}
 		return null;
 	}
-
-//	public boolean isAssigned() {
-//		
-//		return inProgress;
-//	}
+	
+	public void setCarbon(int x){
+		carbon = x;
+	}
+	public int getCarbon(){
+		return carbon;
+	}
+	
+	public void setIron(int x){
+		iron = x;
+	}
+	public int getIron(){
+		return iron;
+	}
+	
+	public void setPower(int x){
+		carbon = x;
+	}
+	public int getPower(){
+		return electricity;
+	}
+	
+	public void setMethane(int x){
+		methane = x;
+	}
+	public int getMethane(){
+		return methane;
+	}
 }

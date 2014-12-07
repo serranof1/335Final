@@ -59,17 +59,6 @@ public class Farm extends Building {
 		amount--;
 		}
 	}
-
-	@Override
-	public void collectResource(Map map) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void construct() {
-		
-	}
 	
 	@Override
 	public boolean canBuild(Tile t) {

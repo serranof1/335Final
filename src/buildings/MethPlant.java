@@ -27,18 +27,6 @@ public class MethPlant extends Building {
 		System.out.println("Daylight collected");
 	}
 
-	@Override
-	public void construct() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void collectResource(Map map) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void charge(Drone drone) {
 		// TODO Auto-generated method stub
 		if (getInventory() > 25) {

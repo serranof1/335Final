@@ -17,6 +17,8 @@ public class Engineering extends Building {
 	private final static int MAX_CAP = 100;
 	private final static int BUILD_TIME = 4;
 	
+	private boolean createDrone = false;
+	
 	
 	public Engineering(int x, int y) {
 		super(x, y, ENG_WIDTH, ENG_HEIGHT, MAX_CAP,
@@ -25,29 +27,18 @@ public class Engineering extends Building {
 
 	@Override
 	public void executeOnBuilding(Map map) {
-		
-	}
-
+		if(createDrone){
 	
-
-	@Override
-	public void collectResource(Map map) {
-		// TODO Auto-generated method stub
-
+		}
 	}
-
+	
 	public void repair(Drone drone) {
 		// TODO Auto-generated method stub
 		if (getInventory() > 2) {
 			drone.setRepair(drone.getRepair() + 2);
+			setInventory(getInventory()-2);
 		} else {
 			System.out.println("Not enough to repair");
 		}
-	}
-
-	@Override
-	public void construct() {
-		// TODO Auto-generated method stub
-		
 	}
 }

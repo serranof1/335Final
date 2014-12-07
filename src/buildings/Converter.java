@@ -16,17 +16,4 @@ public class Converter extends Building {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void collectResource(Map map) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void construct() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
