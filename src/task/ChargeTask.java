@@ -22,7 +22,8 @@ public class ChargeTask extends Task{
 
 	@Override
 	public void execute(Map map) {
-		drone.setPower(drone.getPower() - 3);
+		drone.setGas(drone.getGas() - 2);
+		drone.setRepair(drone.getRepair() -1);
 //		if(drone.getCurrentTile().getBuilding().equals(BuildingEnum.POWERPLANT)){
 		if(drone.getCurrentTile() == goal){
 			plant.addDrone(drone);

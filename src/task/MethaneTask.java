@@ -22,7 +22,7 @@ public class MethaneTask extends Task{
 
 	@Override
 	public void execute(Map map) {
-		drone.setGas(drone.getGas() - 1);
+		drone.setPower(drone.getPower() - 2);
 		if(drone.getCurrentTile() == goal){
 			plant.addDrone(drone);
 			if(drone.getGas() < drone.getMaxPower()){

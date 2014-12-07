@@ -18,7 +18,7 @@ public class MethPlant extends Building {
 
 	public MethPlant(int x, int y) {
 		super(x, y, METH_WIDTH, METH_HEIGHT, MAX_CAP,
-				BUILDING_NAME, BuildingEnum.MATHANEPLANT);
+				BUILDING_NAME, BuildingEnum.METHANEPLANT);
 	}
 
 	@Override

@@ -322,7 +322,7 @@ public class Map {
 		return null;
 	}
 
-	public Building findNearestRepair(Tile start) {
+	public Building findNearest(Tile start, BuildingEnum type) {
 		int buildX, buildY, startX, startY, minX, minY;
 		startX = start.getX();
 		startY = start.getY();
@@ -330,28 +330,7 @@ public class Map {
 		minY = 10000;
 		Building nearestBuilding = null;
 		for (Building build : allBuildings) {
-			if (build.getTypeOfBuilding() == BuildingEnum.REPAIR) {
-				buildX = (int) build.getLocation().getX();
-				buildY = (int) build.getLocation().getY();
-				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {
-					minX = buildX;
-					minY = buildY;
-					nearestBuilding = build;
-				}
-			}
-		}
-		return nearestBuilding;
-	}
-
-	public Building findNearestPower(Tile start) {
-		int buildX, buildY, startX, startY, minX, minY;
-		startX = start.getX();
-		startY = start.getY();
-		minX = 10000;
-		minY = 10000;
-		Building nearestBuilding = null;
-		for (Building build : allBuildings) {
-			if (build.getTypeOfBuilding() == BuildingEnum.POWERPLANT) {
+			if (build.getTypeOfBuilding() == type) {
 				buildX = (int) build.getLocation().getX();
 				buildY = (int) build.getLocation().getY();
 				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {
@@ -364,27 +343,6 @@ public class Map {
 		return nearestBuilding;
 	}
 	
-	public Building findNearestGas(Tile start) {
-		int buildX, buildY, startX, startY, minX, minY;
-		startX = start.getX();
-		startY = start.getY();
-		minX = 10000;
-		minY = 10000;
-		Building nearestBuilding = null;
-		for (Building build : allBuildings) {
-			if (build.getTypeOfBuilding() == BuildingEnum.GASSTATION) {
-				buildX = (int) build.getLocation().getX();
-				buildY = (int) build.getLocation().getY();
-				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {
-					minX = buildX;
-					minY = buildY;
-					nearestBuilding = build;
-				}
-			}
-		}
-		return nearestBuilding;
-	}
-
 	public void pathFinderVisited(int x, int y) {
 		map[x][y].setVisited(true);
 		
@@ -415,4 +373,6 @@ public class Map {
 	public int getTerraformed() {
 		return numOfTerraformedTiles;
 	}
+
+
 }

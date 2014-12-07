@@ -25,8 +25,8 @@ public class MoveTask extends Task {
 
 	@Override
 	public void execute(Map map) {
-
-		drone.setPower(drone.getPower() - 5);
+		drone.setGas(drone.getGas() - 5);
+		drone.setPower(drone.getPower() - 3);
 		drone.setRepair(drone.getRepair() - 1);
 		Tile current = drone.getCurrentTile();
 		if(drone.getCurrentTile() == goal){

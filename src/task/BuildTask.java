@@ -24,6 +24,7 @@ public class BuildTask extends Task{
 	//Probably just change the constructor and such. We can do that once we can get user input.
 	@Override
 	public void execute(Map map) {
+		drone.setGas(drone.getGas() - 5);
 		drone.setPower(drone.getPower() - 10);
 		drone.setRepair(drone.getRepair() - 1);
 		buildLoc = toBuild.getTileList().get(0);

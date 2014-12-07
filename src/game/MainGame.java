@@ -12,9 +12,11 @@ import pathfinding.AStarPathFinder;
 import task.BuildTask;
 import task.ChargeTask;
 import task.ItemBuildTask;
+import task.MethaneTask;
 import task.MoveTask;
 import task.RepairTask;
-import task.ResourceTask;
+import task.DepositTask;
+import tiles.BuildingEnum;
 import tiles.Tile;
 import view.MainGUI;
 import buildings.Base;
@@ -162,7 +164,7 @@ public class MainGame {
 	
 	private void resourceTasks() {
 		for (int i = 0; i < resourceCollectors.size(); i++) {
-			resourceCollectors.get(i).getTaskList().push(new ResourceTask(resourceCollectors.get(i), buildingList.get(0)));
+			resourceCollectors.get(i).getTaskList().push(new DepositTask(resourceCollectors.get(i), buildingList.get(0)));
 			checkNeeds(resourceCollectors.get(i));
 			
 		}
@@ -199,11 +201,15 @@ public class MainGame {
 	
 	private void checkNeeds(Drone drone){
 		if(drone.getRepair()<30){
-			Building repairAt = map.findNearestRepair(drone.getCurrentTile());
+			Building repairAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.ENGINEERING);
 			drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile() ));
 		}
+		if(drone.getGas() < 50){
+			Building cookAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.METHANEPLANT);
+			drone.getTaskList().push(new MethaneTask(drone, cookAt, cookAt.getEmptyTile()));
+		}
 		if(drone.getPower() < 80){
-			Building chargeAt = map.findNearestPower(drone.getCurrentTile());
+			Building chargeAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.POWERPLANT);
 			drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
 		}
 		if (drone.getGas() < 50) {

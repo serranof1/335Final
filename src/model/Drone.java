@@ -105,8 +105,8 @@ public class Drone implements Mover{
 		locationY = start.getY();
 		taskList.push(new DefaultTask(this));
 		
-		gas = 100;
-		maxGas = 100;
+		gas = 1000;
+		maxGas = 1000;
 	}
 
 	// Getters and setters for location

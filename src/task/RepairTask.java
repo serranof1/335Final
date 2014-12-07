@@ -17,6 +17,8 @@ public class RepairTask extends Task {
 
 	@Override
 	public void execute(Map map) {
+		drone.setGas(drone.getGas() - 1);
+		drone.setPower(drone.getPower() - 6);
 		if(drone.getCurrentTile() == goal){
 			if (drone.getRepair() > drone.getMaxRepair()) {
 				drone.setRepair(drone.getMaxRepair());
