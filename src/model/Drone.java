@@ -13,6 +13,7 @@ import task.DefaultTask;
 import task.MoveTask;
 import task.RepairTask;
 import task.Task;
+import tiles.ResourceEnum;
 import tiles.Tile;
 import pathfinding.Path;
 
@@ -89,6 +90,11 @@ public class Drone implements Mover{
 	
 	private int gas;
 	private int maxGas;
+	
+	private int carbon = 0;
+	private int iron = 0;
+	private int methane = 0;
+	private int maxCapacity = 100;
 
 	public Drone(String name, double power, Tile start) {
 		this.name = name;
@@ -260,5 +266,42 @@ public class Drone implements Mover{
 	public void setMaxRepair(int i) {
 		maxRepair = i;
 	}
-
+	
+	public void gather(int i, ResourceEnum resource) {
+		if (iron + carbon + methane + i < maxCapacity) {
+			if (resource == ResourceEnum.IRON) {
+				iron += i;
+			} else if (resource == ResourceEnum.CARBON) {
+				carbon += i;
+			} else if (resource == ResourceEnum.METHANE) {
+				methane += i;
+			}
+		} else {
+			if (resource == ResourceEnum.IRON) {
+				iron = maxCapacity - carbon - methane;
+			} else if (resource == ResourceEnum.CARBON) {
+				carbon = maxCapacity - iron - methane;
+			} else if (resource == ResourceEnum.METHANE) {
+				methane = maxCapacity - iron - carbon;
+			}
+		}
+	}
+	
+	public int depositResource(ResourceEnum resource) {
+		if (resource == ResourceEnum.IRON) {
+			int temp = iron;
+			iron = 0;
+			return temp;
+		} else if (resource == ResourceEnum.CARBON) {
+			int temp = carbon;
+			carbon = 0;
+			return temp;
+		} else if (resource == ResourceEnum.METHANE) {
+			int temp = methane;
+			methane = 0;
+			return temp;
+		} else {
+			return 0;
+		}
+	}
 }
