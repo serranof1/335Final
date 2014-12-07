@@ -47,7 +47,6 @@ public class SolarPlant extends Building {
 	}
 
 	public void charge(Drone drone) {
-		// TODO Auto-generated method stub
 		if (getInventory() > 25) {
 			drone.setPower(drone.getPower() + 25);
 		} else {

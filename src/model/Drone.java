@@ -256,4 +256,5 @@ public class Drone implements Mover{
 	public void setMaxGas(int g) {
 		maxGas = g;
 	}
+
 }

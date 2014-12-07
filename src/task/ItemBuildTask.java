@@ -19,6 +19,7 @@ public class ItemBuildTask extends Task {
 	@Override
 	public void execute(Map map) {
 		drone.setPower(drone.getPower() - 7);
+		drone.setGas(drone.getGas() - 3);
 		drone.setRepair(drone.getRepair() - 1);
 		if (drone.getCurrentTile() == goal) {
 			toBeBuilt.execute(drone);

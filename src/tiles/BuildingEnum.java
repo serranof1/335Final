@@ -12,7 +12,8 @@ public enum BuildingEnum {
 	MINE ("X", "genericbuilding.png"), 
 	BASE ("B", "genericbuilding.png"),
 	FARM ("F", "genericbuilding.png"),
-	ENGINEERING("E", "genericbuilding.png");
+	ENGINEERING("E", "genericbuilding.png"),
+	MATHANEPLANT("MP", "genericbuilding.png");
 	
 	private String textRepresentation;
 	private BufferedImage image;

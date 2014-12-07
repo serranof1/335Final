@@ -29,13 +29,13 @@ public class BuildTask extends Task{
 		buildLoc = toBuild.getTileList().get(0);
 		
 		if (drone.getCurrentTile() == buildLoc) {
-			buildProgress+=1;
-			if (toBuild.contruct()) {
+//			buildProgress+=1;
+//			if (toBuild.contruct()) {
 				map.build(toBuild);
 				toBuild.setFinished();
 				drone.getTaskList().pop();
 				System.out.println("Drone has built the building");
-			}
+//			}
 		} else {
 			drone.getTaskList().push(new MoveTask(drone, buildLoc, true));
 			drone.getTaskList().peek().execute(map);
