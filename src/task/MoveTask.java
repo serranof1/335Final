@@ -58,7 +58,17 @@ public class MoveTask extends Task {
 		System.out.println("movetask else: " +map.getTile(nextStep.getX(), nextStep.getY()).canMove());
 		drone.setMyPath(null);
 		drone.getTaskList().pop();
-		drone.getTaskList().push(new MoveTask(drone, goal, true));
+		/*
+		if (goal.getHasDrone()) {
+			goal = goal.getEast();
+		}
+		if (goal.getHasDrone()) {
+			goal = goal.getSouth();
+		}
+		if (goal.getHasDrone()) {
+			goal = goal.getWest();
+		}*/
+		drone.getTaskList().push(new MoveTask(drone, goal, false));
 		drone.getTaskList().peek().execute(map);
 	}
 

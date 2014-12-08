@@ -97,6 +97,7 @@ public class TestMainGUI extends JFrame{
 			mainGame.doWeather();
 			mainGame.doBuildingTasks();
 			mainGame.doDroneTasksTest();
+			mainGame.printTest();
 			win = mainGame.checkWin();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();

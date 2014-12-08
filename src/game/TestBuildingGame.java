@@ -95,7 +95,7 @@ public class TestBuildingGame {
 
 		// when a game is started if main base cannot be built generate new map
 		if (base.canBuild(map.getTile(10, 10)) != true) {
-			map = new Map(7);
+			map = new Map(6);
 		}
 		//when a game is started if main base cannot be built generate new map
 		if(base.canBuild(map.getTile(10,10)) != true){
@@ -336,5 +336,8 @@ public class TestBuildingGame {
 	public boolean checkWin() {
 		return map.getTerraformed() > 80;
 	}
-
+	
+	public void printTest() {
+		System.out.println("gas " + gasTest.getLocationX() + " " + gasTest.getLocationY());
+	}
 }

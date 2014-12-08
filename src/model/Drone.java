@@ -182,6 +182,8 @@ public class Drone implements Mover{
 	public void setCurrentTile(Tile input) {
 		currentTile.setHasDrone(false);
 		currentTile = input;
+		locationX = currentTile.getX();
+		locationY = currentTile.getY();
 		currentTile.setHasDrone(true);
 
 	}
