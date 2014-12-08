@@ -13,7 +13,6 @@ public class MainGUI extends JFrame{
 
 	private static GraphicView graphics;
 	private TextView textView;
-	private floatingPanel floating;
 	
 	private MainGame mainGame;
 	private Timer timer;
@@ -31,12 +30,11 @@ public class MainGUI extends JFrame{
 	public MainGUI(){
 		
 		mainGame = new MainGame();
-		floating = new floatingPanel();
 		
-		this.add(floating);
 		setupMapPane();
 		this.setVisible(true);
-		this.setSize(1020,1020);
+		this.setSize(1000,1100);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		runGameLoop();
 		
@@ -61,7 +59,6 @@ public class MainGUI extends JFrame{
 	public void drawGame(){
 		graphics.repaint();
 		textView.repaint();
-		floating.repaint();
 	}
 
 
