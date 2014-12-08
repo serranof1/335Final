@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import buildings.Building;
 import tiles.Tile;
 import tiles.WeatherEnum;
 import tiles.WeatherTile;
@@ -13,6 +15,7 @@ public class WeatherBehavior {
 	private ArrayList<Storm> stormList;
 	int border1;
 	int border2;
+	Random rand = new Random();
 	
 	public WeatherBehavior() {
 		border1 = -1;
@@ -65,6 +68,13 @@ public class WeatherBehavior {
 		ArrayList<Storm> toBeRemoved = new ArrayList<Storm>();
 		for (Storm eachStorm : stormList) {
 			eachStorm.setTimeRemaining(eachStorm.getTimeRemaining() - 1);
+			for (Building eachBuilding : map.getAllBuildings()) {
+				stormEffect = (eachBuilding.getLocation().getX() > eachStorm.getX() - eachStorm.getSize() &&
+						eachBuilding.getLocation().getX() < eachStorm.getX() + eachStorm.getSize() &&
+						eachBuilding.getLocation().getY() > eachStorm.getY() - eachStorm.getSize() &&
+						eachBuilding.getLocation().getY() < eachStorm.getY() + eachStorm.getSize());
+				eachStorm.execute(eachBuilding, stormEffect);
+			}
 			for (ArrayList<Drone> eachList : droneList) {
 				for (Drone eachDrone : eachList) {
 					stormEffect = (eachDrone.getLocationX() > eachStorm.getX() - eachStorm.getSize() &&
@@ -75,8 +85,9 @@ public class WeatherBehavior {
 						//eachStorm.endStorm(map);
 						toBeRemoved.add(eachStorm);
 					}
-				}				
+				}
 			}
+			eachStorm.decrement();
 		}
 		for (Storm eachStorm: toBeRemoved) {
 			stormList.remove(eachStorm);
@@ -84,7 +95,24 @@ public class WeatherBehavior {
 	}
 	
 	public void addTestStorm(Map map) {
-		stormList.add(new Storm(20, 20, 5, map));
+		//stormList.add(new Storm(20, 20, 5, map));
+	}
+	
+	public void addStorm(Map map) {
+		if (rand.nextFloat() < .5) {
+			int x = rand.nextInt(map.getSize() - 10);
+			int y = rand.nextInt(map.getSize() - 10);
+			stormList.add(new Storm(x + 5, y + 5, 4, map));
+		} else if (rand.nextFloat() > .99) {
+			int x = rand.nextInt(map.getSize() - 10);
+			int y = rand.nextInt(map.getSize() - 10);
+			stormList.add(new Storm(x + 5, y + 5, 5, map));
+			for (int i = 0; i < 30; i++) {
+				x = rand.nextInt(map.getSize() - 10);
+				y = rand.nextInt(map.getSize() - 10);
+				stormList.add(new Storm(x + 5, y + 5, 5, map));
+			}
+		}
 	}
 	
 	private class Storm {
@@ -107,12 +135,21 @@ public class WeatherBehavior {
 			currentRadius = 0;
 		}
 		
-		public boolean execute(Drone drone, boolean stormEffect, Map map) {
+		public void decrement() {
 			if (size < timeRemaining) {
 				currentRadius++;
 			} else {
 				currentRadius--;
 			}
+		}
+		
+		public boolean execute(Drone drone, boolean stormEffect, Map map) {
+			/*
+			if (size < timeRemaining) {
+				currentRadius++;
+			} else {
+				currentRadius--;
+			}*/
 			System.out.println("Current radius: " + currentRadius);
 			//This will need to be converted to node logic.
 			for (int i = y - size; i < y + size; i++) {
@@ -126,11 +163,18 @@ public class WeatherBehavior {
 			}
 			if (stormEffect) {
 				drone.setRepair(drone.getRepair() / 20);
+				drone.setPower(drone.getPower() / 20);
 			}
 			if (timeRemaining <= 0) {
 				return true;
 			}
 			return false;
+		}
+		
+		public void execute(Building build, boolean stormEffect) {
+			if (stormEffect) {
+				build.setHealth(build.getHealth() / 20);
+			}
 		}
 		
 		public int getX() {

@@ -29,7 +29,7 @@ public class Tile {
 			}
 		}
 		try {
-			droneImage = ImageIO.read(new File("images/drone.png"));
+			droneImage = ImageIO.read(new File("images/drone2.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,7 +52,7 @@ public class Tile {
 			}
 		}
 		try {
-			droneImage = ImageIO.read(new File("images/drone.png"));
+			droneImage = ImageIO.read(new File("images/drone2.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -284,10 +284,15 @@ public class MainGame {
 	public void doWeather() {
 		wb.LightMovement(map);
 		wb.StormActions(allDrones, map);
+		wb.addStorm(map);
 	}
 
 	public boolean checkWin() {
 		return map.getTerraformed() > 80;
+	}
+	
+	public boolean checkLose() {
+		return defaultList.size() + builders.size() + miners.size() + resourceCollectors.size() + itemBuilders.size() <= 0;
 	}
 
 	public Drone createDrone(){
