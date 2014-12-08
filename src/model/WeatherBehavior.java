@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import tiles.Tile;
 import tiles.WeatherEnum;
@@ -13,6 +14,7 @@ public class WeatherBehavior {
 	private ArrayList<Storm> stormList;
 	int border1;
 	int border2;
+	Random rand = new Random();
 	
 	public WeatherBehavior() {
 		border1 = -1;
@@ -75,8 +77,9 @@ public class WeatherBehavior {
 						//eachStorm.endStorm(map);
 						toBeRemoved.add(eachStorm);
 					}
-				}				
+				}
 			}
+			eachStorm.decrement();
 		}
 		for (Storm eachStorm: toBeRemoved) {
 			stormList.remove(eachStorm);
@@ -84,7 +87,15 @@ public class WeatherBehavior {
 	}
 	
 	public void addTestStorm(Map map) {
-		stormList.add(new Storm(20, 20, 5, map));
+		//stormList.add(new Storm(20, 20, 5, map));
+	}
+	
+	public void addStorm(Map map) {
+		if (rand.nextFloat() < .2) {
+			int x = rand.nextInt(map.getSize() - 10);
+			int y = rand.nextInt(map.getSize() - 10);
+			stormList.add(new Storm(x + 5, y + 5, 4, map));
+		}
 	}
 	
 	private class Storm {
@@ -107,12 +118,21 @@ public class WeatherBehavior {
 			currentRadius = 0;
 		}
 		
-		public boolean execute(Drone drone, boolean stormEffect, Map map) {
+		public void decrement() {
 			if (size < timeRemaining) {
 				currentRadius++;
 			} else {
 				currentRadius--;
 			}
+		}
+		
+		public boolean execute(Drone drone, boolean stormEffect, Map map) {
+			/*
+			if (size < timeRemaining) {
+				currentRadius++;
+			} else {
+				currentRadius--;
+			}*/
 			System.out.println("Current radius: " + currentRadius);
 			//This will need to be converted to node logic.
 			for (int i = y - size; i < y + size; i++) {

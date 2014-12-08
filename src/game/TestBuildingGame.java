@@ -93,7 +93,7 @@ public class TestBuildingGame {
 		
 		//when a game is started if main base cannot be built generate new map
 		if(base.canBuild(map.getTile(10,10)) != true){
-			map = new Map(7);
+			map = new Map(6);
 			mapSpawnCheck();
 		}
 		initializeBuildings();
@@ -305,6 +305,7 @@ public class TestBuildingGame {
 	public void doWeather() {
 		wb.LightMovement(map);
 		wb.StormActions(allDrones, map);
+		wb.addStorm(map);
 	}
 
 	public boolean checkWin() {
