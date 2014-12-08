@@ -376,5 +376,7 @@ public class Map {
 		return numOfTerraformedTiles;
 	}
 
-
+	public LinkedList<Building> getAllBuildings() {
+		return allBuildings;
+	}
 }

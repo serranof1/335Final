@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import buildings.Building;
 import tiles.Tile;
 import tiles.WeatherEnum;
 import tiles.WeatherTile;
@@ -67,6 +68,13 @@ public class WeatherBehavior {
 		ArrayList<Storm> toBeRemoved = new ArrayList<Storm>();
 		for (Storm eachStorm : stormList) {
 			eachStorm.setTimeRemaining(eachStorm.getTimeRemaining() - 1);
+			for (Building eachBuilding : map.getAllBuildings()) {
+				stormEffect = (eachBuilding.getLocation().getX() > eachStorm.getX() - eachStorm.getSize() &&
+						eachBuilding.getLocation().getX() < eachStorm.getX() + eachStorm.getSize() &&
+						eachBuilding.getLocation().getY() > eachStorm.getY() - eachStorm.getSize() &&
+						eachBuilding.getLocation().getY() < eachStorm.getY() + eachStorm.getSize());
+				eachStorm.execute(eachBuilding, stormEffect);
+			}
 			for (ArrayList<Drone> eachList : droneList) {
 				for (Drone eachDrone : eachList) {
 					stormEffect = (eachDrone.getLocationX() > eachStorm.getX() - eachStorm.getSize() &&
@@ -161,6 +169,12 @@ public class WeatherBehavior {
 				return true;
 			}
 			return false;
+		}
+		
+		public void execute(Building build, boolean stormEffect) {
+			if (stormEffect) {
+				build.setHealth(build.getHealth() / 20);
+			}
 		}
 		
 		public int getX() {
