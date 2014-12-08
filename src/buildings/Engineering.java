@@ -27,16 +27,15 @@ public class Engineering extends Building {
 
 	@Override
 	public void executeOnBuilding(Map map) {
-		if(createDrone){
-	
-		}
+		
 	}
 	
 	public void repair(Drone drone) {
 		// TODO Auto-generated method stub
 		if (getInventory() > 2) {
 			drone.setRepair(drone.getRepair() + 2);
-			setInventory(getInventory()-2);
+			setIron(getIron()-2);
+			System.out.println("Engineering: " + getIron());
 		} else {
 			System.out.println("Not enough to repair");
 		}

@@ -25,7 +25,6 @@ public class MoveTask extends Task {
 
 	@Override
 	public void execute(Map map) {
-		System.out.println("goal is " + goal.getX() + " " + goal.getY());
 		drone.setGas(drone.getGas() - 5);
 		drone.setPower(drone.getPower() - 3);
 		drone.setRepair(drone.getRepair() - 1);

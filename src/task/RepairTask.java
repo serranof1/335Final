@@ -1,16 +1,17 @@
 package task;
 
-import buildings.Building;
-import tiles.Tile;
-import model.Drone;
 import game.Map;
+import model.Drone;
+import tiles.Tile;
+import buildings.Building;
+import buildings.Engineering;
 
 public class RepairTask extends Task {
-	Building building;
+	Engineering building;
 	Tile goal;
 	public RepairTask(Drone drone, Building building, Tile tile) {
 		super(drone);
-		this.building = building;
+		this.building = (Engineering) building;
 		goal = tile;
 		// TODO Auto-generated constructor stub
 	}
@@ -20,18 +21,16 @@ public class RepairTask extends Task {
 		drone.setGas(drone.getGas() - 1);
 		drone.setPower(drone.getPower() - 6);
 		if(drone.getCurrentTile() == goal){
-			if (drone.getRepair() > drone.getMaxRepair()) {
-				drone.setRepair(drone.getMaxRepair());
+			if (drone.getRepair() < drone.getMaxRepair()) {
+				building.repair(drone);				
 				System.out.println("REPAIRING");
 			} else {
-				drone.setRepair(drone.getRepair() + 20);
-				drone.getTaskList().push(new RepairTask(drone, building, goal));
+				drone.setRepair(drone.getMaxRepair());
+				drone.getTaskList().pop();
 			}
 		} else {
-			//Tile repairTile = map.getTile(10, 10);
-			//drone.getTaskList().push(new ChargeTask(drone));
 			drone.getTaskList().push(new MoveTask(drone, building.getEmptyTile(), false));
-			drone.getTaskList().pop().execute(map);
+			drone.getTaskList().peek().execute(map);
 		}
 	}
 

@@ -204,7 +204,7 @@ public abstract class Building {
 	}
 	
 	public void setPower(int x){
-		carbon = x;
+		electricity = x;
 	}
 	public int getPower(){
 		return electricity;

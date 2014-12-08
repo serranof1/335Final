@@ -27,16 +27,18 @@ public class SolarPlant extends Building {
 		if (isFinished()) {
 			for (Tile tile : getTileList()) {
 				if (tile.daytime()) {
-					setInventory(getInventory() + 25);
-					System.out.println("Daylight collected");
+					setPower(getPower() + 25);
+					System.out.println("SolarPlant power: " + getPower());
 				}
 			}
 		}
 	}
 
 	public void charge(Drone drone) {
-		if (getInventory() > 25) {
+		if (getPower() > 25) {
 			drone.setPower(drone.getPower() + 25);
+			setPower(getPower()-25);
+			System.out.println("SolarPlant: " + getPower());
 		} else {
 			System.out.println("Not enough power to give");
 		}

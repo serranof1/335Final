@@ -341,7 +341,6 @@ public class Map {
 				}
 			}
 		}
-		System.out.println("nearest building " + minX + " " + minY);
 		return nearestBuilding;
 	}
 	

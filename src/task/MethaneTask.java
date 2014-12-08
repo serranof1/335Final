@@ -1,7 +1,7 @@
 package task;
 
 import buildings.Building;
-import buildings.MethPlant;
+import buildings.MethanePlant;
 import model.Drone;
 import game.Map;
 import tiles.BuildingEnum;
@@ -10,12 +10,12 @@ import tiles.Tile;
 
 public class MethaneTask extends Task{
 	
-	MethPlant plant;
+	MethanePlant plant;
 	Tile goal;
 	
-	public MethaneTask(Drone drone, Building methPlant, Tile tile) {
+	public MethaneTask(Drone drone, Building methanePlant, Tile tile) {
 		super(drone);
-		this.plant = (MethPlant) methPlant;
+		this.plant = (MethanePlant) methanePlant;
 		goal = tile;
 		
 	}
@@ -25,18 +25,18 @@ public class MethaneTask extends Task{
 		drone.setPower(drone.getPower() - 2);
 		if(drone.getCurrentTile() == goal){
 			plant.addDrone(drone);
-			if(drone.getGas() < drone.getMaxPower()){
-				plant.cook(drone);
+			if(drone.getGas() < drone.getMaxGas()){
+				plant.fill(drone);
 				System.out.println("REFUELING");
 				
-				
+
 				}else{
-					drone.getTaskList().push(new MethaneTask(drone, plant, goal));
+					drone.setGas(drone.getMaxGas());
+					drone.getTaskList().pop();
 				}
 			
 		}else{
 			
-			drone.getTaskList().push(new MethaneTask(drone, plant, goal));
 			drone.getTaskList().push(new MoveTask(drone, plant.getEmptyTile(), false));
 			drone.getTaskList().peek().execute(map);
 		}

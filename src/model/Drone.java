@@ -23,6 +23,9 @@ public class Drone implements Mover{
 	
 	private int locationX;
 	private int locationY;
+	private boolean charging = false;
+	private boolean repairing = false;
+	private boolean filling = false;
 	private String name;
 
 	/**
@@ -303,5 +306,24 @@ public class Drone implements Mover{
 		} else {
 			return 0;
 		}
+	}
+	
+	public void toggleCharge(){
+		charging = true;
+	}
+	public boolean isCharging(){
+		return charging;
+	}
+	public void toggleRepair(){
+		repairing = !repairing;
+	}
+	public boolean isRepairing(){
+		return repairing;
+	}
+	public void toggleFilling(){
+		filling = !filling;
+	}
+	public boolean isFilling(){
+		return filling;
 	}
 }

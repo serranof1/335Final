@@ -53,7 +53,6 @@ public class TestMainGUI extends JFrame{
 		graphics.setFocusable(true);
 		textView.setFocusable(true);
 		
-		System.out.println(graphics.isFocusOwner());
 		
 		this.add(graphics);
 		

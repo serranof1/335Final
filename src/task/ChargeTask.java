@@ -33,12 +33,12 @@ public class ChargeTask extends Task{
 				
 				
 				}else{
-					drone.getTaskList().push(new ChargeTask(drone, plant, goal));
+					drone.setPower(drone.getMaxPower());
+					drone.getTaskList().pop();
 				}
 			
 		}else{
 			
-			drone.getTaskList().push(new ChargeTask(drone, plant, goal));
 			drone.getTaskList().push(new MoveTask(drone, plant.getEmptyTile(), false));
 			drone.getTaskList().peek().execute(map);
 		}

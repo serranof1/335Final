@@ -37,7 +37,6 @@ public class Farm extends Building {
 
 	@Override
 	public void executeOnBuilding(Map map) {
-		System.out.println("Farm execute");
 		map.getTile(0, 0).setGround(grass);
 		if (amount > 0) {
 			//This will need to be converted to node-logic.
