@@ -216,4 +216,10 @@ public abstract class Building {
 	public int getMethane(){
 		return methane;
 	}
+	public void setHealth(int i) {
+		health = i;
+	}
+	public int getHealth() {
+		return health;
+	}
 }

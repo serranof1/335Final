@@ -45,7 +45,7 @@ public class Map {
 	
 	public Map(int n, long seed) {
 		try {
-			droneImage = ImageIO.read(new File("images/drone.png"));
+			droneImage = ImageIO.read(new File("images/drone2.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("No drone image");
@@ -62,7 +62,7 @@ public class Map {
 	
 	public Map(int n) {
 		try {
-			droneImage = ImageIO.read(new File("images/drone.png"));
+			droneImage = ImageIO.read(new File("images/drone2.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("No drone image");
@@ -375,5 +375,7 @@ public class Map {
 		return numOfTerraformedTiles;
 	}
 
-
+	public LinkedList<Building> getAllBuildings() {
+		return allBuildings;
+	}
 }

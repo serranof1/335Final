@@ -14,7 +14,6 @@ public class TestMainGUI extends JFrame{
 
 	private static GraphicView graphics;
 	private TextView textView;
-	private floatingPanel floating;
 	
 	private TestBuildingGame mainGame;
 	private Timer timer;
@@ -32,9 +31,6 @@ public class TestMainGUI extends JFrame{
 	public TestMainGUI(){
 		
 		mainGame = new TestBuildingGame();
-		floating = new floatingPanel();
-		
-		this.add(floating);
 		setupMapPane();
 		this.setVisible(true);
 		this.setSize(1020,1020);
@@ -61,7 +57,6 @@ public class TestMainGUI extends JFrame{
 	public void drawGame(){
 		graphics.repaint();
 		textView.repaint();
-		floating.repaint();
 	}
 
 

@@ -13,7 +13,6 @@ public class MainGUI extends JFrame{
 
 	private static GraphicView graphics;
 	private TextView textView;
-	private floatingPanel floating;
 	
 	private MainGame mainGame;
 	private Timer timer;
@@ -22,6 +21,7 @@ public class MainGUI extends JFrame{
 	private boolean paused = false;
 	private int frameCount = 0;
 	private boolean win = false;
+	private boolean lose = false;
 	
 	public static void main(String[] args){
 		new MainGUI();
@@ -31,12 +31,11 @@ public class MainGUI extends JFrame{
 	public MainGUI(){
 		
 		mainGame = new MainGame();
-		floating = new floatingPanel();
 		
-		this.add(floating);
 		setupMapPane();
 		this.setVisible(true);
-		this.setSize(1020,1020);
+		this.setSize(1000,1200);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		runGameLoop();
 		
@@ -61,7 +60,6 @@ public class MainGUI extends JFrame{
 	public void drawGame(){
 		graphics.repaint();
 		textView.repaint();
-		floating.repaint();
 	}
 
 
@@ -103,6 +101,7 @@ public class MainGUI extends JFrame{
 			mainGame.doBuildingTasks();
 			mainGame.doDroneTasksTest();
 			win = mainGame.checkWin();
+			lose = mainGame.checkLose();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;
@@ -115,11 +114,12 @@ public class MainGUI extends JFrame{
 			if (!running) //Comment out this if-statement to show the win condition triggering.
 				//Getting the master up-to-date was a little weird, since both Cody and I pushed stuff separately
 
-			if (!running || win)
+			if (!running || win || lose)
 
 			{
 				timer.cancel();
-				System.out.println("You won.");
+				if (win); System.out.println("You won.");
+				if (lose); System.out.println("You lose.");
 			}
 		}
 	}
