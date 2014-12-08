@@ -91,10 +91,19 @@ public class WeatherBehavior {
 	}
 	
 	public void addStorm(Map map) {
-		if (rand.nextFloat() < .2) {
+		if (rand.nextFloat() < .5) {
 			int x = rand.nextInt(map.getSize() - 10);
 			int y = rand.nextInt(map.getSize() - 10);
 			stormList.add(new Storm(x + 5, y + 5, 4, map));
+		} else if (rand.nextFloat() > .99) {
+			int x = rand.nextInt(map.getSize() - 10);
+			int y = rand.nextInt(map.getSize() - 10);
+			stormList.add(new Storm(x + 5, y + 5, 5, map));
+			for (int i = 0; i < 30; i++) {
+				x = rand.nextInt(map.getSize() - 10);
+				y = rand.nextInt(map.getSize() - 10);
+				stormList.add(new Storm(x + 5, y + 5, 5, map));
+			}
 		}
 	}
 	
@@ -146,6 +155,7 @@ public class WeatherBehavior {
 			}
 			if (stormEffect) {
 				drone.setRepair(drone.getRepair() / 20);
+				drone.setPower(drone.getPower() / 20);
 			}
 			if (timeRemaining <= 0) {
 				return true;
