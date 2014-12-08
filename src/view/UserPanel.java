@@ -17,7 +17,7 @@ public class UserPanel extends JPanel {
 		this.setSize(200,200);
 		this.setPreferredSize(this.getSize());
 		this.setBackground(Color.BLUE);
-		this.setLayout(new GridLayout(4,1));
+		this.setLayout(new GridLayout(4,2));
 		this.view = view;
 		
 		setupButtons();
@@ -25,7 +25,7 @@ public class UserPanel extends JPanel {
 	}
 
 	private void setupButtons(){
-		buildButton = new JButton("BUILD");
+		buildButton = new JButton("COLLECT RESOURCES");
 		
 		
 		this.add(buildButton);

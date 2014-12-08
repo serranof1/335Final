@@ -5,13 +5,17 @@ import game.Map;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class GraphicView extends JPanel{
 
@@ -21,9 +25,9 @@ public class GraphicView extends JPanel{
 
 	private int startPointX, startPointY, endPointY, endPointX;
 	private int clicks = 0;
-	
+
 	private UserPanel userPanel;
-	
+
 	private TextView textView;
 	private boolean selectResource;
 	public boolean dragging;
@@ -37,14 +41,13 @@ public class GraphicView extends JPanel{
 		this.viewLength = viewLength;
 		userPanel = new UserPanel(this);
 		userPanel.setLocation(0, 1000);
-		
-		
+
+
 		this.textView = textView;
 		leftRow = row;
 		leftCol = col;
 		selectResource = false;
 		this.map = map;
-		this.addKeyListener(new KeyMoveListener());
 		registerListeners();
 		this.add(userPanel, BorderLayout.PAGE_END);
 	}
@@ -98,30 +101,30 @@ public class GraphicView extends JPanel{
 			if (topLeftX > bottomRightX && topLeftY > bottomRightY) {
 				g.setColor(myGreen);	
 				g.fillRect( bottomRightX * 50, bottomRightY * 50, (topLeftX - bottomRightX) * 50, (topLeftY - bottomRightY) * 50);
-				
+
 				g.setColor(Color.GREEN);
 				g.drawRect( bottomRightX * 50, bottomRightY * 50, (topLeftX - bottomRightX) * 50, (topLeftY - bottomRightY) * 50);
-				
+
 			} else if (topLeftX < bottomRightX && topLeftY > bottomRightY) {
 				g.setColor(myGreen);
 				g.fillRect(topLeftX * 50, bottomRightY * 50, (bottomRightX - topLeftX) * 50, (topLeftY - bottomRightY) * 50);
-				
+
 				g.setColor(Color.GREEN);
 				g.drawRect(topLeftX * 50, bottomRightY * 50, (bottomRightX - topLeftX) * 50, (topLeftY - bottomRightY) * 50);
 			} else if (topLeftX > bottomRightX && topLeftY < bottomRightY) {
 				g.setColor(myGreen);	
 				g.fillRect(bottomRightX * 50, topLeftY * 50, (topLeftX -bottomRightX) * 50, (bottomRightY - topLeftY) * 50);
-				
+
 				g.setColor(Color.GREEN);
 				g.drawRect(bottomRightX * 50, topLeftY * 50, (topLeftX -bottomRightX) * 50, (bottomRightY - topLeftY) * 50);
 			} else {
 				g.setColor(myGreen);	
 				g.fillRect(topLeftX * 50, topLeftY * 50 , (bottomRightX - topLeftX) * 50, (bottomRightY - topLeftY) * 50);
-				
+
 				g.setColor(Color.GREEN);
 				g.drawRect(topLeftX * 50, topLeftY * 50 , (bottomRightX - topLeftX) * 50, (bottomRightY - topLeftY) * 50);
 			}
-			
+
 		}
 
 	}
@@ -150,7 +153,13 @@ public class GraphicView extends JPanel{
 		MouseMotionListener motionListener = new ListenToMouse();
 
 		this.addMouseMotionListener(motionListener);
-		this.addMouseListener(listener);		
+		this.addMouseListener(listener);
+
+		this.addKeyListener(new KeyMoveListener());
+
+
+
+
 	}
 	/**
 	 * This is where we tell the mouse what to do on clicks and movement
@@ -158,21 +167,22 @@ public class GraphicView extends JPanel{
 	 *
 	 */
 	private class ListenToMouse implements MouseMotionListener, MouseListener {
-	
+
 		public void mouseClicked(MouseEvent evt) {
-			
+
 			if(selectResource && clicks == 0){
 				startPointX = evt.getX();
 				startPointY = evt.getY();
 				clicks++;
 				System.out.println("mouse click 1:  " +clicks);
-				
+
 			} else if(selectResource && clicks == 1){
 				System.out.println("mouse click 2:   " +clicks);
 				clicks--;
 				selectResource = false;
+				grabFocus();
 			} else {
-				//do other thigns here, im not sure what
+				//do other things here, im not sure what
 			}
 		}
 
@@ -180,7 +190,7 @@ public class GraphicView extends JPanel{
 			endPointX = evt.getX();
 			endPointY = evt.getY();
 			if(selectResource && clicks == 1)
-				
+
 				repaint();
 		}
 
@@ -197,9 +207,11 @@ public class GraphicView extends JPanel{
 		}
 
 		public void mouseDragged(MouseEvent evt) {
-		
+
 		}
 	}
+
+
 
 	private class KeyMoveListener implements KeyListener
 	{
@@ -255,7 +267,7 @@ public class GraphicView extends JPanel{
 	public void setSelectResource(boolean input){
 		selectResource = input;
 	}
-	
+
 	public void setMap(Map map) {
 		this.map = map;
 

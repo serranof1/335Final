@@ -33,7 +33,7 @@ public class MainGUI extends JFrame{
 		
 		setupMapPane();
 		this.setVisible(true);
-		this.setSize(1000,1100);
+		this.setSize(1000,1200);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		runGameLoop();
