@@ -23,6 +23,7 @@ import tiles.WeatherTile;
 import buildings.Building;
 
 public class Map {
+	//good seed: 7959250223445097006
 	private Tile[][] map;
 	private int size, n;
 	private long seed;
