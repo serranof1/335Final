@@ -22,14 +22,15 @@ public class RepairTask extends Task {
 		if(drone.getCurrentTile() == goal){
 			if (drone.getRepair() > drone.getMaxRepair()) {
 				drone.setRepair(drone.getMaxRepair());
+				System.out.println("REPAIRING");
 			} else {
 				drone.setRepair(drone.getRepair() + 20);
 				drone.getTaskList().push(new RepairTask(drone, building, goal));
 			}
 		} else {
-			Tile repairTile = map.getTile(10, 10);
+			//Tile repairTile = map.getTile(10, 10);
 			//drone.getTaskList().push(new ChargeTask(drone));
-			drone.getTaskList().push(new MoveTask(drone, repairTile, true));
+			drone.getTaskList().push(new MoveTask(drone, building.getEmptyTile(), false));
 			drone.getTaskList().pop().execute(map);
 		}
 	}

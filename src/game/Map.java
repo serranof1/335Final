@@ -251,6 +251,7 @@ public class Map {
 		}
 		return map;
 	}
+	
 	private String drawTextForm() {
 		String s = new String();
 		for (int i = 0; i < size; i++) {
@@ -308,7 +309,6 @@ public class Map {
 					map[i][j].setBuilding(new BuildingTile(b.getTypeOfBuilding()));
 					b.addTile(map[i][j]);
 					if (b.getTypeOfBuilding() == BuildingEnum.FARM) {
-						System.out.println("check");
 					}
 				}	
 				
@@ -340,6 +340,7 @@ public class Map {
 				}
 			}
 		}
+		System.out.println("nearest building " + minX + " " + minY);
 		return nearestBuilding;
 	}
 	

@@ -25,6 +25,7 @@ public class MoveTask extends Task {
 
 	@Override
 	public void execute(Map map) {
+		System.out.println("goal is " + goal.getX() + " " + goal.getY());
 		drone.setGas(drone.getGas() - 5);
 		drone.setPower(drone.getPower() - 3);
 		drone.setRepair(drone.getRepair() - 1);
@@ -40,7 +41,7 @@ public class MoveTask extends Task {
 			System.out.println("Drone doesn't have a path. Creating a new one");
 			
 			map.clearVisited();
-			Path path = map.getFinder().findPath(drone, drone.getLocationX(), drone.getLocationY(), goal.getX(), goal.getX());			
+			Path path = map.getFinder().findPath(drone, drone.getLocationX(), drone.getLocationY(), goal.getX(), goal.getY());			
 			drone.setMyPath(path);
 			if(path == null){
 				return;

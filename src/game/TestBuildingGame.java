@@ -1,0 +1,318 @@
+package game;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
+import model.Battery;
+import model.Drone;
+import model.WeatherBehavior;
+import pathfinding.AStarPathFinder;
+import task.BuildTask;
+import task.ChargeTask;
+import task.ItemBuildTask;
+import task.MethaneTask;
+import task.MoveTask;
+import task.RepairTask;
+import task.DepositTask;
+import tiles.BuildingEnum;
+import tiles.Tile;
+import view.MainGUI;
+import buildings.Base;
+import buildings.Building;
+import buildings.Engineering;
+import buildings.Farm;
+import buildings.MethPlant;
+import buildings.SolarPlant;
+
+public class TestBuildingGame {
+
+	
+	private static Map map;
+	
+
+	private static LinkedList<Tile> resourceList = new LinkedList<Tile>();
+	private static LinkedList<Building> buildingList = new LinkedList<Building>();
+
+	private static ArrayList<ArrayList<Drone>> allDrones = new ArrayList<ArrayList<Drone>>();
+	private static ArrayList<Drone> defaultList = new ArrayList<Drone>();
+	private static ArrayList<Drone> builders = new ArrayList<Drone>();
+	private static ArrayList<Drone> miners = new ArrayList<Drone>();
+	private static ArrayList<Drone> resourceCollectors = new ArrayList<Drone>();
+	private static ArrayList<Drone> itemBuilders = new ArrayList<Drone>();
+	
+	private MainGUI gui;
+
+	private static Drone startDroneOne, startDroneTwo, startDroneThree, startDroneFour, startDroneFive;
+	private static Building base, plant1;
+	
+	private static WeatherBehavior wb = new WeatherBehavior();
+
+	private Drone testMove;
+	private Drone testMove2;
+	private Drone testMove3;
+	
+	private static Drone powerTest, gasTest, repairTest;
+	
+	
+	/**
+	 * @author Cody Jensen
+	 * 
+	 * A MainGame is where the game loop runs, it will contain/control elements that rely on the game clock(update method, draw method for animation)
+	 * 
+	 */
+	public TestBuildingGame() {
+
+		setupVariables();
+		mapSpawnCheck();
+		initializeDrones();	
+		debugMethod();
+		
+	}
+	
+	public void debugMethod2(){
+		//defaultList.add(testMove3);
+	}
+	
+	private void debugMethod() {
+		
+		//testMove = new Drone("test1", 400.0, map.getTile(30, 30));
+		//testMove2 = new Drone("test2", 400.0, map.getTile(10, 30));
+		//testMove3 = new Drone("test3", 400.0, map.getTile(10, 10));
+		//testMove.getTaskList().push(new MoveTask(testMove, map.getTile(10, 10), false));
+		//testMove2.getTaskList().push(new MoveTask(testMove2, map.getTile(10, 10), false));
+		//defaultList.add(testMove);
+		//defaultList.add(testMove2);
+		
+	}
+	
+	private void mapSpawnCheck() {
+		
+		base = new Base(10, 10);
+		
+		//when a game is started if main base cannot be built generate new map
+		if(base.canBuild(map.getTile(10,10)) != true){
+			map = new Map(7);
+			mapSpawnCheck();
+		}
+		initializeBuildings();
+	}
+
+
+	private void initializeBuildings() {
+		
+		map.build(base);
+		base.setFinished();
+		buildingList.add(base);
+		
+		Building farmTest = new Farm(3, 3);
+		map.build(farmTest);
+		farmTest.setFinished();
+		buildingList.add(farmTest);
+		
+		Building engineeringTest = new Engineering(10, 3);
+		map.build(engineeringTest);
+		buildingList.add(engineeringTest);
+		engineeringTest.setFinished();
+		
+		Building methPlanTest = new MethPlant(15, 3);
+		map.build(methPlanTest);
+		buildingList.add(methPlanTest);
+		methPlanTest.setFinished();
+		
+		plant1 = new SolarPlant(18, 3);
+		map.build(plant1);
+		buildingList.add(plant1);
+		plant1.setFinished();
+		
+		
+		wb.addTestStorm(map);
+
+		
+	}
+	/**
+	 * @author Cody Jensen
+	 * 
+	 * This is where the starting groups of drones will be added, later a method to add a drone to the map can be added to replace this
+	 */
+	private static void initializeDrones() {
+
+		
+		/*startDroneOne = new Drone("startDroneOne", 400.0, map.getTile(10,15));	
+		startDroneTwo = new Drone("startDroneTwo", 400.0, map.getTile(15,15));
+		startDroneThree = new Drone("startDroneThree", 400.0, map.getTile(17,17));
+		startDroneFour = new Drone("startDroneFour", 400.0, map.getTile(20,21));
+		startDroneFive = new Drone("startDroneFive", 400.0, map.getTile(20, 15));
+		
+		defaultList.add(startDroneOne);
+		defaultList.add(startDroneTwo);
+		defaultList.add(startDroneThree);
+		defaultList.add(startDroneFour);
+		defaultList.add(startDroneFive);*/
+		
+		powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
+		gasTest = new Drone("gasTest", 400, map.getTile(15, 5));
+		gasTest.setGas(20);
+		repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
+		repairTest.setGas(20);
+		
+		defaultList.add(powerTest);
+		defaultList.add(gasTest);
+		defaultList.add(repairTest);
+		
+
+		allDrones.add(defaultList);
+		allDrones.add(miners);
+		allDrones.add(builders);
+		allDrones.add(resourceCollectors);
+		allDrones.add(itemBuilders);
+		
+	}
+
+	/**
+	 * @author Cody Jensen
+	 * 
+	 * eventually time reliant display windows will go here
+	 */
+	private void setupVariables() {
+		int n = JOptionPane.showConfirmDialog(null, "Do you want to enter a seed?", "Do you want to enter a seed?", JOptionPane.YES_NO_OPTION);
+		if (n == JOptionPane.NO_OPTION) {
+			map = new Map(6);
+		} else {
+			String s = JOptionPane.showInputDialog("Enter a long:");
+			map = new Map(6, Long.parseLong(s));
+		}
+	
+		
+	}
+	
+	public void assignTasks(){
+		defaultTasks();
+		buildTasks();
+		mineTasks();
+		itemBuildTasks();
+		resourceTasks();
+	}
+	
+	public void defaultTasks() {
+		for (int i = 0; i < defaultList.size(); i++) {
+			checkNeeds(defaultList.get(i));
+		}
+	}
+	
+	private void resourceTasks() {
+		for (int i = 0; i < resourceCollectors.size(); i++) {
+			resourceCollectors.get(i).getTaskList().push(new DepositTask(resourceCollectors.get(i), buildingList.get(0)));
+			checkNeeds(resourceCollectors.get(i));
+			
+		}
+	}
+	
+	private void buildTasks() {
+		
+		for (int i = 0; i < buildingList.size(); i++) {
+			for (int j = 0; j < builders.size(); j++) {
+				if(!buildingList.get(i).isFinished()){
+						builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
+						checkNeeds(builders.get(j));
+						System.out.println("Builder has been assigned a building task.");
+				}
+			}
+		}
+	}
+
+	private void mineTasks() {
+		//
+		
+	}
+	
+	private void itemBuildTasks() {
+			Battery battery = new Battery();
+		for (int i = 0; i < itemBuilders.size(); i++) {
+			
+			itemBuilders.get(i).getTaskList().push(new ItemBuildTask(itemBuilders.get(i), battery, map.whereToBuild(battery)));
+			checkNeeds(resourceCollectors.get(i));
+			
+		}
+			
+	}
+	
+	private void checkNeeds(Drone drone){
+		if(drone.getRepair()<30){
+			Building repairAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.ENGINEERING);
+			System.out.println("repairAt location: " + repairAt.getLocation().getX() + " " + repairAt.getLocation().getY());
+			drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile()));
+			System.out.println("needs repair at " + repairAt.getLocation().getX() + " " + repairAt.getLocation().getY());
+		}
+		if(drone.getGas() < 50){
+			Building cookAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.METHANEPLANT);
+			drone.getTaskList().push(new MethaneTask(drone, cookAt, cookAt.getEmptyTile()));
+			System.out.println("needs gas at " + cookAt.getLocation().getX() + " " + cookAt.getLocation().getY());
+		}
+		if(drone.getPower() < 80){
+			Building chargeAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.POWERPLANT);
+			drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
+			System.out.println("needs power at " + chargeAt.getLocation().getX() + " " + chargeAt.getLocation().getY());
+		}
+		if (drone.getGas() < 50) {
+			
+		}
+	}
+	
+	public void doBuildingTasks() {
+		for(Building building: buildingList){
+			if(building.isFinished())
+				building.executeOnBuilding(map);
+		}
+	}
+	
+	
+
+	public void doDroneTasks() {
+		// Goes through every drone, checks if they're dead and removes them if they are. 
+		// Then it calls execute on every drone's current task.
+		System.out.println("**************************************************************");
+		for(int i = 0; i < allDrones.size(); i++){
+			for(int j = 0; j< allDrones.get(i).size(); j++){
+				allDrones.get(i).get(j).executeTaskList(map);
+				System.out.println("Repair: " + allDrones.get(i).get(j).getRepair());
+			}
+		}
+		System.out.println("**************************************************************");
+	}
+	
+	public void doDroneTasksTest() {
+		
+		
+		
+		
+		System.out.println("**************************************************************");
+		for(int i = 0; i < allDrones.size(); i++){
+			for(int j = 0; j< allDrones.get(i).size(); j++){
+				allDrones.get(i).get(j).executeTaskList(map);
+			}
+		}
+		System.out.println("**************************************************************");
+	}
+
+
+	public Map getMap() {
+		
+		return this.map;
+	}
+
+	public void doWeather() {
+		wb.LightMovement(map);
+		wb.StormActions(allDrones, map);
+	}
+
+	public boolean checkWin() {
+		return map.getTerraformed() > 80;
+	}
+
+
+
+}
+
+

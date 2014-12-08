@@ -29,7 +29,7 @@ public class ChargeTask extends Task{
 			plant.addDrone(drone);
 			if(drone.getPower() < drone.getMaxPower()){
 				plant.charge(drone);
-				
+				System.out.println("CHARGING");
 				
 				
 				}else{
@@ -39,7 +39,7 @@ public class ChargeTask extends Task{
 		}else{
 			
 			drone.getTaskList().push(new ChargeTask(drone, plant, goal));
-			drone.getTaskList().push(new MoveTask(drone, plant.getTileList().get(0), true));
+			drone.getTaskList().push(new MoveTask(drone, plant.getEmptyTile(), false));
 			drone.getTaskList().peek().execute(map);
 		}
 	}

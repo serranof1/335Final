@@ -13,7 +13,7 @@ public class MethaneTask extends Task{
 	MethPlant plant;
 	Tile goal;
 	
-	public MethaneTask(Drone drone, Building methPlant, Tile tile ) {
+	public MethaneTask(Drone drone, Building methPlant, Tile tile) {
 		super(drone);
 		this.plant = (MethPlant) methPlant;
 		goal = tile;
@@ -27,7 +27,7 @@ public class MethaneTask extends Task{
 			plant.addDrone(drone);
 			if(drone.getGas() < drone.getMaxPower()){
 				plant.cook(drone);
-				
+				System.out.println("REFUELING");
 				
 				
 				}else{
@@ -37,7 +37,7 @@ public class MethaneTask extends Task{
 		}else{
 			
 			drone.getTaskList().push(new MethaneTask(drone, plant, goal));
-			drone.getTaskList().push(new MoveTask(drone, plant.getTileList().get(0), true));
+			drone.getTaskList().push(new MoveTask(drone, plant.getEmptyTile(), false));
 			drone.getTaskList().peek().execute(map);
 		}
 	}
