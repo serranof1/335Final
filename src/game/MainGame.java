@@ -290,6 +290,10 @@ public class MainGame {
 	public boolean checkWin() {
 		return map.getTerraformed() > 80;
 	}
+	
+	public boolean checkLose() {
+		return defaultList.size() + builders.size() + miners.size() + resourceCollectors.size() + itemBuilders.size() <= 0;
+	}
 
 	public Drone createDrone(){
 		Base base = (Base) buildingList.get(0);
