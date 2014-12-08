@@ -270,6 +270,18 @@ public class Drone implements Mover{
 		maxRepair = i;
 	}
 	
+	public int getIron() {
+		return iron;
+	}
+	
+	public int getCarbon() {
+		return carbon;
+	}
+	
+	public int getMethane() {
+		return methane;
+	}
+	
 	public void gather(int i, ResourceEnum resource) {
 		if (iron + carbon + methane + i < maxCapacity) {
 			if (resource == ResourceEnum.IRON) {
