@@ -7,15 +7,14 @@ import javax.swing.JOptionPane;
 
 import model.Battery;
 import model.Drone;
+import model.ListOfLists;
 import model.WeatherBehavior;
-import pathfinding.AStarPathFinder;
 import task.BuildTask;
 import task.ChargeTask;
 import task.ItemBuildTask;
 import task.MethaneTask;
 import task.MoveTask;
 import task.RepairTask;
-import task.DepositTask;
 import tiles.BuildingEnum;
 import tiles.Tile;
 import view.MainGUI;
@@ -31,24 +30,19 @@ public class MainGame {
 	private static LinkedList<Tile> resourceList = new LinkedList<Tile>();
 	private static LinkedList<Building> buildingList = new LinkedList<Building>();
 
-	private static ArrayList<ArrayList<Drone>> allDrones = new ArrayList<ArrayList<Drone>>();
-	private static ArrayList<Drone> defaultList = new ArrayList<Drone>();
-	private static ArrayList<Drone> builders = new ArrayList<Drone>();
-	private static ArrayList<Drone> miners = new ArrayList<Drone>();
-	private static ArrayList<Drone> resourceCollectors = new ArrayList<Drone>();
-	private static ArrayList<Drone> itemBuilders = new ArrayList<Drone>();
+	private ListOfLists allDrones;
 
 	private MainGUI gui;
 
 	private static Drone startDroneOne, startDroneTwo, startDroneThree,
 			startDroneFour, startDroneFive;
+
 	private static Building base, plant1;
 
 	private static WeatherBehavior wb = new WeatherBehavior();
 
 	private Drone testMove;
 	private Drone testMove2;
-
 	private Drone testMove3;
 
 	/**
@@ -63,26 +57,9 @@ public class MainGame {
 
 		setupVariables();
 		mapSpawnCheck();
+		allDrones = new ListOfLists();
 		initializeDrones();
-		debugMethod();
-
-	}
-
-	public void debugMethod2() {
-		defaultList.add(testMove3);
-	}
-
-	private void debugMethod() {
-
-		testMove = new Drone("test1", 400.0, map.getTile(30, 30));
-		testMove2 = new Drone("test2", 400.0, map.getTile(10, 30));
-		testMove3 = new Drone("test3", 400.0, map.getTile(10, 10));
-		testMove.getTaskList().push(
-				new MoveTask(testMove, map.getTile(10, 10), false));
-		testMove2.getTaskList().push(
-				new MoveTask(testMove2, map.getTile(10, 10), false));
-		defaultList.add(testMove);
-		defaultList.add(testMove2);
+		assignAndDoTasks();
 
 	}
 
@@ -117,27 +94,19 @@ public class MainGame {
 	 *         This is where the starting groups of drones will be added, later
 	 *         a method to add a drone to the map can be added to replace this
 	 */
-	private static void initializeDrones() {
+	private void initializeDrones() {
+		testMove = new Drone("test1", 400.0, map.getTile(30, 30));
+		testMove2 = new Drone("test2", 400.0, map.getTile(10, 30));
+		testMove3 = new Drone("test3", 400.0, map.getTile(10, 10));
 
-		/*
-		 * startDroneOne = new Drone("startDroneOne", 400.0,
-		 * map.getTile(10,15)); startDroneTwo = new Drone("startDroneTwo",
-		 * 400.0, map.getTile(15,15)); startDroneThree = new
-		 * Drone("startDroneThree", 400.0, map.getTile(17,17)); startDroneFour =
-		 * new Drone("startDroneFour", 400.0, map.getTile(20,21));
-		 * startDroneFive = new Drone("startDroneFive", 400.0, map.getTile(20,
-		 * 15));
-		 * 
-		 * defaultList.add(startDroneOne); defaultList.add(startDroneTwo);
-		 * defaultList.add(startDroneThree); defaultList.add(startDroneFour);
-		 * defaultList.add(startDroneFive);
-		 */
+		testMove.getTaskList().push(
+				new MoveTask(testMove, map.getTile(10, 10), false));
+		testMove2.getTaskList().push(
+				new MoveTask(testMove2, map.getTile(10, 10), false));
 
-		allDrones.add(defaultList);
-		allDrones.add(miners);
-		allDrones.add(builders);
-		allDrones.add(resourceCollectors);
-		allDrones.add(itemBuilders);
+		allDrones.addNewDrone(testMove);
+		allDrones.addNewDrone(testMove2);
+		allDrones.addNewDrone(testMove3);
 
 	}
 
@@ -159,27 +128,46 @@ public class MainGame {
 
 	}
 
-	public void assignTasks() {
+	public void assignAndDoTasks() {
+		resourceTasks();
 		buildTasks();
 		mineTasks();
 		itemBuildTasks();
-		resourceTasks();
+		doDroneTasks();
+		checkNeeds();
 	}
 
-	private void resourceTasks() {
-		for (int i = 0; i < resourceCollectors.size(); i++) {
-			resourceCollectors
-					.get(i)
-					.getTaskList()
-					.push(new DepositTask(resourceCollectors.get(i),
-							buildingList.get(0)));
-			checkNeeds(resourceCollectors.get(i));
-
+	public void checkNeeds() {
+		for (int i = 0; i < allDrones.size(); i++) {
+			for (int j = 0; j < allDrones.get(i).size(); j++) {
+				Drone drone = allDrones.get(i).get(j);
+				if (drone.getRepair() < 30) {
+					Building repairAt = map.findNearest(drone.getCurrentTile(),	BuildingEnum.ENGINEERING);
+					drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile()));
+				}
+				if (drone.getGas() < 50) {
+					Building cookAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.METHANEPLANT);
+					drone.getTaskList().push(new MethaneTask(drone, cookAt, cookAt.getEmptyTile()));
+				}
+				if (drone.getPower() < 80) {
+					Building chargeAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.POWERPLANT);
+					drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
+				}
+			}
 		}
 	}
 
-	private void buildTasks() {
+	private void resourceTasks() {
+		// for (int i = 0; i < resourceCollectors.size(); i++) {
+		// resourceCollectors.get(i).getTaskList().push(new
+		// DepositTask(resourceCollectors.get(i), buildingList.get(0)));
+		// checkNeeds(resourceCollectors.get(i));
+		//
+		// }
+	}
 
+	private void buildTasks() {
+		ArrayList<Drone> builders = allDrones.get("builders");
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
 				if (!buildingList.get(i).isFinished()) {
@@ -187,63 +175,23 @@ public class MainGame {
 							.getTaskList()
 							.push(new BuildTask(builders.get(j), buildingList
 									.get(i)));
-					checkNeeds(builders.get(j));
-					System.out
-							.println("Builder has been assigned a building task.");
 				}
 			}
 		}
 	}
 
 	private void mineTasks() {
-		//
 
 	}
 
 	private void itemBuildTasks() {
-		Battery battery = new Battery();
-		for (int i = 0; i < itemBuilders.size(); i++) {
+		// Battery battery = new Battery();
+		// for (int i = 0; i < itemBuilders.size(); i++) {
+		// itemBuilders.get(i).getTaskList().push(new
+		// ItemBuildTask(itemBuilders.get(i), battery,
+		// map.whereToBuild(battery)));
+		// }
 
-			itemBuilders
-					.get(i)
-					.getTaskList()
-					.push(new ItemBuildTask(itemBuilders.get(i), battery, map
-							.whereToBuild(battery)));
-			checkNeeds(resourceCollectors.get(i));
-
-		}
-
-	}
-
-	private void checkNeeds(Drone drone) {
-		if (drone.getRepair() < 30) {
-			Building repairAt = map.findNearest(drone.getCurrentTile(),
-					BuildingEnum.ENGINEERING);
-			drone.getTaskList().push(
-					new RepairTask(drone, repairAt, repairAt.getEmptyTile()));
-		}
-		if (drone.getGas() < 50) {
-			Building cookAt = map.findNearest(drone.getCurrentTile(),
-					BuildingEnum.METHANEPLANT);
-			drone.getTaskList().push(
-					new MethaneTask(drone, cookAt, cookAt.getEmptyTile()));
-		}
-		if (drone.getPower() < 80) {
-			Building chargeAt = map.findNearest(drone.getCurrentTile(),
-					BuildingEnum.POWERPLANT);
-			drone.getTaskList().push(
-					new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
-		}
-		if (drone.getGas() < 50) {
-
-		}
-	}
-
-	public void doBuildingTasks() {
-		for (Building building : buildingList) {
-			if (building.isFinished())
-				building.executeOnBuilding(map);
-		}
 	}
 
 	public void doDroneTasks() {
@@ -255,30 +203,17 @@ public class MainGame {
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
 				allDrones.get(i).get(j).executeTaskList(map);
-				System.out.println("Repair: "
-						+ allDrones.get(i).get(j).getRepair());
 			}
 		}
 		System.out
 				.println("**************************************************************");
 	}
 
-	public void doDroneTasksTest() {
-
-		System.out
-				.println("**************************************************************");
-		for (int i = 0; i < allDrones.size(); i++) {
-			for (int j = 0; j < allDrones.get(i).size(); j++) {
-				allDrones.get(i).get(j).executeTaskList(map);
-			}
+	public void doBuildingTasks() {
+		for (Building building : buildingList) {
+			if (building.isFinished())
+				building.executeOnBuilding(map);
 		}
-		System.out
-				.println("**************************************************************");
-	}
-
-	public Map getMap() {
-
-		return this.map;
 	}
 
 	public void doWeather() {
@@ -287,29 +222,33 @@ public class MainGame {
 		wb.addStorm(map);
 	}
 
+	public Map getMap() {
+
+		return this.map;
+	}
+
 	public boolean checkWin() {
 		return map.getTerraformed() > 80;
 	}
-	
+
 	public boolean checkLose() {
-		return defaultList.size() + builders.size() + miners.size() + resourceCollectors.size() + itemBuilders.size() <= 0;
+		return allDrones.numberOfDrones() > 0;
 	}
 
-	public Drone createDrone(){
+	public Drone createDrone() {
 		Base base = (Base) buildingList.get(0);
 		Engineering factory = null;
 		for (int i = 0; i < buildingList.size(); i++) {
-			if(buildingList.get(0).getTypeOfBuilding() == BuildingEnum.ENGINEERING){
-			factory = (Engineering) buildingList.get(i);
-			break;
+			if (buildingList.get(0).getTypeOfBuilding() == BuildingEnum.ENGINEERING) {
+				factory = (Engineering) buildingList.get(i);
+				break;
 			}
 		}
-		if(base.getPower() >= 400 || base.getIron() >= 3000 || base.getMethane()
-				>= 400){
+		if (base.getPower() >= 400 || base.getIron() >= 3000
+				|| base.getMethane() >= 400) {
 			Drone newDrone = new Drone("NewDrone", 400, factory.getEmptyTile());
 			return newDrone;
 		}
 		return null;
 	}
-
 }

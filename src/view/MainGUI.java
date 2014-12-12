@@ -99,18 +99,13 @@ public class MainGUI extends JFrame{
 //			mainGame.assignTasks();
 			mainGame.doWeather();
 			mainGame.doBuildingTasks();
-			mainGame.doDroneTasksTest();
+			mainGame.assignAndDoTasks();
 			win = mainGame.checkWin();
 			lose = mainGame.checkLose();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;
 
-			
-			//for debug purposes!!!
-			if(x == 20){
-				mainGame.debugMethod2();
-			}
 			if (!running) //Comment out this if-statement to show the win condition triggering.
 				//Getting the master up-to-date was a little weird, since both Cody and I pushed stuff separately
 

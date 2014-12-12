@@ -85,7 +85,7 @@ public class TestMainGUI extends JFrame{
 	private void gameLoop()
 	{
 		timer = new Timer();
-		timer.schedule(new loopRunnable(), 0, 4000 / 2); 
+		timer.schedule(new loopRunnable(), 0, 1000 / 2); 
 	}
 
 	private class loopRunnable extends java.util.TimerTask
