@@ -40,7 +40,7 @@ public class GraphicView extends JPanel{
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
 		userPanel = new UserPanel(this);
-		userPanel.setLocation(0, 1000);
+		
 
 
 		this.textView = textView;
@@ -49,7 +49,7 @@ public class GraphicView extends JPanel{
 		selectResource = false;
 		this.map = map;
 		registerListeners();
-		this.add(userPanel, BorderLayout.PAGE_END);
+		this.add(userPanel, BorderLayout.EAST);
 	}
 
 	public void setLeftCol(int input){
@@ -83,7 +83,7 @@ public class GraphicView extends JPanel{
 		for (int i = 0; i < viewHeight; i++){
 			for (int j = viewLength; j > 0; j--) { // Changed loop condition here.
 
-				map.getTile(col, row).draw(g, (viewLength - j) * 50, i * 50);
+				map.getTile(col, row).draw(g, (viewLength - j) * 25, i * 25);
 				col++;
 			}
 			col = leftCol;
@@ -91,38 +91,38 @@ public class GraphicView extends JPanel{
 		}
 
 		if(selectResource && clicks == 1){
-			int topLeftX = startPointX / 50;
-			int topLeftY = startPointY / 50;
-			int bottomRightX = endPointX / 50;
-			int bottomRightY = endPointY / 50;
+			int topLeftX = startPointX / 25;
+			int topLeftY = startPointY / 25;
+			int bottomRightX = endPointX / 25;
+			int bottomRightY = endPointY / 25;
 			Color myGreen = new Color(0 , 255 , 0, 125);
 
 
 			if (topLeftX > bottomRightX && topLeftY > bottomRightY) {
 				g.setColor(myGreen);	
-				g.fillRect( bottomRightX * 50, bottomRightY * 50, (topLeftX - bottomRightX) * 50, (topLeftY - bottomRightY) * 50);
+				g.fillRect( bottomRightX * 25, bottomRightY * 25, (topLeftX - bottomRightX) * 25, (topLeftY - bottomRightY) * 25);
 
 				g.setColor(Color.GREEN);
-				g.drawRect( bottomRightX * 50, bottomRightY * 50, (topLeftX - bottomRightX) * 50, (topLeftY - bottomRightY) * 50);
+				g.drawRect( bottomRightX * 25, bottomRightY * 25, (topLeftX - bottomRightX) * 25, (topLeftY - bottomRightY) * 25);
 
 			} else if (topLeftX < bottomRightX && topLeftY > bottomRightY) {
 				g.setColor(myGreen);
-				g.fillRect(topLeftX * 50, bottomRightY * 50, (bottomRightX - topLeftX) * 50, (topLeftY - bottomRightY) * 50);
+				g.fillRect(topLeftX * 25, bottomRightY * 25, (bottomRightX - topLeftX) * 25, (topLeftY - bottomRightY) * 25);
 
 				g.setColor(Color.GREEN);
-				g.drawRect(topLeftX * 50, bottomRightY * 50, (bottomRightX - topLeftX) * 50, (topLeftY - bottomRightY) * 50);
+				g.drawRect(topLeftX * 25, bottomRightY * 25, (bottomRightX - topLeftX) * 25, (topLeftY - bottomRightY) * 25);
 			} else if (topLeftX > bottomRightX && topLeftY < bottomRightY) {
 				g.setColor(myGreen);	
-				g.fillRect(bottomRightX * 50, topLeftY * 50, (topLeftX -bottomRightX) * 50, (bottomRightY - topLeftY) * 50);
+				g.fillRect(bottomRightX * 25, topLeftY * 25, (topLeftX -bottomRightX) * 25, (bottomRightY - topLeftY) * 25);
 
 				g.setColor(Color.GREEN);
-				g.drawRect(bottomRightX * 50, topLeftY * 50, (topLeftX -bottomRightX) * 50, (bottomRightY - topLeftY) * 50);
+				g.drawRect(bottomRightX * 25, topLeftY * 25, (topLeftX -bottomRightX) * 25, (bottomRightY - topLeftY) * 25);
 			} else {
 				g.setColor(myGreen);	
-				g.fillRect(topLeftX * 50, topLeftY * 50 , (bottomRightX - topLeftX) * 50, (bottomRightY - topLeftY) * 50);
+				g.fillRect(topLeftX * 25, topLeftY * 25 , (bottomRightX - topLeftX) * 25, (bottomRightY - topLeftY) * 25);
 
 				g.setColor(Color.GREEN);
-				g.drawRect(topLeftX * 50, topLeftY * 50 , (bottomRightX - topLeftX) * 50, (bottomRightY - topLeftY) * 50);
+				g.drawRect(topLeftX * 25, topLeftY * 25 , (bottomRightX - topLeftX) * 25, (bottomRightY - topLeftY) * 25);
 			}
 
 		}
@@ -145,8 +145,6 @@ public class GraphicView extends JPanel{
 		this.viewHeight = viewHeight;
 	}
 
-
-
 	private void registerListeners() {
 
 		MouseListener listener = new ListenToMouse();
@@ -156,10 +154,6 @@ public class GraphicView extends JPanel{
 		this.addMouseListener(listener);
 
 		this.addKeyListener(new KeyMoveListener());
-
-
-
-
 	}
 	/**
 	 * This is where we tell the mouse what to do on clicks and movement
@@ -180,6 +174,7 @@ public class GraphicView extends JPanel{
 				System.out.println("mouse click 2:   " +clicks);
 				clicks--;
 				selectResource = false;
+				
 				grabFocus();
 			} else {
 				//do other things here, im not sure what
