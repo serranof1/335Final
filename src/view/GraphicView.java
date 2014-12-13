@@ -5,6 +5,7 @@ import game.Map;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -31,22 +32,26 @@ public class GraphicView extends JPanel{
 	private int clicks = 0;
 
 	private JButton button, collect;
-	private JPanel userInfo;
+	private JPanel userInfo, stockPileInfo;
 
 	private boolean selectResource;
 	public boolean dragging;
 
 	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength) {
 
-		//this.setSize(1000,1000);
 		this.setBackground(Color.BLACK);
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
 		this.setLayout(new BorderLayout());
 		userInfo = new JPanel();
+		userInfo.setBackground(Color.WHITE);
+		stockPileInfo = new JPanel();
+		stockPileInfo.setBackground(Color.RED);
+		stockPileInfo.setPreferredSize(new Dimension(1200, 50));
 
 		userInfo.setLayout(new GridBagLayout());
 		this.add(userInfo, BorderLayout.EAST);
+		this.add(stockPileInfo, BorderLayout.SOUTH);
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
