@@ -4,6 +4,7 @@ import game.Map;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import model.Drone;
 import tiles.BuildingEnum;
@@ -11,7 +12,7 @@ import tiles.GroundEnum;
 import tiles.Tile;
 
 
-public abstract class Building {
+public abstract class Building extends Observable{
 
 	private String buildingName;
 	private BuildingEnum typeOfBuilding;
@@ -168,6 +169,8 @@ public abstract class Building {
 	public void depositAll(int x) {
 		System.out.println("Stuff has been deposited");
 		currentResources = x;
+		notifyObservers();
+		setChanged();
 	}
 
 	public int getInventory() {
@@ -200,6 +203,8 @@ public abstract class Building {
 	
 	public void setCarbon(int x){
 		carbon = x;
+		notifyObservers();
+		setChanged();
 	}
 	public int getCarbon(){
 		return carbon;
@@ -207,6 +212,8 @@ public abstract class Building {
 	
 	public void setIron(int x){
 		iron = x;
+		notifyObservers();
+		setChanged();
 	}
 	public int getIron(){
 		return iron;
@@ -214,6 +221,8 @@ public abstract class Building {
 	
 	public void setPower(int x){
 		electricity = x;
+		notifyObservers();
+		setChanged();
 	}
 	public int getPower(){
 		return electricity;
@@ -221,6 +230,8 @@ public abstract class Building {
 	
 	public void setMethane(int x){
 		methane = x;
+		notifyObservers();
+		setChanged();
 	}
 	public int getMethane(){
 		return methane;

@@ -133,15 +133,15 @@ public class MainGame {
 	private void initializeDrones() {
 		allDrones = new ListOfLists();
 		
-//		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
-		Drone powerTest2 = new Drone("powerTest2", 120, map.getTile(15, 5));
-		powerTest2.setGas(20);
-//		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
-//		repairTest.setRepair(20);
+		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
+		Drone gasTest = new Drone("gasTest", 120, map.getTile(15, 5));
+		gasTest.setGas(20);
+		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
+		repairTest.setRepair(20);
 
-		allDrones.addNewDrone(powerTest2);
-//		allDrones.addNewDrone(gasTest22);
-//		allDrones.addNewDrone(repairTest);
+		allDrones.addNewDrone(powerTest);
+		allDrones.addNewDrone(gasTest);
+		allDrones.addNewDrone(repairTest);
 
 	}
 

@@ -4,18 +4,22 @@ import game.Map;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
+import javax.swing.border.Border;
 
 public class GraphicView extends JPanel{
 
@@ -26,31 +30,75 @@ public class GraphicView extends JPanel{
 	private int startPointX, startPointY, endPointY, endPointX;
 	private int clicks = 0;
 
-	private UserPanel userPanel;
+	private JButton button, collect;
+	private JPanel userInfo;
 
-	private TextView textView;
 	private boolean selectResource;
 	public boolean dragging;
 
-	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength, TextView textView) {
+	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength) {
 
 		//this.setSize(1000,1000);
 		this.setBackground(Color.BLACK);
-		this.setLayout(new BorderLayout());
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
-		userPanel = new UserPanel(this);
+		this.setLayout(new BorderLayout());
+		userInfo = new JPanel();
+
+		userInfo.setLayout(new GridBagLayout());
+		this.add(userInfo, BorderLayout.EAST);
 		
+		GridBagConstraints c = new GridBagConstraints();
+		
+		button = new JButton("Button 1");
+		c.weightx = 0.5;
+		c.anchor = GridBagConstraints.EAST;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		userInfo.add(button, c);
 
+		button = new JButton("Button 2");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.gridx = 1;
+		c.gridy = 0;
+		userInfo.add(button, c);
 
-		this.textView = textView;
+		button = new JButton("Button 3");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.gridx = 2;
+		c.gridy = 0;
+		userInfo.add(button, c);
+
+		collect = new JButton("Collect");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 40;      //make this component tall
+		c.weightx = 0.0;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 1;
+		userInfo.add(collect, c);
+
+		button = new JButton("5");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 0;       //reset to default
+		c.weighty = 1.0;   //request any extra vertical space
+		c.anchor = GridBagConstraints.EAST; //bottom of space
+		c.insets = new Insets(10,0,0,0);  //top padding
+		c.gridx = 2;       //aligned with button 2
+		c.gridwidth = 2;   //2 columns wide
+		c.gridy = 2;       //third row
+		userInfo.add(button, c);
+
 		leftRow = row;
 		leftCol = col;
 		selectResource = false;
 		this.map = map;
 		registerListeners();
-		this.add(userPanel, BorderLayout.EAST);
 	}
+	
 
 	public void setLeftCol(int input){
 		leftCol += input;
@@ -149,11 +197,18 @@ public class GraphicView extends JPanel{
 
 		MouseListener listener = new ListenToMouse();
 		MouseMotionListener motionListener = new ListenToMouse();
-
+		CollectListener collectListener= new CollectListener();
+	
 		this.addMouseMotionListener(motionListener);
 		this.addMouseListener(listener);
-
+		collect.addActionListener(new CollectListener());
 		this.addKeyListener(new KeyMoveListener());
+	}
+
+	private class CollectListener implements ActionListener{
+			public void actionPerformed(ActionEvent e){
+				setSelectResource(true);
+			}
 	}
 	/**
 	 * This is where we tell the mouse what to do on clicks and movement
@@ -205,9 +260,7 @@ public class GraphicView extends JPanel{
 
 		}
 	}
-
-
-
+	
 	private class KeyMoveListener implements KeyListener
 	{
 		public void keyPressed(KeyEvent arg0) {
@@ -216,9 +269,6 @@ public class GraphicView extends JPanel{
 			case KeyEvent.VK_UP: 
 				if(leftRow > 0){
 					leftRow--;
-					textView.setLeftRow(-1);
-
-					textView.repaint();
 					repaint();
 				} 
 				break;
@@ -226,8 +276,6 @@ public class GraphicView extends JPanel{
 			case KeyEvent.VK_DOWN: 
 				if(leftRow < map.getSize() - viewHeight){
 					leftRow++;
-					textView.setLeftRow(1);
-					textView.repaint();
 					repaint();
 				}
 				break;
@@ -235,8 +283,6 @@ public class GraphicView extends JPanel{
 			case KeyEvent.VK_LEFT: 
 				if(leftCol > 0){
 					leftCol--;
-					textView.setLeftCol(-1);
-					textView.repaint();
 					repaint();
 				}
 				break;
@@ -244,8 +290,6 @@ public class GraphicView extends JPanel{
 			case KeyEvent.VK_RIGHT: 
 				if(leftCol < map.getSize() - viewLength){
 					leftCol++;
-					textView.setLeftCol(1);
-					textView.repaint();
 					repaint();
 				}
 				break;

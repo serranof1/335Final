@@ -34,7 +34,8 @@ public class MainGUI extends JFrame{
 		
 		setupMapPane();
 		this.setVisible(true);
-		this.setSize(720,520);
+		this.setSize(1200,900);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		runGameLoop();
@@ -44,12 +45,10 @@ public class MainGUI extends JFrame{
 	
 	private void setupMapPane() {
 		
-		textView = new TextView(mainGame.getMap(), 5, 5, 20, 20);
-		graphics = new GraphicView(mainGame.getMap(), 5 ,5, 20, 20, textView);
+		graphics = new GraphicView(mainGame.getMap(), 5 ,5, 50, 50);
 		graphics.setLocation(0, 0);
 		
 		graphics.setFocusable(true);
-		textView.setFocusable(true);
 		
 		System.out.println(graphics.isFocusOwner());
 		
@@ -87,7 +86,7 @@ public class MainGUI extends JFrame{
 	private void gameLoop()
 	{
 		timer = new Timer();
-		timer.schedule(new loopRunnable(), 0, 4000 / 2); 
+		timer.schedule(new loopRunnable(), 0, 2000 / 2); 
 	}
 
 	private class loopRunnable extends java.util.TimerTask

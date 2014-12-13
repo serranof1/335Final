@@ -15,9 +15,6 @@ public class UserPanel extends JPanel {
 	
 	public UserPanel(GraphicView view) {
 		this.setSize(200,200);
-		this.setPreferredSize(this.getSize());
-		this.setBackground(Color.BLUE);
-		this.setLayout(new GridLayout(4,2));
 		this.view = view;
 		
 		setupButtons();
