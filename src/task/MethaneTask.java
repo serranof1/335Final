@@ -17,6 +17,7 @@ public class MethaneTask extends Task{
 		super(drone);
 		this.plant = (MethanePlant) methanePlant;
 		goal = tile;
+		drone.toggleFilling();
 		
 	}
 
@@ -33,6 +34,7 @@ public class MethaneTask extends Task{
 				}else{
 					drone.setGas(drone.getMaxGas());
 					drone.getTaskList().pop();
+					drone.toggleFilling();
 				}
 			
 		}else{

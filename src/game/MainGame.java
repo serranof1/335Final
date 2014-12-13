@@ -22,6 +22,8 @@ import buildings.Base;
 import buildings.Building;
 import buildings.Engineering;
 import buildings.Farm;
+import buildings.MethanePlant;
+import buildings.SolarPlant;
 
 public class MainGame {
 
@@ -57,10 +59,27 @@ public class MainGame {
 
 		setupVariables();
 		mapSpawnCheck();
-		allDrones = new ListOfLists();
 		initializeDrones();
 		assignAndDoTasks();
 
+	}
+	
+	/**
+	 * @author Cody Jensen
+	 * 
+	 *         eventually time reliant display windows will go here
+	 */
+	private void setupVariables() {
+		int n = JOptionPane.showConfirmDialog(null,
+				"Do you want to enter a seed?", "Do you want to enter a seed?",
+				JOptionPane.YES_NO_OPTION);
+		if (n == JOptionPane.NO_OPTION) {
+			map = new Map(6);
+		} else {
+			String s = JOptionPane.showInputDialog("Enter a long:");
+			map = new Map(6, Long.parseLong(s));
+		}
+		
 	}
 
 	private void mapSpawnCheck() {
@@ -80,10 +99,27 @@ public class MainGame {
 		map.build(base);
 		base.setFinished();
 		buildingList.add(base);
+
 		Building farmTest = new Farm(3, 3);
 		map.build(farmTest);
 		farmTest.setFinished();
 		buildingList.add(farmTest);
+
+		Building engineeringTest = new Engineering(10, 3);
+		map.build(engineeringTest);
+		buildingList.add(engineeringTest);
+		engineeringTest.setFinished();
+
+		Building methPlanTest = new MethanePlant(15, 3);
+		map.build(methPlanTest);
+		buildingList.add(methPlanTest);
+		methPlanTest.setFinished();
+
+		plant1 = new SolarPlant(18, 3);
+		map.build(plant1);
+		buildingList.add(plant1);
+		plant1.setFinished();
+
 		wb.addTestStorm(map);
 
 	}
@@ -95,42 +131,24 @@ public class MainGame {
 	 *         a method to add a drone to the map can be added to replace this
 	 */
 	private void initializeDrones() {
-		testMove = new Drone("test1", 400.0, map.getTile(30, 30));
-		testMove2 = new Drone("test2", 400.0, map.getTile(10, 30));
-		testMove3 = new Drone("test3", 400.0, map.getTile(10, 10));
+		allDrones = new ListOfLists();
+		
+//		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
+		Drone powerTest2 = new Drone("powerTest2", 120, map.getTile(15, 5));
+		powerTest2.setGas(20);
+//		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
+//		repairTest.setRepair(20);
 
-		testMove.getTaskList().push(
-				new MoveTask(testMove, map.getTile(10, 10), false));
-		testMove2.getTaskList().push(
-				new MoveTask(testMove2, map.getTile(10, 10), false));
-
-		allDrones.addNewDrone(testMove);
-		allDrones.addNewDrone(testMove2);
-		allDrones.addNewDrone(testMove3);
-
-	}
-
-	/**
-	 * @author Cody Jensen
-	 * 
-	 *         eventually time reliant display windows will go here
-	 */
-	private void setupVariables() {
-		int n = JOptionPane.showConfirmDialog(null,
-				"Do you want to enter a seed?", "Do you want to enter a seed?",
-				JOptionPane.YES_NO_OPTION);
-		if (n == JOptionPane.NO_OPTION) {
-			map = new Map(6);
-		} else {
-			String s = JOptionPane.showInputDialog("Enter a long:");
-			map = new Map(6, Long.parseLong(s));
-		}
+		allDrones.addNewDrone(powerTest2);
+//		allDrones.addNewDrone(gasTest22);
+//		allDrones.addNewDrone(repairTest);
 
 	}
+
 
 	public void assignAndDoTasks() {
 		resourceTasks();
-		buildTasks();
+//		buildTasks();
 		mineTasks();
 		itemBuildTasks();
 		doDroneTasks();
@@ -141,17 +159,19 @@ public class MainGame {
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
 				Drone drone = allDrones.get(i).get(j);
-				if (drone.getRepair() < 30) {
+				if (drone.getRepair() < 30 && !drone.isRepairing()) {
 					Building repairAt = map.findNearest(drone.getCurrentTile(),	BuildingEnum.ENGINEERING);
 					drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile()));
 				}
-				if (drone.getGas() < 50) {
-					Building cookAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.METHANEPLANT);
-					drone.getTaskList().push(new MethaneTask(drone, cookAt, cookAt.getEmptyTile()));
+				if (drone.getGas() < 50 && !drone.isFilling()) {
+					Building gasAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.METHANEPLANT);
+					drone.getTaskList().push(new MethaneTask(drone, gasAt, gasAt.getEmptyTile()));
+					System.out.println("DRONE GETTING GAS");
 				}
-				if (drone.getPower() < 80) {
+				if (drone.getPower() < 80 && !drone.isCharging()) {
 					Building chargeAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.POWERPLANT);
 					drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
+					System.out.println("DRONE CHARGING");
 				}
 			}
 		}
@@ -166,7 +186,7 @@ public class MainGame {
 		// }
 	}
 
-	private void buildTasks() {
+/*	private void buildTasks() {
 		ArrayList<Drone> builders = allDrones.get("builders");
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
@@ -178,19 +198,13 @@ public class MainGame {
 				}
 			}
 		}
-	}
+	}*/
 
 	private void mineTasks() {
 
 	}
 
 	private void itemBuildTasks() {
-		// Battery battery = new Battery();
-		// for (int i = 0; i < itemBuilders.size(); i++) {
-		// itemBuilders.get(i).getTaskList().push(new
-		// ItemBuildTask(itemBuilders.get(i), battery,
-		// map.whereToBuild(battery)));
-		// }
 
 	}
 
@@ -210,21 +224,28 @@ public class MainGame {
 	}
 
 	public void doBuildingTasks() {
+		ArrayList<Drone> builders = allDrones.get("builders");
 		for (Building building : buildingList) {
-			if (building.isFinished())
+			if (building.isFinished()){
 				building.executeOnBuilding(map);
+			}else if(!building.inProgress()){
+				//We need to somehow pick a drone from the builders list
+				//that isn't already working on a building
+				//drone . push new build task with that building and set its state
+				//to be "in progress"
+			}	
 		}
 	}
 
 	public void doWeather() {
 		wb.LightMovement(map);
-		wb.StormActions(allDrones, map);
-		wb.addStorm(map);
+//		wb.StormActions(allDrones, map);
+//		wb.addStorm(map);
 	}
 
 	public Map getMap() {
 
-		return this.map;
+		return map;
 	}
 
 	public boolean checkWin() {

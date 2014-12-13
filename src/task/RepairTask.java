@@ -13,7 +13,7 @@ public class RepairTask extends Task {
 		super(drone);
 		this.building = (Engineering) building;
 		goal = tile;
-		// TODO Auto-generated constructor stub
+		drone.toggleRepair();
 	}
 
 	@Override
@@ -27,6 +27,7 @@ public class RepairTask extends Task {
 			} else {
 				drone.setRepair(drone.getMaxRepair());
 				drone.getTaskList().pop();
+				drone.toggleRepair();
 			}
 		} else {
 			drone.getTaskList().push(new MoveTask(drone, building.getEmptyTile(), false));

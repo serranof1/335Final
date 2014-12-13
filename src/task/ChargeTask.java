@@ -17,6 +17,7 @@ public class ChargeTask extends Task{
 		super(drone);
 		this.plant = (SolarPlant) plant;
 		goal = tile;
+		drone.toggleCharge();
 		
 	}
 
@@ -24,7 +25,6 @@ public class ChargeTask extends Task{
 	public void execute(Map map) {
 		drone.setGas(drone.getGas() - 2);
 		drone.setRepair(drone.getRepair() -1);
-//		if(drone.getCurrentTile().getBuilding().equals(BuildingEnum.POWERPLANT)){
 		if(drone.getCurrentTile() == goal){
 			plant.addDrone(drone);
 			if(drone.getPower() < drone.getMaxPower()){
@@ -35,6 +35,7 @@ public class ChargeTask extends Task{
 				}else{
 					drone.setPower(drone.getMaxPower());
 					drone.getTaskList().pop();
+					drone.toggleCharge();
 				}
 			
 		}else{

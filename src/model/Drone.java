@@ -139,13 +139,7 @@ public class Drone implements Mover{
 		return currentPath;
 	}
 
-	// public boolean isCharging() {
-	// return charging;
-	// }
 
-	/**
-	 * 
-	 */
 	public void executeTaskList(Map map) {
 		taskList.peek().execute(map);
 	}
@@ -323,7 +317,7 @@ public class Drone implements Mover{
 	}
 	
 	public void toggleCharge(){
-		charging = true;
+		charging = !charging;
 	}
 	public boolean isCharging(){
 		return charging;

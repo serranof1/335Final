@@ -59,7 +59,6 @@ public class MainGUI extends JFrame{
 
 	public void drawGame(){
 		graphics.repaint();
-		textView.repaint();
 	}
 
 

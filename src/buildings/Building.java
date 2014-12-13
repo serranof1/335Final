@@ -26,7 +26,7 @@ public abstract class Building {
 	private int resourceCost;
 	private int iron, carbon, electricity, methane;
 	
-	private boolean finished;
+	private boolean finished, inProgress;
 
 
 	private ArrayList<Drone> droneList;
@@ -155,6 +155,15 @@ public abstract class Building {
 	public boolean isFinished() {
 		return finished;
 	}
+	
+	public void setProgress() {
+		inProgress = true;
+	}
+
+	public boolean inProgress() {
+		return inProgress;
+	}
+
 
 	public void depositAll(int x) {
 		System.out.println("Stuff has been deposited");
