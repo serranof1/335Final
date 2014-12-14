@@ -7,6 +7,7 @@ import java.util.Timer;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import buildings.Base;
 import model.WeatherBehavior;
 
 public class MainGUI extends JFrame{
@@ -16,6 +17,7 @@ public class MainGUI extends JFrame{
 	
 	private MainGame mainGame;
 	private Timer timer;
+	private Base base;
 	
 	private boolean running = true;
 	private boolean paused = false;
@@ -31,7 +33,7 @@ public class MainGUI extends JFrame{
 	public MainGUI(){
 		
 		mainGame = new MainGame();
-		
+		base = (Base) mainGame.getBuildingList().get(0);
 		setupMapPane();
 		this.setVisible(true);
 		this.setSize(1200,900);
@@ -45,7 +47,7 @@ public class MainGUI extends JFrame{
 	
 	private void setupMapPane() {
 		
-		graphics = new GraphicView(mainGame.getMap(), 5 ,5, 50, 50);
+		graphics = new GraphicView(mainGame, 5 ,5, 50, 50);
 		graphics.setLocation(0, 0);
 		
 		graphics.setFocusable(true);

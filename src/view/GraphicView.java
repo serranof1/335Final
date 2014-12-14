@@ -1,10 +1,10 @@
 package view;
 
+import game.MainGame;
 import game.Map;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -20,7 +20,8 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+
+import buildings.Base;
 
 public class GraphicView extends JPanel{
 
@@ -31,14 +32,16 @@ public class GraphicView extends JPanel{
 	private int startPointX, startPointY, endPointY, endPointX;
 	private int clicks = 0;
 
-	private JButton button, collect;
+	private JButton button, collect, makeDrone;
 	private JPanel userInfo, stockPileInfo;
 
 	private boolean selectResource;
 	public boolean dragging;
+	
+	private MainGame mainGame;
 
-	public GraphicView(Map map, int row, int col , int viewHeight, int viewLength) {
-
+	public GraphicView(MainGame mainGame, int row, int col , int viewHeight, int viewLength) {
+		this.mainGame = mainGame;
 		this.setBackground(Color.BLACK);
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
@@ -55,7 +58,7 @@ public class GraphicView extends JPanel{
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
-		button = new JButton("Button 1");
+		makeDrone = new JButton("New Drone");
 		c.weightx = 0.5;
 		c.anchor = GridBagConstraints.EAST;
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -100,7 +103,7 @@ public class GraphicView extends JPanel{
 		leftRow = row;
 		leftCol = col;
 		selectResource = false;
-		this.map = map;
+		this.map = mainGame.getMap();
 		registerListeners();
 	}
 	
@@ -207,12 +210,18 @@ public class GraphicView extends JPanel{
 		this.addMouseMotionListener(motionListener);
 		this.addMouseListener(listener);
 		collect.addActionListener(new CollectListener());
+		makeDrone.addActionListener(new MakeDroneListener());
 		this.addKeyListener(new KeyMoveListener());
 	}
 
 	private class CollectListener implements ActionListener{
 			public void actionPerformed(ActionEvent e){
 				setSelectResource(true);
+			}
+	}
+	private class MakeDroneListener implements ActionListener{
+			public void actionPerformed(ActionEvent e){
+				mainGame.createDrone();
 			}
 	}
 	/**

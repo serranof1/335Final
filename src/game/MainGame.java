@@ -30,22 +30,19 @@ public class MainGame {
 	private static Map map;
 
 	private static LinkedList<Tile> resourceList = new LinkedList<Tile>();
-	private static LinkedList<Building> buildingList = new LinkedList<Building>();
+	private LinkedList<Building> buildingList = new LinkedList<Building>();
 
 	private ListOfLists allDrones;
 
 	private MainGUI gui;
+	private int nameInt = 0;
 
 	private static Drone startDroneOne, startDroneTwo, startDroneThree,
 			startDroneFour, startDroneFive;
 
-	private static Building base, plant1;
+	private Building base, plant1;
 
 	private static WeatherBehavior wb = new WeatherBehavior();
-
-	private Drone testMove;
-	private Drone testMove2;
-	private Drone testMove3;
 
 	/**
 	 * @author Cody Jensen
@@ -62,6 +59,10 @@ public class MainGame {
 		initializeDrones();
 		assignAndDoTasks();
 
+	}
+	
+	public LinkedList<Building> getBuildingList(){
+		return buildingList;
 	}
 	
 	/**
@@ -257,6 +258,7 @@ public class MainGame {
 	}
 
 	public Drone createDrone() {
+		
 		Base base = (Base) buildingList.get(0);
 		Engineering factory = null;
 		for (int i = 0; i < buildingList.size(); i++) {
@@ -265,9 +267,10 @@ public class MainGame {
 				break;
 			}
 		}
-		if (base.getPower() >= 400 || base.getIron() >= 3000
-				|| base.getMethane() >= 400) {
-			Drone newDrone = new Drone("NewDrone", 400, factory.getEmptyTile());
+		if (base.getPower() >= 400 && base.getIron() >= 3000
+				&& base.getMethane() >= 400) {
+			
+			Drone newDrone = new Drone("Drone: " + nameInt, 400, factory.getEmptyTile());
 			return newDrone;
 		}
 		return null;
