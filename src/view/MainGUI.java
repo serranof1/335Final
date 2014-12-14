@@ -2,9 +2,16 @@ package view;
 
 import game.MainGame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Timer;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
 import buildings.Base;
@@ -30,6 +37,11 @@ public class MainGUI extends JFrame{
 	private boolean win = false;
 	private boolean lose = false;
 	
+	private JMenuBar menuBar;
+	private JMenu menu;
+	private JMenuItem menuItemSave;
+	private JMenuItem menuItemLoad;
+	
 	public static void main(String[] args){
 		new MainGUI();
 		graphics.setFocusable(true);
@@ -40,11 +52,13 @@ public class MainGUI extends JFrame{
 		mainGame = new MainGame();
 		base = (Base) mainGame.getBuildingList().get(0);
 		setupMapPane();
+		setupMenuBar();
 		this.setVisible(true);
 		this.setSize(1200,900);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addWindowListener(new SaveDataListener());
 		runGameLoop();
 		
 		
@@ -124,4 +138,60 @@ public class MainGUI extends JFrame{
 		}
 	}
 	
+	private void setupMenuBar() {
+		menuBar = new JMenuBar();
+		menu = new JMenu("Menu");
+		
+		menuBar.add(menu);
+		
+		menuItemSave = new JMenuItem("Save Game");
+		menuItemLoad = new JMenuItem("Load Game");
+		menuItemSave.addActionListener(new GameDataListener());
+		menuItemLoad.addActionListener(new GameDataListener());
+		
+		menu.add(menuItemSave);
+		menu.add(menuItemLoad);
+		this.setJMenuBar(menuBar);
+	}
+	
+	private class GameDataListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			timer.cancel();
+			if(e.getActionCommand().compareTo("Save Game") == 0)
+				mainGame.saveGame();
+			else
+				mainGame.loadGame();
+		}
+	}
+	
+	private class SaveDataListener implements WindowListener {
+
+		@Override
+		public void windowOpened(WindowEvent e) {}
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+			timer.cancel();
+			mainGame.saveGame();
+		}
+
+		@Override
+		public void windowClosed(WindowEvent e) {}
+
+		@Override
+		public void windowIconified(WindowEvent e) {}
+
+		@Override
+		public void windowDeiconified(WindowEvent e) {}
+
+		@Override
+		public void windowActivated(WindowEvent e) {}
+
+		@Override
+		public void windowDeactivated(WindowEvent e) {}
+		
+	}
 }

@@ -3,6 +3,7 @@ package buildings;
 import game.Map;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -18,7 +19,7 @@ import tiles.Tile;
  * @author Team Rosetta
  *
  */
-public abstract class Building extends Observable{
+public abstract class Building extends Observable implements Serializable {
 
 	private String buildingName;
 	private BuildingEnum typeOfBuilding;

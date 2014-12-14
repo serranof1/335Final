@@ -1,20 +1,27 @@
 package game;
 
-
 import java.awt.Point;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
+import model.Battery;
 import model.Drone;
 import model.ListOfLists;
 import model.WeatherBehavior;
+import task.BuildTask;
 import task.ChargeTask;
 import task.CollectResourcesTask;
+import task.ItemBuildTask;
 import task.MethaneTask;
+import task.MoveTask;
 import task.RepairTask;
-import task.Task;
 import tiles.BuildingEnum;
 import tiles.ResourceEnum;
 import tiles.Tile;
@@ -81,10 +88,10 @@ public class MainGame {
 				"Do you want to enter a seed?", "Do you want to enter a seed?",
 				JOptionPane.YES_NO_OPTION);
 		if (n == JOptionPane.NO_OPTION) {
-			map = new Map(7);
+			map = new Map(6);
 		} else {
 			String s = JOptionPane.showInputDialog("Enter a long:");
-			map = new Map(7, Long.parseLong(s));
+			map = new Map(6, Long.parseLong(s));
 		}
 		
 	}
@@ -210,6 +217,12 @@ public class MainGame {
 				}
 			}
 		}
+		// for (int i = 0; i < resourceCollectors.size(); i++) {
+		// resourceCollectors.get(i).getTaskList().push(new
+		// DepositTask(resourceCollectors.get(i), buildingList.get(0)));
+		// checkNeeds(resourceCollectors.get(i));
+		//
+		// }
 	}
 
 /*	private void buildTasks() {
@@ -333,5 +346,43 @@ public class MainGame {
 			}
 		}
 		System.out.println(resourceList);
+	}
+	
+	public void saveGame() {
+		saveMap();
+	}
+	
+	private void saveMap() {
+		try {
+			FileOutputStream fileOut = new FileOutputStream(new File("gameLibrary.dat"));
+			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			
+			int mapSize = map.getSize();
+			objectOut.writeObject(mapSize);
+			objectOut.writeObject(map);
+			System.out.println("Save Game sucessful");
+		} catch (Exception e ) {
+			e.printStackTrace();
+			System.err.println("An error occured when attempting to save the game");
+		}
+	}
+	
+	public void loadGame() {
+		loadMap();
+	}
+	
+	private void loadMap() {
+		try{
+			FileInputStream fileIn = new FileInputStream(new File("gameLibrary.dat"));
+			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+			
+			int mapSize = (Integer) objectIn.readObject();
+//			map.setSize(mapSize);
+			map = (Map)objectIn.readObject();
+			System.out.println("load map successful");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("An error occured when loading the game");
+		}
 	}
 }
