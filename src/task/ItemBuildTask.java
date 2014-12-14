@@ -31,16 +31,15 @@ public class ItemBuildTask extends Task {
 		drone.setPower(drone.getPower() - 7);
 		drone.setGas(drone.getGas() - 3);
 		drone.setRepair(drone.getRepair() - 1);
-		if (drone.getCurrentTile() == goal) {
-			toBeBuilt.execute(drone);
-			drone.giveItem(toBeBuilt);
-			drone.getTaskList().pop();
-			System.out.println("I made myself a battery!");
-		} else {
-			drone.getTaskList().push(new MoveTask(drone, goal, true));
-			drone.getTaskList().peek().execute(map);
-			System.out.println("Moving To Power Plant to make a battery!");
+			if (drone.getCurrentTile() == goal) {
+				toBeBuilt.execute(drone);
+				drone.giveItem(toBeBuilt);
+				drone.getTaskList().pop();
+				System.out.println("I made myself a battery!");
+			} else {
+				drone.getTaskList().push(new MoveTask(drone, goal, true));
+				drone.getTaskList().peek().execute(map);
+				System.out.println("Moving To Power Plant to make a battery!");
+			}
 		}
-	}
-
 }

@@ -12,10 +12,10 @@ import javax.imageio.ImageIO;
  *
  */
 public enum GroundEnum {
-	OCEAN ("~", 2, "ocean.png"),
+	OCEAN ("~", 4, "ocean.png"),
 	SAND (",", 1, "sand.png"),
 	PLAIN ("_", 0, "plain.png"),
-	MOUNTAIN ("M", 3, "mountain.png"),
+	MOUNTAIN ("M", 7, "mountain.png"),
 	GRASS ("G", 0, "grass.png");
 	
 	private String textRepresentation;
