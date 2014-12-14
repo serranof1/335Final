@@ -1,20 +1,19 @@
 package game;
 
+import java.security.cert.CollectionCertStoreParameters;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-import model.Battery;
 import model.Drone;
 import model.ListOfLists;
 import model.WeatherBehavior;
-import task.BuildTask;
 import task.ChargeTask;
-import task.ItemBuildTask;
+import task.CollectResourcesTask;
 import task.MethaneTask;
-import task.MoveTask;
 import task.RepairTask;
+import task.Task;
 import tiles.BuildingEnum;
 import tiles.Tile;
 import view.MainGUI;
@@ -80,10 +79,10 @@ public class MainGame {
 				"Do you want to enter a seed?", "Do you want to enter a seed?",
 				JOptionPane.YES_NO_OPTION);
 		if (n == JOptionPane.NO_OPTION) {
-			map = new Map(6);
+			map = new Map(7);
 		} else {
 			String s = JOptionPane.showInputDialog("Enter a long:");
-			map = new Map(6, Long.parseLong(s));
+			map = new Map(7, Long.parseLong(s));
 		}
 		
 	}
@@ -199,12 +198,15 @@ public class MainGame {
 	 * This method does not do anything right now.
 	 */
 	private void resourceTasks() {
-		// for (int i = 0; i < resourceCollectors.size(); i++) {
-		// resourceCollectors.get(i).getTaskList().push(new
-		// DepositTask(resourceCollectors.get(i), buildingList.get(0)));
-		// checkNeeds(resourceCollectors.get(i));
-		//
-		// }
+		ArrayList<Drone> resourceCollectors = allDrones.get("resourceCollectors");
+		for (Drone drone : resourceCollectors) {
+			if(!resourceList.isEmpty()){
+				if(!drone.isCollecting()){
+					drone.getTaskList().push(new CollectResourcesTask(drone, resourceList.getFirst(), (Base)buildingList.get(0)));
+					resourceList.removeFirst();
+				}
+			}
+		}
 	}
 
 /*	private void buildTasks() {

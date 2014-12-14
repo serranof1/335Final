@@ -125,7 +125,7 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> {
 		case "defaultList": return get(0);
 		case "builders": return get(1);
 		case "miners": return get(2);
-		case "resouceCollectors": return get(3);
+		case "resourceCollectors": return get(3);
 		case "itemBuilders": return get(4);
 		default: System.out.println("Not an available list"); return null;
 		}

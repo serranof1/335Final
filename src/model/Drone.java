@@ -3,19 +3,15 @@ package model;
 import game.Map;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import pathfinding.Mover;
-import task.ChargeTask;
-import task.DeadTask;
+import pathfinding.Path;
 import task.DefaultTask;
-import task.MoveTask;
-import task.RepairTask;
 import task.Task;
 import tiles.ResourceEnum;
 import tiles.Tile;
-import pathfinding.Path;
+import buildings.Building;
 
 public class Drone implements Mover{
 
@@ -26,6 +22,7 @@ public class Drone implements Mover{
 	private boolean charging = false;
 	private boolean repairing = false;
 	private boolean filling = false;
+	private boolean collecting = false;
 	private String name;
 
 	/**
@@ -278,41 +275,41 @@ public class Drone implements Mover{
 		return methane;
 	}
 	
-	public void gather(int i, ResourceEnum resource) {
-		if (iron + carbon + methane + i < maxCapacity) {
-			if (resource == ResourceEnum.IRON) {
-				iron += i;
-			} else if (resource == ResourceEnum.CARBON) {
-				carbon += i;
-			} else if (resource == ResourceEnum.METHANE) {
-				methane += i;
-			}
-		} else {
-			if (resource == ResourceEnum.IRON) {
-				iron = maxCapacity - carbon - methane;
-			} else if (resource == ResourceEnum.CARBON) {
-				carbon = maxCapacity - iron - methane;
-			} else if (resource == ResourceEnum.METHANE) {
-				methane = maxCapacity - iron - carbon;
-			}
+//	public void gather(int i, ResourceEnum resource) {
+//		if (iron + carbon + methane + i < maxCapacity) {
+//			if (resource == ResourceEnum.IRON) {
+//				iron += i;
+//			} else if (resource == ResourceEnum.CARBON) {
+//				carbon += i;
+//			} else if (resource == ResourceEnum.METHANE) {
+//				methane += i;
+//			}
+//		} else {
+//			if (resource == ResourceEnum.IRON) {
+//				iron = maxCapacity - carbon - methane;
+//			} else if (resource == ResourceEnum.CARBON) {
+//				carbon = maxCapacity - iron - methane;
+//			} else if (resource == ResourceEnum.METHANE) {
+//				methane = maxCapacity - iron - carbon;
+//			}
+//		}
+//	}
+	public void gather(ResourceEnum resource){
+		if(resource == ResourceEnum.CARBON){
+			carbon+= 10;
+		}else if(resource == ResourceEnum.IRON){
+			iron+= 10;
 		}
 	}
 	
-	public int depositResource(ResourceEnum resource) {
-		if (resource == ResourceEnum.IRON) {
-			int temp = iron;
+	public void depositResources(Building building) {
+		if (iron > 0) {
+			building.setIron(iron);
 			iron = 0;
-			return temp;
-		} else if (resource == ResourceEnum.CARBON) {
-			int temp = carbon;
+		}
+		if (carbon > 0) {
+			building.setCarbon(carbon);
 			carbon = 0;
-			return temp;
-		} else if (resource == ResourceEnum.METHANE) {
-			int temp = methane;
-			methane = 0;
-			return temp;
-		} else {
-			return 0;
 		}
 	}
 	
@@ -321,6 +318,12 @@ public class Drone implements Mover{
 	}
 	public boolean isCharging(){
 		return charging;
+	}
+	public void toggleCollecting(){
+		collecting = !collecting;
+	}
+	public boolean isCollecting(){
+		return collecting;
 	}
 	public void toggleRepair(){
 		repairing = !repairing;
