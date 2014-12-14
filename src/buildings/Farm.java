@@ -18,8 +18,8 @@ public class Farm extends Building {
 	private final static int BASE_LENGTH = 2;
 	private final static int MAX_CAP = 0;
 	private final static String BUILDING_NAME = "F";
-	int xGrass, yGrass, widGrass, lenGrass, amount, max;
-	//amount will need to eventually be three separate values for resources, or something.
+	int xGrass, yGrass, widGrass, lenGrass,  max;
+	//carbon will need to eventually be three separate values for resources, or something.
 	private final GroundTile grass = new GroundTile(GroundEnum.GRASS);
 
 	public Farm(int locX, int locY, int wid, int len, int cap,
@@ -30,7 +30,7 @@ public class Farm extends Building {
 		yGrass = locY - 1;
 		widGrass = wid + 1;
 		lenGrass = len + 1;
-		amount = 1;
+		carbon = 5;
 		max = 0;
 	}
 	
@@ -40,7 +40,7 @@ public class Farm extends Building {
 		yGrass = y - 1;
 		widGrass = BASE_WIDTH + 1;
 		lenGrass = BASE_LENGTH + 1;
-		amount = 10;
+		carbon = 5;
 		max = 0;
 	}
 	
@@ -51,7 +51,7 @@ public class Farm extends Building {
 	@Override
 	public void executeOnBuilding(Map map) {
 		map.getTile(0, 0).setGround(grass);
-		if (amount > 0 && max < 10) {
+		if (carbon > 0 && max < 10) {
 			//This will need to be converted to node-logic.
 		for (int i = yGrass; i < yGrass + lenGrass + 1; i++) {
 			if (rand.nextFloat() > .2){
@@ -72,7 +72,7 @@ public class Farm extends Building {
 		widGrass += 2;
 		lenGrass += 2;
 		map.addToTerraformed(-2);
-		amount--;
+		carbon--;
 		max++;
 		}
 	}
@@ -81,9 +81,4 @@ public class Farm extends Building {
 	public boolean canBuild(Tile t) {
 		return true;
 	}
-	
-	public void deposit(int n) {
-		amount = n;
-	}
-
 }

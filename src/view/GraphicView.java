@@ -36,8 +36,9 @@ public class GraphicView extends JPanel{
 
 	private int startPointX, startPointY, endPointY, endPointX;
 	private int clicks = 0;
-
-	private JButton button, collect, makeDrone;
+	
+	//each button buildMine and after needs to be implemented
+	private JButton button, collect, makeDrone, buildMine, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm;
 	private JPanel userInfo;
 	private StockpilePanel stockPileInfo;
 
