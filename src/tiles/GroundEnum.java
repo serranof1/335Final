@@ -5,7 +5,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-
+/**
+ * The GroundEnum stores each type of regular ground a {@link Tile} can have, as well as its
+ * graphical and textual representation.
+ * @author Team Rosetta
+ *
+ */
 public enum GroundEnum {
 	OCEAN ("~", 2, "ocean.png"),
 	SAND (",", 1, "sand.png"),

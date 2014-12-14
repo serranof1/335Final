@@ -5,6 +5,11 @@ import model.Items;
 import tiles.Tile;
 import game.Map;
 
+/**
+ * ItemBuiltTask is a {@link Task} in which an {@link Items} is built and given to a {@link Drone}.
+ * @author Gateway
+ *
+ */
 public class ItemBuildTask extends Task {
 	
 	Items toBeBuilt;
@@ -15,7 +20,12 @@ public class ItemBuildTask extends Task {
 		toBeBuilt = item;
 		goal = buildLoc;
 	}
-
+	
+	/**
+	 * This method, as all the others, decrements the needs of the {@link Drone} and adds the {@link Items}
+	 * to the {@link Drone}. If not in the correct location, it is assigned a new {@link MoveTask}.
+	 * @param map - The {@link Map} on which to execute.
+	 */
 	@Override
 	public void execute(Map map) {
 		drone.setPower(drone.getPower() - 7);

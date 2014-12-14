@@ -2,7 +2,12 @@ package tiles;
 
 import java.awt.Image;
 
-
+/**
+ * BuildingTile is a layer of the {@link Tile} that stores the {@link Building} as a 
+ * {@link BuildingEnum}
+ * @author Team Rosetta
+ *
+ */
 public class BuildingTile extends TileWrapper {
 	
 	private BuildingEnum building;

@@ -21,7 +21,12 @@ import tiles.Tile;
 import tiles.WeatherEnum;
 import tiles.WeatherTile;
 import buildings.Building;
-
+/**
+ * The Map represents the 2D array on which the game is actually played. It holds each {@link Tile}, as
+ * well as performs pathfinding.
+ * @author Team Rosetta
+ *
+ */
 public class Map {
 	//good seed; lots of plains for troubleshooting: 7959250223445097006
 	private Tile[][] map;
@@ -43,9 +48,15 @@ public class Map {
 	
 	private LinkedList<Building> allBuildings;
 	
+	/**
+	 * 
+	 * @param n - This is the "size" of the map generated using the diamond-square algorithm. Specifically,
+	 * diamond-square is used to fractally (or more iteratively) generate a map of size 2^n+1 by 2^n+1.
+	 * @param seed - A long used to seed the random number generator, should that be desired.
+	 */
 	public Map(int n, long seed) {
 		try {
-			droneImage = ImageIO.read(new File("images/drone2.png"));
+			droneImage = ImageIO.read(new File("images/drone.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("No drone image");
@@ -59,10 +70,13 @@ public class Map {
 		numOfTerraformedTiles = 0;
 		allBuildings = new LinkedList<Building>();
 	}
-	
+	/**
+	 * 
+	 * @param n - The size of the map.
+	 */
 	public Map(int n) {
 		try {
-			droneImage = ImageIO.read(new File("images/drone2.png"));
+			droneImage = ImageIO.read(new File("images/drone.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("No drone image");
@@ -78,7 +92,11 @@ public class Map {
 		numOfTerraformedTiles = 0;
 		allBuildings = new LinkedList<Building>();
 	}
-	
+	/**
+	 * This performs the first portion of the diamond-square algorithm, in which a 2D array of floats
+	 * is generated.
+	 * @return float[][]
+	 */
 	private float[][] buildFloatMap() {
 		//int size = (int) Math.pow(2, n) + 1; //map is 1+2^n by 1+2^n
 		float[][] map = new float[size][size];
@@ -150,6 +168,10 @@ public class Map {
 		return map;
 	}
 	
+	/**
+	 * This method takes the 2D array of floats and normalizes it, ie, restricts the range of values to [0, 1]
+	 * @return float[][]
+	 */
 	private float[][] normalizeMap() {
 		float[][] normalizedMap = new float[size][size];
 		float[][] map = buildFloatMap();
@@ -172,7 +194,12 @@ public class Map {
 		}
 		return normalizedMap;
 	}
-
+	
+	/**
+	 * This method generates a 2D array of {@link Tile}s from the normalized 2D array of floats.
+	 * Each possible "height" of tile has a range of values, eg, a mountain is anything above .7
+	 * @return Tile[][]
+	 */
 	private Tile[][] buildTileMap() {
 		Tile[][] tileMap = new Tile[size][size];
 		float[][] floatMap = normalizeMap();
@@ -238,7 +265,10 @@ public class Map {
 		return tileMap;
 	}
 	
-	
+	/**
+	 * This method takes each {@link Tile} and sets its north, south, east, and west.
+	 * @return Tile[][]
+	 */
 	private Tile[][] buildNodeMap() {
 		Tile[][] map = buildTileMap();
 		//i is column, j is row
@@ -253,6 +283,10 @@ public class Map {
 		return map;
 	}
 	
+	/**
+	 * This method generates a String for the textual representation of the map.
+	 * @return String
+	 */
 	private String drawTextForm() {
 		String s = new String();
 		for (int i = 0; i < size; i++) {
@@ -286,6 +320,10 @@ public class Map {
 		map[y][x] = t;
 	}
 	
+	/**
+	 * This method converts {@link Tile}s to a sort that has a {@link Building}.
+	 * @param b - the {@link Building} to be built.
+	 */
 	public void build(Building b) {
 		//These allows us to find the tile in our array for the building, ie, the top left corner of it
 		int x = b.getLocation().x;
@@ -322,7 +360,13 @@ public class Map {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * This method, as per the name, finds the nearest {@link Building} of the appropriate type.
+	 * @param start - the {@link Tile} for the starting location. We search for the nearest {@link Building} to this {@link Tile}.
+	 * @param type - the type of {@link Building} to be found.
+	 * @return Building - the {@link Building} found.
+	 */
 	public Building findNearest(Tile start, BuildingEnum type) {
 		int buildX, buildY, startX, startY, minX, minY;
 		startX = start.getX();
@@ -344,6 +388,11 @@ public class Map {
 		return nearestBuilding;
 	}
 	
+	/**
+	 * This sets a {@link Tile} to be marked as visited for the purpose of pathfinding.
+	 * @param x - the x location of the {@link Tile}
+	 * @param y - the y location of the {@link Tile}
+	 */
 	public void pathFinderVisited(int x, int y) {
 		map[x][y].setVisited(true);
 		
@@ -353,7 +402,10 @@ public class Map {
 		
 		return 1;
 	}
-
+	
+	/**
+	 * This clears all {@link Tile}s from being visited for the purpose of pathfinding.
+	 */
 	public void clearVisited() {
 		for(int i = 0; i < map.length; i++){
 			for(int j = 0; j < map.length; j ++){

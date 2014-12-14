@@ -10,7 +10,11 @@ import pathfinding.Path;
 import pathfinding.Path.Step;
 import tiles.Tile;
 
-
+/**
+ * MoveTask is a {@link Task} in which a {@link Drone} generates a new path to a location and moves there.
+ * @author Team Rosetta
+ *
+ */
 public class MoveTask extends Task {
 
 
@@ -22,7 +26,12 @@ public class MoveTask extends Task {
 		goal = tile;
 		this.newPath = newPath;
 	}
-
+	
+	/**
+	 * The {@link Drone}'s needs are decremented and the {@link Drone} moves towards its goal {@link Tile}.
+	 * If it is at the designated {@link Tile} the MoveTask ends.
+	 * @param map - The {@link Map} on which to execute.
+	 */
 	@Override
 	public void execute(Map map) {
 		drone.setGas(drone.getGas() - 5);

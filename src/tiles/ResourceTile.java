@@ -3,7 +3,11 @@ package tiles;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.Random;
-
+/**
+ * The ResourceTile represents the layer of a {@link Tile} that holds resources.
+ * @author Team Rosetta
+ *
+ */
 public class ResourceTile extends TileWrapper {
 	private ResourceEnum resource;
 	

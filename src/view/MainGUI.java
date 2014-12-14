@@ -10,6 +10,11 @@ import javax.swing.JTabbedPane;
 import buildings.Base;
 import model.WeatherBehavior;
 
+/**
+ * MainGUI is a JFrame that holds the full game, graphical and model.
+ * @author Team Rosetta
+ *
+ */
 public class MainGUI extends JFrame{
 
 	private static GraphicView graphics;

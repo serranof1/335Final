@@ -11,7 +11,13 @@ import tiles.BuildingEnum;
 import tiles.GroundEnum;
 import tiles.Tile;
 
-
+/**
+ * A Building is an abstract class representing any static object we can place on the {@link Map}. In
+ * particular, it has a size and location, often as well as a function it performs each game loop.
+ * 
+ * @author Team Rosetta
+ *
+ */
 public abstract class Building extends Observable{
 
 	private String buildingName;
@@ -32,25 +38,26 @@ public abstract class Building extends Observable{
 
 	private ArrayList<Drone> droneList;
 	private ArrayList<Tile> tileList;
+	
+	/**
+	 * Each Building has actions needing to be performed each game loop. These are performed in the
+	 * executeOnBuilding method.
+	 * 
+	 * @param map - Most functions affect or need the {@link Map}.
+	 */
 
 	public abstract void executeOnBuilding(Map map);
 
 	/**
-	 * Construct the Building object, the parameters present the location, size,
-	 * and function of the building.
 	 * 
-	 * @param x
-	 *            an {@link Integer} represent the location of the building on x
-	 *            axis.
-	 * @param y
-	 *            an {@link Integer} represent the location of the building on y
-	 *            axis.
-	 * @param width
-	 *            an {@link Integer} represent the width of the building on the
-	 *            map.
-	 * @param length
-	 *            an {@link Integer} represent the length of the building on the
-	 *            map.
+	 * @param locX - The x location of the top left of the Building on the {@link Map}
+	 * @param locY - The y location of the top left of the Building on the {@link Map}
+	 * @param wid - The width of the Building.
+	 * @param len - The length (or height) of the Building.
+	 * @param cap - The maximum amount of any given {@link Resource} that can be held by the Building.
+	 * @param name - The name of the Building.
+	 * @param type - Each building has a {@link BuildingEnum} to which it is tied in order to best interact
+	 * with the {@link Tile} and {@link Map}.
 	 */
 	public Building(int locX, int locY, int wid, int len, int cap,
 			String name, BuildingEnum type) {
@@ -67,7 +74,14 @@ public abstract class Building extends Observable{
 		droneList = new ArrayList<Drone>(width * length);
 		tileList = new ArrayList<Tile>(width * length);
 	}
-
+	
+	/**
+	 * This method fairly evidently adds a {@link Drone} to the Building. Oftentimes, a {@link Drone} needs
+	 * to be inside the building for some function, such as charging. This helps track that.
+	 * 
+	 * @param drone - The {@link Drone} to be added to the list of {@link Drone}s currently in the Building.
+	 * @return boolean - True if a {@link Drone} is successfully added, false otherwise.
+	 */
 	public boolean addDrone(Drone drone) {
 
 		for (int index = 0; index < droneList.size(); index++) {
@@ -80,6 +94,11 @@ public abstract class Building extends Observable{
 		return false;
 	}
 	
+	/**
+	 * As per the addDrone method, a method is needed to subsequently remove a {@link Drone}
+	 * 
+	 * @param drone - The {@link Drone} to be removed for the list of {@link Drone}s.
+	 */
 	public void removeDrone(Drone drone){
 		for (int index = 0; index < droneList.size(); index++) {
 			droneList.get(index).getName().equals(drone.getName());
@@ -91,6 +110,12 @@ public abstract class Building extends Observable{
 
 	// Check the surrounding surface of the tile, make sure there are enough
 	// room for building
+	/**
+	 * This method checks the {@link Map} to ensure each {@link Tile} in the appropriate size of the
+	 * Building can be built upon, ie, is not mountainous or waterlogged.
+	 * @param startTile - The top left {@link Tile} on which will be built.
+	 * @return boolean - True if no {@link Tile} checked has any property prohibiting building, false otherwise.
+	 */
 	public boolean canBuild(Tile startTile) {
 
 		Tile curr = null;
@@ -165,7 +190,7 @@ public abstract class Building extends Observable{
 		return inProgress;
 	}
 
-
+	@Deprecated
 	public void depositAll(int x) {
 		System.out.println("Stuff has been deposited");
 		currentResources = x;
@@ -191,7 +216,12 @@ public abstract class Building extends Observable{
 	public ArrayList<Drone> getDroneList(){
 		return droneList;
 	}
-
+	
+	/**
+	 * This method checks to see if any {@link Tile} making up the Building is empty, ie, does not
+	 * have a {@link Drone}. This allows a space for new {@link Drone}s to be placed.
+	 * @return Tile - The first empty {@link Tile}.
+	 */
 	public Tile getEmptyTile() {
 		for (Tile tile : tileList) {
 			if (tile.getHasDrone() == false) {

@@ -6,6 +6,11 @@ import resources.Carbon;
 import tiles.Tile;
 import game.Map;
 
+/**
+ * BuildTask is a {@link Task} in which a {@link Drone} is assigned a {@link Building} to build.
+ * @author Team Rosetta
+ *
+ */
 public class BuildTask extends Task{
 	
 
@@ -23,6 +28,11 @@ public class BuildTask extends Task{
 	//We should probably set this up soon so that we can choose the location the building is built.
 	//Probably just change the constructor and such. We can do that once we can get user input.
 	@Override
+	/**
+	 * The execute method here decrements the {@link Drone}'s needs, as well as sets it to building. 
+	 * If it is not in the correct location, it is assigned a {@link MoveTask}.
+	 * @param map - This is a {@link Map} on which to perform the {@link Task}.
+	 */
 	public void execute(Map map) {
 		drone.setGas(drone.getGas() - 5);
 		drone.setPower(drone.getPower() - 10);

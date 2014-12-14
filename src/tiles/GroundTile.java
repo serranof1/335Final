@@ -1,7 +1,12 @@
 package tiles;
 
 import java.awt.Image;
-
+/**
+ * The GroundTile represents the layer in a {@link Tile} that determines things like movement.
+ * It stores its type of GroundTile as a (@link GroundEnum}.
+ * @author Gateway
+ *
+ */
 
 public class GroundTile extends TileWrapper {
 	

@@ -2,7 +2,11 @@ package buildings;
 
 import tiles.BuildingEnum;
 import game.Map;
-
+/**
+ * Converter is a {@link Building} that turns certain resources into other resources.
+ * @author Team Rosetta
+ *
+ */
 public class Converter extends Building {
 
 	public Converter(int locX, int locY, int wid, int len, int cap, int time,

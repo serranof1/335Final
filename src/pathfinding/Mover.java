@@ -10,7 +10,10 @@ package pathfinding;
  * this entity allows us to determine whether rough ground on a map should effect
  * the unit's cost for moving through the tile.
  * 
- * @author Kevin Glass
+ * The original implementation of this pathfinding algorithm was written by Kevin Glass. It has
+ * been adapted to function with our game.
+ * 
+ * @author Kevin Glass and Team Rosetta
  */
 public interface Mover {
 

@@ -24,7 +24,12 @@ import buildings.Engineering;
 import buildings.Farm;
 import buildings.MethanePlant;
 import buildings.SolarPlant;
-
+/**
+ * The MainGame controls the game loop, as well as holds objects such as the {@link Map} or each
+ * {@link Drone}
+ * @author Team Rosetta
+ *
+ */
 public class MainGame {
 
 	private static Map map;
@@ -82,7 +87,10 @@ public class MainGame {
 		}
 		
 	}
-
+	/**
+	 * This method attempts to spawn a {@link Base}. If it could not be built, it re-generates the
+	 * {@link Map} in an attempt to place the {@link Base}.
+	 */
 	private void mapSpawnCheck() {
 
 		base = new Base(10, 10);
@@ -94,7 +102,11 @@ public class MainGame {
 		}
 		initializeBuildings();
 	}
-
+	
+	/**
+	 * This method, at the moment, is primarily a testing method for placing a variety of 
+	 * {@link Building}s
+	 */
 	private void initializeBuildings() {
 
 		map.build(base);
@@ -146,7 +158,9 @@ public class MainGame {
 
 	}
 
-
+	/**
+	 * This rolls all the assignment and execution of {@link Drone} behavior into one method.
+	 */
 	public void assignAndDoTasks() {
 		resourceTasks();
 //		buildTasks();
@@ -155,7 +169,10 @@ public class MainGame {
 		doDroneTasks();
 		checkNeeds();
 	}
-
+	
+	/**
+	 * This method iterates through each {@link Drone} and checks all its needs, power, repair, and gas.
+	 */
 	public void checkNeeds() {
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
@@ -177,7 +194,10 @@ public class MainGame {
 			}
 		}
 	}
-
+	
+	/**
+	 * This method does not do anything right now.
+	 */
 	private void resourceTasks() {
 		// for (int i = 0; i < resourceCollectors.size(); i++) {
 		// resourceCollectors.get(i).getTaskList().push(new
@@ -208,7 +228,10 @@ public class MainGame {
 	private void itemBuildTasks() {
 
 	}
-
+	
+	/**
+	 * This method iterates through each {@link Drone} and executes their assigned {@link Task}.
+	 */
 	public void doDroneTasks() {
 		// Goes through every drone, checks if they're dead and removes them if
 		// they are.
@@ -223,7 +246,10 @@ public class MainGame {
 		System.out
 				.println("**************************************************************");
 	}
-
+	
+	/**
+	 * This method iterates through each {@link Building} and performs its associated behavior.
+	 */
 	public void doBuildingTasks() {
 		ArrayList<Drone> builders = allDrones.get("builders");
 		for (Building building : buildingList) {
@@ -237,7 +263,10 @@ public class MainGame {
 			}	
 		}
 	}
-
+	
+	/**
+	 * This method performs weather behavior, such as the day/night cycle and storms.
+	 */
 	public void doWeather() {
 		wb.LightMovement(map);
 //		wb.StormActions(allDrones, map);
@@ -256,7 +285,12 @@ public class MainGame {
 	public boolean checkLose() {
 		return allDrones.numberOfDrones() > 0;
 	}
-
+	
+	/**
+	 * This method, provided the resources are available, spawns a new {@link Drone} in the
+	 * {@link Engineering} {@link Building}
+	 * @return Drone - The {@link Drone} that is spawned.
+	 */
 	public Drone createDrone() {
 		
 		Base base = (Base) buildingList.get(0);

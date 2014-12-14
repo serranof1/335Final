@@ -23,6 +23,11 @@ import javax.swing.JPanel;
 
 import buildings.Base;
 
+/**
+ * GraphicView is a JPanel for the graphical representation of our game.
+ * @author Gateway
+ *
+ */
 public class GraphicView extends JPanel{
 
 	private Map map;
@@ -33,7 +38,8 @@ public class GraphicView extends JPanel{
 	private int clicks = 0;
 
 	private JButton button, collect, makeDrone;
-	private JPanel userInfo, stockPileInfo;
+	private JPanel userInfo;
+	private StockpilePanel stockPileInfo;
 
 	private boolean selectResource;
 	public boolean dragging;
@@ -48,10 +54,10 @@ public class GraphicView extends JPanel{
 		this.setLayout(new BorderLayout());
 		userInfo = new JPanel();
 		userInfo.setBackground(Color.WHITE);
-		stockPileInfo = new JPanel();
-		stockPileInfo.setBackground(Color.RED);
-		stockPileInfo.setPreferredSize(new Dimension(1200, 50));
-
+		stockPileInfo = new StockpilePanel();
+		stockPileInfo.setSize(stockPileInfo.getSize());
+		
+		
 		userInfo.setLayout(new GridBagLayout());
 		this.add(userInfo, BorderLayout.EAST);
 		this.add(stockPileInfo, BorderLayout.SOUTH);
