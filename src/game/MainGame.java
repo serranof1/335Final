@@ -301,12 +301,18 @@ public class MainGame {
 				break;
 			}
 		}
-		if (base.getPower() >= 400 && base.getIron() >= 3000
-				&& base.getMethane() >= 400) {
+//		if (base.getPower() >= 400 && base.getIron() >= 3000
+//				&& base.getMethane() >= 400) {
 			
-			Drone newDrone = new Drone("Drone: " + nameInt, 400, factory.getEmptyTile());
+			Drone newDrone = new Drone("Drone: " + nameInt, 400, map.getTile(10, 5));
+			allDrones.addNewDrone(newDrone);
+			
 			return newDrone;
-		}
-		return null;
+//		}
+//		return null;
+	}
+	
+	public ListOfLists getAllDrones(){
+		return allDrones;
 	}
 }
