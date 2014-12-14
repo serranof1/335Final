@@ -49,7 +49,6 @@ public class SolarPlant extends Building {
 		if (getPower() > 25) {
 			drone.setPower(drone.getPower() + 25);
 			setPower(getPower()-25);
-			System.out.println("SolarPlant: " + getPower());
 		} else {
 			System.out.println("Not enough power to give");
 		}
