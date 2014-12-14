@@ -267,8 +267,16 @@ public class Drone implements Mover{
 		return iron;
 	}
 	
+	public void incrementIron(int i) {
+		iron += i;
+	}
+	
 	public int getCarbon() {
 		return carbon;
+	}
+	
+	public void incrementCarbon(int i) {
+		carbon += i;
 	}
 	
 	public int getMethane() {
@@ -299,6 +307,29 @@ public class Drone implements Mover{
 			carbon+= 10;
 		}else if(resource == ResourceEnum.IRON){
 			iron+= 10;
+		}
+	}
+	public void incrementMethane(int i) {
+		methane += i;
+	}
+	
+	public void gather(int i, ResourceEnum resource) {
+		if (iron + carbon + methane + i < maxCapacity) {
+			if (resource == ResourceEnum.IRON) {
+				iron += i;
+			} else if (resource == ResourceEnum.CARBON) {
+				carbon += i;
+			} else if (resource == ResourceEnum.METHANE) {
+				methane += i;
+			}
+		} else {
+			if (resource == ResourceEnum.IRON) {
+				iron = maxCapacity - carbon - methane;
+			} else if (resource == ResourceEnum.CARBON) {
+				carbon = maxCapacity - iron - methane;
+			} else if (resource == ResourceEnum.METHANE) {
+				methane = maxCapacity - iron - carbon;
+			}
 		}
 	}
 	

@@ -24,20 +24,23 @@ public abstract class Building extends Observable{
 	private BuildingEnum typeOfBuilding;
 
 	private Point location;
-	private int width;
-	private int length;
+	protected int width;
+	protected int length;
 
 	private int health;
 	private int currentResources = 0;
 	private int resourceCap;
 	private int resourceCost;
-	private int iron, carbon, electricity, methane;
+	protected int iron;
+	protected int carbon;
+	private int electricity;
+	private int methane;
 	
 	private boolean finished, inProgress;
 
 
 	private ArrayList<Drone> droneList;
-	private ArrayList<Tile> tileList;
+	protected ArrayList<Tile> tileList;
 	
 	/**
 	 * Each Building has actions needing to be performed each game loop. These are performed in the

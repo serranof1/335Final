@@ -1,6 +1,7 @@
 package game;
 
-import java.security.cert.CollectionCertStoreParameters;
+
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -15,6 +16,7 @@ import task.MethaneTask;
 import task.RepairTask;
 import task.Task;
 import tiles.BuildingEnum;
+import tiles.ResourceEnum;
 import tiles.Tile;
 import view.MainGUI;
 import buildings.Base;
@@ -281,7 +283,7 @@ public class MainGame {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > 80;
+		return map.getTerraformed() > map.getSize() / 5;
 	}
 
 	public boolean checkLose() {
@@ -316,5 +318,17 @@ public class MainGame {
 	
 	public ListOfLists getAllDrones(){
 		return allDrones;
+	}
+
+	public void gatherResources(Point upperLeft, Point bottomRight) {
+		
+		for(int i = 0; i < bottomRight.x - upperLeft.x; i++){
+			for(int j = 0; j < bottomRight.y - upperLeft.y; j++){
+				if(map.getTile(i, j).getResource().getResource() == ResourceEnum.CARBON || 
+						map.getTile(i, j).getResource().getResource() == ResourceEnum.IRON ){
+					resourceList.add(map.getTile(i, j));
+				}
+			}
+		}
 	}
 }

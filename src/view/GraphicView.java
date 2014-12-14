@@ -5,11 +5,11 @@ import game.Map;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,8 +36,9 @@ public class GraphicView extends JPanel{
 
 	private int startPointX, startPointY, endPointY, endPointX;
 	private int clicks = 0;
-
-	private JButton button, collect, makeDrone;
+	
+	//each button buildMine and after needs to be implemented
+	private JButton button, collect, makeDrone, buildMine, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm;
 	private JPanel userInfo;
 	private StockpilePanel stockPileInfo;
 
@@ -248,7 +249,10 @@ public class GraphicView extends JPanel{
 	private class ListenToMouse implements MouseMotionListener, MouseListener {
 
 		public void mouseClicked(MouseEvent evt) {
-
+			
+			Point upperLeft = new Point();
+			Point bottomRight = new Point();
+			
 			if(selectResource && clicks == 0){
 				startPointX = evt.getX();
 				startPointY = evt.getY();
@@ -259,11 +263,42 @@ public class GraphicView extends JPanel{
 				System.out.println("mouse click 2:   " +clicks);
 				clicks--;
 				selectResource = false;
+				//add resources to list here
+				System.out.println("startX  " +startPointX);
+				upperLeft.x = startPointX;
+				upperLeft.y = startPointY;
+				bottomRight.x = endPointX;
+				bottomRight.y = endPointY;
 				
+				globalizePoints(upperLeft, bottomRight);
+				mainGame.gatherResources(upperLeft, bottomRight);
 				grabFocus();
 			} else {
 				//do other things here, im not sure what
 			}
+		}
+
+		private void globalizePoints(Point upperLeft, Point bottomRight) {
+			
+			upperLeft.x = leftCol + (upperLeft.x / 25);
+			upperLeft.y = leftRow + (upperLeft.y / 25);
+			
+			bottomRight.x = leftCol + (bottomRight.x / 25);
+			bottomRight.y = leftRow + (bottomRight.y / 25);
+			
+			Point newUpperLeft = new Point();
+			Point newBottomRight = new Point();
+			
+			newUpperLeft.x = Math.min(upperLeft.x, bottomRight.x);
+			newUpperLeft.y = Math.min(upperLeft.y, bottomRight.y);
+			
+			newBottomRight.x = Math.max(upperLeft.x, bottomRight.x);
+			newBottomRight.y = Math.max(upperLeft.y, bottomRight.y);
+			
+			upperLeft = newUpperLeft;
+			bottomRight = newBottomRight;
+			
+			
 		}
 
 		public void mouseMoved(MouseEvent evt) {

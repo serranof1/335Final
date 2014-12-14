@@ -28,6 +28,7 @@ public class DepositTask extends Task {
 		drone.setPower(drone.getPower() - 3);
 		drone.setGas(drone.getGas() - 1);
 		drone.setRepair(drone.getRepair() - 1);
+
 		if (drone.getCurrentTile() == map.getTile((int) giveMeStuff.getLocation().getX(), (int) giveMeStuff.getLocation().getY())) {
 			drone.depositResources(giveMeStuff);
 			drone.getTaskList().pop();

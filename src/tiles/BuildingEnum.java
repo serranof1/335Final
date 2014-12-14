@@ -13,12 +13,12 @@ import javax.imageio.ImageIO;
  */
 public enum BuildingEnum {
 	NOTHING ("", "transparentplaceholder.png"),
-	POWERPLANT ("P", "genericbuilding.png"),
-	MINE ("X", "genericbuilding.png"), 
-	BASE ("B", "genericbuilding.png"),
-	FARM ("F", "genericbuilding.png"),
-	ENGINEERING("E", "genericbuilding.png"),
-	METHANEPLANT("MP", "genericbuilding.png");
+	POWERPLANT ("P", "solarplant.png"),
+	MINE ("X", "mine.png"), 
+	BASE ("B", "base.png"),
+	FARM ("F", "farm.png"),
+	ENGINEERING("E", "engineering.png"),
+	METHANEPLANT("MP", "methaneplant.png");
 
 	
 	private String textRepresentation;
