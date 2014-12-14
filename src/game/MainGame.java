@@ -279,7 +279,7 @@ public class MainGame {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > 80;
+		return map.getTerraformed() > map.getSize() / 3;
 	}
 
 	public boolean checkLose() {

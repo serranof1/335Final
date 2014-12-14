@@ -5,6 +5,7 @@ import tiles.GroundEnum;
 import tiles.GroundTile;
 import tiles.Tile;
 import game.Map;
+import java.util.Random;
 /**
  * Farm is a {@link Building} used to terraform the planet. It converts inhospitable {@link Tile}s to
  * hospitable ones, as part of the win condition.
@@ -12,11 +13,12 @@ import game.Map;
  *
  */
 public class Farm extends Building {
+	private final static Random rand = new Random();
 	private final static int BASE_WIDTH = 2;
 	private final static int BASE_LENGTH = 2;
 	private final static int MAX_CAP = 0;
 	private final static String BUILDING_NAME = "F";
-	int xGrass, yGrass, widGrass, lenGrass, amount;
+	int xGrass, yGrass, widGrass, lenGrass, amount, max;
 	//amount will need to eventually be three separate values for resources, or something.
 	private final GroundTile grass = new GroundTile(GroundEnum.GRASS);
 
@@ -29,6 +31,7 @@ public class Farm extends Building {
 		widGrass = wid + 1;
 		lenGrass = len + 1;
 		amount = 1;
+		max = 0;
 	}
 	
 	public Farm(int x, int y) {
@@ -38,6 +41,7 @@ public class Farm extends Building {
 		widGrass = BASE_WIDTH + 1;
 		lenGrass = BASE_LENGTH + 1;
 		amount = 3;
+		max = 0;
 	}
 	
 	/**
@@ -47,17 +51,21 @@ public class Farm extends Building {
 	@Override
 	public void executeOnBuilding(Map map) {
 		map.getTile(0, 0).setGround(grass);
-		if (amount > 0) {
+		if (amount > 0 && max < 10) {
 			//This will need to be converted to node-logic.
 		for (int i = yGrass; i < yGrass + lenGrass + 1; i++) {
-			map.getTile(xGrass, i).setGround(grass);
-			map.getTile(xGrass + widGrass, i).setGround(grass);
-			map.addToTerraformed(2);
+			if (rand.nextFloat() > .2){
+				map.getTile(xGrass, i).setGround(grass);
+				map.getTile(xGrass + widGrass, i).setGround(grass);
+				map.addToTerraformed(2);
+			}
 		}
 		for (int i = xGrass; i < xGrass + widGrass + 1; i++) {
-			map.getTile(i, yGrass).setGround(grass);
-			map.getTile(i, yGrass + lenGrass).setGround(grass);
-			map.addToTerraformed(2);
+			if (rand.nextFloat() > .2) {
+				map.getTile(i, yGrass).setGround(grass);
+				map.getTile(i, yGrass + lenGrass).setGround(grass);
+				map.addToTerraformed(2);
+			}
 		}
 		xGrass--;
 		yGrass--;
@@ -65,6 +73,7 @@ public class Farm extends Building {
 		lenGrass += 2;
 		map.addToTerraformed(-2);
 		amount--;
+		max++;
 		}
 	}
 	
