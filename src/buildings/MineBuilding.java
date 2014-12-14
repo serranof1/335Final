@@ -1,5 +1,6 @@
 package buildings;
 
+import model.Drone;
 import game.Map;
 import resources.Resource;
 import tiles.BuildingEnum;
@@ -70,5 +71,16 @@ public class MineBuilding extends Building{
 		}
 		return true;
 
+	}
+	
+	public void giveResource(Drone drone) {
+		if (iron > 0) {
+			drone.gather(drone.getIron() + 5, ResourceEnum.IRON);
+			iron -= 5;
+		}
+		if (carbon > 0) {
+			drone.gather(drone.getCarbon() + 5, ResourceEnum.CARBON);
+			carbon -= 5;
+		}
 	}
 }
