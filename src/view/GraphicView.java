@@ -70,7 +70,7 @@ public class GraphicView extends JPanel{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		userInfo.add(button, c);
+		userInfo.add(makeDrone, c);
 
 		button = new JButton("Button 2");
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -235,6 +235,9 @@ public class GraphicView extends JPanel{
 	private class MakeDroneListener implements ActionListener{
 			public void actionPerformed(ActionEvent e){
 				mainGame.createDrone();
+				grabFocus();
+				
+				System.out.println("\n\nButton Pressed\n\n");
 			}
 	}
 	/**

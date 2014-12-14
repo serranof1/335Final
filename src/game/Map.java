@@ -313,7 +313,27 @@ public class Map {
 	}
 	
 	public Tile getTile(int i, int j) {
-		return map[j][i];
+			return map[j][i];
+	}
+	
+	public Tile getTile2(int i, int j) {
+		int xLoop;
+		int yLoop;
+		if (i < 0) {
+			xLoop = size + i;
+		} else if (i >= size) {
+			xLoop = i - size;
+		} else {
+			xLoop = i;
+		}
+		if (j < 0) {
+			yLoop = size + j;
+		} else if (j >= size) {
+			yLoop = j - size;
+		} else {
+			yLoop = j;
+		}
+		return map[yLoop][xLoop];
 	}
 	
 	public void setTile(Tile t, int x, int y) {

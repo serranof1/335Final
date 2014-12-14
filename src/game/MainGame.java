@@ -97,7 +97,7 @@ public class MainGame {
 
 		// when a game is started if main base cannot be built generate new map
 		if (base.canBuild(map.getTile(10, 10)) != true) {
-			map = new Map(7);
+			map = new Map(6);
 			mapSpawnCheck();
 		}
 		initializeBuildings();
@@ -269,8 +269,8 @@ public class MainGame {
 	 */
 	public void doWeather() {
 		wb.LightMovement(map);
-//		wb.StormActions(allDrones, map);
-//		wb.addStorm(map);
+		wb.StormActions(allDrones, map);
+		wb.addStorm(map);
 	}
 
 	public Map getMap() {
@@ -301,12 +301,18 @@ public class MainGame {
 				break;
 			}
 		}
-		if (base.getPower() >= 400 && base.getIron() >= 3000
-				&& base.getMethane() >= 400) {
+//		if (base.getPower() >= 400 && base.getIron() >= 3000
+//				&& base.getMethane() >= 400) {
 			
-			Drone newDrone = new Drone("Drone: " + nameInt, 400, factory.getEmptyTile());
+			Drone newDrone = new Drone("Drone: " + nameInt, 400, map.getTile(10, 5));
+			allDrones.addNewDrone(newDrone);
+			
 			return newDrone;
-		}
-		return null;
+//		}
+//		return null;
+	}
+	
+	public ListOfLists getAllDrones(){
+		return allDrones;
 	}
 }
