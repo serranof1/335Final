@@ -270,12 +270,24 @@ public class Drone implements Mover{
 		return iron;
 	}
 	
+	public void incrementIron(int i) {
+		iron += i;
+	}
+	
 	public int getCarbon() {
 		return carbon;
 	}
 	
+	public void incrementCarbon(int i) {
+		carbon += i;
+	}
+	
 	public int getMethane() {
 		return methane;
+	}
+	
+	public void incrementMethane(int i) {
+		methane += i;
 	}
 	
 	public void gather(int i, ResourceEnum resource) {

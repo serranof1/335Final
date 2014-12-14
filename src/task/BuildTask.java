@@ -3,6 +3,7 @@ package task;
 import buildings.Building;
 import model.Drone;
 import resources.Carbon;
+import tiles.ResourceEnum;
 import tiles.Tile;
 import game.Map;
 
@@ -38,18 +39,17 @@ public class BuildTask extends Task{
 		drone.setPower(drone.getPower() - 10);
 		drone.setRepair(drone.getRepair() - 1);
 		buildLoc = toBuild.getTileList().get(0);
-		
-		if (drone.getCurrentTile() == buildLoc) {
+			if (drone.getCurrentTile() == buildLoc) {
 //			buildProgress+=1;
 //			if (toBuild.contruct()) {
-				map.build(toBuild);
-				toBuild.setFinished();
-				drone.getTaskList().pop();
-				System.out.println("Drone has built the building");
-//			}
-		} else {
-			drone.getTaskList().push(new MoveTask(drone, buildLoc, true));
-			drone.getTaskList().peek().execute(map);
+					map.build(toBuild);
+					toBuild.setFinished();
+					drone.getTaskList().pop();
+					System.out.println("Drone has built the building");
+//				}
+			} else {
+				drone.getTaskList().push(new MoveTask(drone, buildLoc, true));
+				drone.getTaskList().peek().execute(map);
+			}
 		}
-	}
 }
