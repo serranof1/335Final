@@ -113,7 +113,7 @@ public class WeatherBehavior {
 	}
 	
 	public void addTestStorm(Map map) {
-		//stormList.add(new Storm(20, 20, 5, map));
+		//stormList.add(new Storm(1, 1, 6, map));
 	}
 	
 	/**
@@ -122,9 +122,9 @@ public class WeatherBehavior {
 	 */
 	public void addStorm(Map map) {
 		if (rand.nextFloat() < .3) {
-			int x = rand.nextInt(map.getSize() - 20);
-			int y = rand.nextInt(map.getSize() - 20);
-			stormList.add(new Storm(x + 10, y + 10, 4, map));
+			int x = rand.nextInt(map.getSize());
+			int y = rand.nextInt(map.getSize());
+			stormList.add(new Storm(x, y, 4, map));
 		} 
 	}
 	
@@ -169,9 +169,9 @@ public class WeatherBehavior {
 			for (int i = y - size; i < y + size; i++) {
 				for (int j = x - size; j < x + size; j++) {
 					if (Math.sqrt(Math.pow(y-i, 2) + Math.pow(x-j,  2)) <= currentRadius) {
-						map.getTile(j, i).setWeather(stormTile);
+						map.getTile2(j, i).setWeather(stormTile);
 					} else {
-						map.getTile(j, i).setWeather((map.getTile(j, y - size - 1)).getNorth().getWeather());
+						map.getTile2(j, i).setWeather((map.getTile2(j, y - size - 1)).getNorth().getWeather());
 					}
 				}
 			}
