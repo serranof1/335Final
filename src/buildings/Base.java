@@ -24,7 +24,7 @@ public class Base extends Building {
 	private int methane = 15000;
 	private int electricity = 15000;
 	private int iron = 2500;
-	private int carbon =2500;
+	private int carbon = 2500;
 	
 	/**
 	 * 
@@ -47,6 +47,17 @@ public class Base extends Building {
 	}
 
 
+	public String getStockPile(){
+		
+		String stock = new String();
+		stock += "METHANE  " +methane +"\n";
+		stock += "ELECTRICTY  " +electricity +"\n";
+		stock += "IRON  " +iron+"\n";
+		stock += "CARBON  " +carbon;
+		return stock;
+		
+	}
+	
 	/**
 	 * @param map - Each {@link Building} has a collectResource method to account for any behavior
 	 * it needs to do each turn. These behaviors typically affect or need the {@link Map}.

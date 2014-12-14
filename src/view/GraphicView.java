@@ -144,7 +144,7 @@ public class GraphicView extends JPanel{
 
 		for (int i = 0; i < viewHeight; i++){
 			for (int j = viewLength; j > 0; j--) { // Changed loop condition here.
-
+				stockPileInfo.drawResources(this.getResourceString());
 				map.getTile(col, row).draw(g, (viewLength - j) * 25, i * 25);
 				col++;
 			}
@@ -190,6 +190,13 @@ public class GraphicView extends JPanel{
 		}
 
 	}
+
+	private String getResourceString() {
+		String resource = ((Base) mainGame.getBuildingList().get(0)).getStockPile();
+
+		return resource;
+	}
+
 
 	public int getViewLength() {
 		return viewLength;

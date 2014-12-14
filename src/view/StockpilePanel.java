@@ -24,7 +24,7 @@ public class StockpilePanel extends JPanel{
 		resources = new JTextField();
 	}
 
-	public void drawResources(){
-		
+	public void drawResources(String input){
+		resources.setText(input);
 	}
 }
