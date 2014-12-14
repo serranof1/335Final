@@ -5,7 +5,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-
+/**
+ * The WeatherEnum represents the possible weather for the {@link WeatherTile} layer of a {@link Tile}.
+ * @author Team Rosetta
+ *
+ */
 public enum WeatherEnum {
 	DAY ("", -1, "day.png"),
 	NIGHT ("", 1, "night.png"),

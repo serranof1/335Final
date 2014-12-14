@@ -2,7 +2,11 @@ package tiles;
 
 import java.awt.Image;
 
-
+/**
+ * WeatherTile represents the layer of a {@link Tile} that has weather, such as day or a storm.
+ * @author Team Rosetta
+ *
+ */
 public class WeatherTile extends TileWrapper {
 	
 	private WeatherEnum weather;

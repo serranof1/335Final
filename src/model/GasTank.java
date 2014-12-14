@@ -1,7 +1,11 @@
 package model;
 
 import tiles.BuildingEnum;
-
+/**
+ * GasTank is an {@link Items} used to increase the maximum gas of a {@link Drone}.
+ * @author Gateway
+ *
+ */
 public class GasTank extends Items{
 
 	public GasTank() {
@@ -9,6 +13,10 @@ public class GasTank extends Items{
 		reqBuilding = BuildingEnum.METHANEPLANT;
 	}
 	
+	/**
+	 * This method increases the maximum gas a {@link Drone} can have.
+	 * param d - The {@link Drone} to increase max gas.
+	 */
 	@Override
 	public void execute(Drone d) {
 		drone.setMaxGas(1000);

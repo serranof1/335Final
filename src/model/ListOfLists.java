@@ -16,6 +16,11 @@ import tiles.BuildingEnum;
 import tiles.Tile;
 import buildings.Building;
 
+/**
+ * This method separates the ArrayList of all the ArrayLists of {@link Drone}s from the {@link MainGame}.
+ * @author Gateway
+ *
+ */
 public class ListOfLists extends ArrayList<ArrayList<Drone>> {
 
 	private ArrayList<ArrayList<Drone>> allDrones;
@@ -62,7 +67,10 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> {
 		}
 
 	}
-
+	/**
+	 * This method moves a {@link Drone} to the list of {@link Drone}s doing the default {@link Task}
+	 * @param drone - The {@link Drone} to be moved.
+	 */
 	public void moveToDefaultList(Drone drone) {
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
@@ -75,7 +83,12 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> {
 		}
 
 	}
-
+	
+	/**
+	 * This moves a {@link Drone} from the default list to a new list.
+	 * @param drone - The {@link Drone} to be moved.
+	 * @param newList - The list to which to move it.
+	 */
 	public void moveFromDefaultList(Drone drone, ArrayList<Drone> newList) {
 		for (int i = 0; i < defaultList.size(); i++) {
 			if (defaultList.get(i).getName() == drone.getName()) {

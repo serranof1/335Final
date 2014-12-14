@@ -6,6 +6,11 @@ import java.util.Random;
 
 import model.Drone;
 
+/**
+ * DefaultTask is a {@link Task} for {@link Drone}s idling.
+ * @author Team Rosetta
+ *
+ */
 public class DefaultTask extends Task {
 	
 	Drone drone;
@@ -14,7 +19,11 @@ public class DefaultTask extends Task {
 		super(drone);
 		this.drone = drone;
 	}
-
+	
+	/**
+	 * This method, while the {@link Drone} is idling, has it randomly move around.
+	 * @param map - The {@link Map} on which to act.
+	 */
 	@Override
 	public void execute(Map map) {
 		/**

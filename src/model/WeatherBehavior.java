@@ -9,6 +9,11 @@ import tiles.WeatherEnum;
 import tiles.WeatherTile;
 import game.Map;
 
+/**
+ * This class maintains the behavior of weather on the {@link Map}.
+ * @author Gateway
+ *
+ */
 public class WeatherBehavior {
 	private final WeatherTile night = new WeatherTile(WeatherEnum.NIGHT);
 	private final WeatherTile day = new WeatherTile(WeatherEnum.DAY);
@@ -17,12 +22,20 @@ public class WeatherBehavior {
 	int border2;
 	Random rand = new Random();
 	
+	/**
+	 * The instance of WeatherBehavior maintains the two day/night borders as well as a list of
+	 * any "storms" taking place.
+	 */
 	public WeatherBehavior() {
 		border1 = -1;
 		border2 = -1;
 		stormList = new ArrayList<Storm>();
 	}
 	
+	/**
+	 * This method controls the day/night cycle. Each game loop the day/night border moves one tick over.
+	 * @param map - The {@link Map} on which to be drawing day and night.
+	 */
 	public void LightMovement(Map map) {
 		Tile tile;
 		boolean nightChanged = false;
@@ -63,6 +76,11 @@ public class WeatherBehavior {
 		border2 = (1 + border2) % map.getSize();
 	}
 	
+	/**
+	 * This method has each Storm do its associated action, typically damaging drones and buildings.
+	 * @param droneList - The full list of {@link Drone}s to act upon.
+	 * @param map - The {@link Map} to act upon.
+	 */
 	public void StormActions(ArrayList<ArrayList<Drone>> droneList, Map map) {
 		boolean stormEffect;
 		ArrayList<Storm> toBeRemoved = new ArrayList<Storm>();
@@ -98,21 +116,16 @@ public class WeatherBehavior {
 		//stormList.add(new Storm(20, 20, 5, map));
 	}
 	
+	/**
+	 * This method places a storm on the {@link Map}.
+	 * @param map - The {@link Map} on which to place a storm.
+	 */
 	public void addStorm(Map map) {
-		if (rand.nextFloat() < .5) {
-			int x = rand.nextInt(map.getSize() - 16);
-			int y = rand.nextInt(map.getSize() - 16);
-			stormList.add(new Storm(x + 8, y + 8, 4, map));
-		} else if (rand.nextFloat() > .99) {
-			int x = rand.nextInt(map.getSize() - 16);
-			int y = rand.nextInt(map.getSize() - 16);
-			stormList.add(new Storm(x + 8, y + 8, 5, map));
-			for (int i = 0; i < 30; i++) {
-				x = rand.nextInt(map.getSize() - 10);
-				y = rand.nextInt(map.getSize() - 10);
-				stormList.add(new Storm(x + 8, y + 8, 5, map));
-			}
-		}
+		if (rand.nextFloat() < .3) {
+			int x = rand.nextInt(map.getSize() - 20);
+			int y = rand.nextInt(map.getSize() - 20);
+			stormList.add(new Storm(x + 10, y + 10, 4, map));
+		} 
 	}
 	
 	private class Storm {

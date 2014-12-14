@@ -5,7 +5,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-
+/**
+ * The BuildingEnum represents each {@link Building} and stores their appropriate image and textual
+ * representation
+ * @author Team Rosetta
+ *
+ */
 public enum BuildingEnum {
 	NOTHING ("", "transparentplaceholder.png"),
 	POWERPLANT ("P", "genericbuilding.png"),

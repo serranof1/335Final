@@ -11,7 +11,10 @@ import tiles.Tile;
  * A path finder implementation that uses the AStar heuristic based algorithm
  * to determine a path. 
  * 
- * @author Kevin Glass
+ * The original implementation of this pathfinding algorithm was written by Kevin Glass. It has
+ * been adapted to function with our game.
+ * 
+ * @author Kevin Glass and Team Rosetta
  */
 public class AStarPathFinder implements PathFinder {
 	/** The set of nodes that have been searched through */

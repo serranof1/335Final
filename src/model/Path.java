@@ -7,11 +7,22 @@ import java.util.PriorityQueue;
 
 import tiles.Tile;
 
+/**
+ * This method represents a path the drone can take to get from location to another.
+ * @author Gateway
+ *
+ */
 public class Path {
 	private LinkedList<Tile> path;
 	private LinkedList<Tile> secPath;
 	private Tile destination;
-
+	
+	/**
+	 * The Path to follow.
+	 * @param currTile - The current {@link Tile} for the Path.
+	 * @param destTile - The end {@link Tile} for the path.
+	 * @param droneSpeed - The {@link Drone}'s ability to move for pathfinding.
+	 */
 	public Path(Tile currTile, Tile destTile, int droneSpeed) {
 		// TODO Auto-generated constructor stub
 		path = new LinkedList<Tile>();
@@ -21,7 +32,14 @@ public class Path {
 		secPath.add(currTile);
 		findPath(currTile, currTile, droneSpeed);
 	}
-
+	
+	/**
+	 * This method generates a list of {@link Tile}s for the path.
+	 * @param curr - The current {@link Tile}.
+	 * @param prev - The previous {@link Tile}.
+	 * @param droneSpeed - The (@link Drone}'s movement ability.
+	 * @return boolean
+	 */
 	private boolean findPath(Tile curr, Tile prev, int droneSpeed) {
 
 		// LinkedList<Tile> canMoveTiles = new LinkedList<Tile>();
