@@ -5,7 +5,13 @@ import model.Drone;
 import tiles.Tile;
 import buildings.Building;
 import buildings.Engineering;
+import buildings.SolarPlant;
 
+/**
+ * RepairTask is a {@link Task} that assigns a {@link Drone} to find a {@link Engineering} and repair.
+ * @author Team Rosetta
+ *
+ */
 public class RepairTask extends Task {
 	Engineering building;
 	Tile goal;
@@ -15,7 +21,10 @@ public class RepairTask extends Task {
 		goal = tile;
 		drone.toggleRepair();
 	}
-
+	/**
+	 * @param map - The {@link Map} on which to execute. The {@link Drone}'s needs are decremented and
+	 * the drone is repaired. If it is not at a {@link Engineering} it is assigned a {@link MoveTask}.
+	 */
 	@Override
 	public void execute(Map map) {
 		drone.setGas(drone.getGas() - 1);

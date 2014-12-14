@@ -8,7 +8,11 @@ import model.Drone;
 import resources.Resource;
 import tiles.BuildingEnum;
 import tiles.Tile;
-
+/**
+ * SolarPlant is a {@link Building} used for recharging the {@link Drone}s with solar energy.
+ * @author Team Rosetta
+ *
+ */
 public class SolarPlant extends Building {
 
 	private final static int SOLAR_WIDTH = 2;
@@ -21,7 +25,11 @@ public class SolarPlant extends Building {
 		super(x, y, SOLAR_WIDTH, SOLAR_HEIGHT, MAX_CAP,
 				BUILDING_NAME, BuildingEnum.POWERPLANT);
 	}
-
+	
+	/**
+	 * This method, provided the SolarPlant is in sunlight, generates power.
+	 * @param map - The {@link Map} used in order to check that the SolarPlant is in daylight.
+	 */
 	@Override
 	public void executeOnBuilding(Map map) {
 		if (isFinished()) {
@@ -33,7 +41,10 @@ public class SolarPlant extends Building {
 			}
 		}
 	}
-
+	/**
+	 * This method charges a drone, provided there is power in the SolarPlant.
+	 * @param drone - The {@link Drone} to be recharged.
+	 */
 	public void charge(Drone drone) {
 		if (getPower() > 25) {
 			drone.setPower(drone.getPower() + 25);

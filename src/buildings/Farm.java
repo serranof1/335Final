@@ -5,7 +5,12 @@ import tiles.GroundEnum;
 import tiles.GroundTile;
 import tiles.Tile;
 import game.Map;
-
+/**
+ * Farm is a {@link Building} used to terraform the planet. It converts inhospitable {@link Tile}s to
+ * hospitable ones, as part of the win condition.
+ * @author Team Rosetta
+ *
+ */
 public class Farm extends Building {
 	private final static int BASE_WIDTH = 2;
 	private final static int BASE_LENGTH = 2;
@@ -34,7 +39,11 @@ public class Farm extends Building {
 		lenGrass = BASE_LENGTH + 1;
 		amount = 3;
 	}
-
+	
+	/**
+	 * This method converts inhospitable {@link Tile}s  to hospitable ones, provided resources are available.
+	 * @param map - The {@link Map} we are changing tiles on.
+	 */
 	@Override
 	public void executeOnBuilding(Map map) {
 		map.getTile(0, 0).setGround(grass);

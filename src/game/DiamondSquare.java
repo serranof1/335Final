@@ -4,7 +4,12 @@ package game;
 import java.util.Random;
 
 
-
+/**
+ * The DiamondSquare class pre-empted the existence of most map generation; this was primarily for testing
+ * and is not used further.
+ * @author Team Rosetta
+ *
+ */
 public class DiamondSquare {
 	private float mountainThreshold, groundThreshold, oceanThreshold, sandThreshold;
 	private int n, size;

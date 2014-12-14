@@ -7,7 +7,11 @@ import game.Map;
 import tiles.BuildingEnum;
 import tiles.Tile;
 
-
+/**
+ * ChargeTask is a {@link Task} that assigns a {@link Drone} to find a {@link SolarPlant} and recharge.
+ * @author Team Rosetta
+ *
+ */
 public class ChargeTask extends Task{
 	
 	SolarPlant plant;
@@ -21,6 +25,10 @@ public class ChargeTask extends Task{
 		
 	}
 
+	/**
+	 * @param map - The {@link Map} on which to execute. The {@link Drone}'s needs are decremented and
+	 * the drone is recharged. If it is not at a {@link SolarPlant} it is assigned a {@link MoveTask}.
+	 */
 	@Override
 	public void execute(Map map) {
 		drone.setGas(drone.getGas() - 2);

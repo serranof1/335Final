@@ -22,6 +22,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+/**
+ * GraphicView is a JPanel for the graphical representation of our game.
+ * @author Gateway
+ *
+ */
 public class GraphicView extends JPanel{
 
 	private Map map;

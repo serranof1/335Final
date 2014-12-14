@@ -8,7 +8,11 @@ import model.Drone;
 import resources.Resource;
 import tiles.BuildingEnum;
 import tiles.Tile;
-
+/**
+ * MethanePlant is a {@link Building} used for refueling drones.
+ * @author Team Rosetta
+ *
+ */
 public class MethanePlant extends Building {
 
 	private final static int METH_WIDTH = 2;
@@ -25,7 +29,11 @@ public class MethanePlant extends Building {
 	public void executeOnBuilding(Map map) {
 		setInventory(getInventory() + 10);
 	}
-
+	/**
+	 * As long as resources are available, this method will provide fuel for the {@link Drone}, to fill
+	 * its need.
+	 * @param drone - The {@link Drone} to be refueled.
+	 */
 	public void fill(Drone drone) {
 		if (getMethane() > 5) {
 			drone.setGas(drone.getGas() + 5);

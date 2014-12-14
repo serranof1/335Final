@@ -4,6 +4,11 @@ import tiles.Tile;
 import model.Drone;
 import game.Map;
 
+/**
+ * WaitTask is a {@link Task} in which a {@link Task} in which a Drone sits in one place.
+ * @author Gateway
+ *
+ */
 public class WaitTask extends Task {
 
 	Tile goal;
@@ -13,6 +18,10 @@ public class WaitTask extends Task {
 		this.goal = goal;
 	}
 
+	/**
+	 * This method decrements the {@link Drone}'s needs.
+	 * @param map - The {@link Map} on which to execute.
+	 */
 	@Override
 	public void execute(Map map) {
 		drone.setGas(drone.getGas() - 1);

@@ -9,6 +9,11 @@ import resources.Resource;
 import tiles.BuildingEnum;
 import tiles.Tile;
 
+/**
+ * Engineering is an {@link Building} used to repair {@link Drone}s and to build certain items.
+ * @author Team Rosetta.
+ *
+ */
 public class Engineering extends Building {
 
 	private final static int ENG_WIDTH = 3;
@@ -30,6 +35,10 @@ public class Engineering extends Building {
 		
 	}
 	
+	/**
+	 * This method improveds the health of a {@link Drone}, provided enough resources are available.
+	 * @param drone - The {@link Drone} being repaired.
+	 */
 	public void repair(Drone drone) {
 		// TODO Auto-generated method stub
 		if (getInventory() > 2) {

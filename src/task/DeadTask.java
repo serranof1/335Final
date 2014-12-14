@@ -8,6 +8,11 @@ import javax.imageio.ImageIO;
 import model.Drone;
 import game.Map;
 
+/**
+ * DeadTask is a {@link Task} that removes a {@link Drone} from all the acting {@link Drone}s.
+ * @author Team Rosetta
+ *
+ */
 public class DeadTask extends Task{
 	
 	Drone drone;

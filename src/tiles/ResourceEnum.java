@@ -7,6 +7,12 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+/**
+ * The ResourceEnum stores the different possible resources on a {@link Tile}. It is in a 
+ * quasi-nonexistent limbo, at the moment.
+ * @author Team Rosetta
+ *
+ */
 public enum ResourceEnum {
 	MINERAL (.1, "m", Color.ORANGE, "layerplaceholder.png"),
 	METHANE (.1, "v", Color.YELLOW, "methane.png"),
