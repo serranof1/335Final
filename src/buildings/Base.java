@@ -51,9 +51,9 @@ public class Base extends Building {
 		
 		String stock = new String();
 		stock += "METHANE  " +methane +"\n";
-		stock += "ELECTRICTY  " +electricity +"\n";
-		stock += "IRON  " +iron+"\n";
-		stock += "CARBON  " +carbon;
+		stock += "	ELECTRICTY  " +electricity +"\n";
+		stock += "	IRON  " +iron+"\n";
+		stock += "	CARBON  " +carbon;
 		return stock;
 		
 	}
