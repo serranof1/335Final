@@ -1,6 +1,7 @@
 package tiles;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * TileWrapper represents each possible layer of a {@link Tile}. Each possible layer needs to be
@@ -8,7 +9,7 @@ import java.awt.Image;
  * @author Team Rosetta
  *
  */
-public abstract class TileWrapper {
+public abstract class TileWrapper implements Serializable {
 	public abstract String drawTextForm();
 	public abstract Image getImage();
 }

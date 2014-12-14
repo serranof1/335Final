@@ -2,6 +2,10 @@ package game;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -27,7 +31,7 @@ import buildings.Building;
  * @author Team Rosetta
  *
  */
-public class Map {
+public class Map implements Serializable {
 	//good seed; lots of plains for troubleshooting: 7959250223445097006
 	private Tile[][] map;
 	private int size, n;
@@ -40,7 +44,8 @@ public class Map {
 	
 	private AStarPathFinder finder;
 	
-	private BufferedImage droneImage;
+//	private BufferedImage droneImage;
+	private String droneImage;
 	//I think, for a map of any particular size, the linkedlist of resources becomes difficult to use
 	//so I did not implement it here. We may need to figure this out.
 	
@@ -55,12 +60,12 @@ public class Map {
 	 * @param seed - A long used to seed the random number generator, should that be desired.
 	 */
 	public Map(int n, long seed) {
-		try {
-			droneImage = ImageIO.read(new File("images/drone.png"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("No drone image");
-		}
+//		try {
+//			droneImage = ImageIO.read(new File("images/drone.png"));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("No drone image");
+//		}
 		this.n = n;
 		size = (int) Math.pow(2, n) + 1;
 		this.seed = seed;
@@ -75,12 +80,12 @@ public class Map {
 	 * @param n - The size of the map.
 	 */
 	public Map(int n) {
-		try {
-			droneImage = ImageIO.read(new File("images/drone.png"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("No drone image");
-		}
+//		try {
+//			droneImage = ImageIO.read(new File("images/drone.png"));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("No drone image");
+//		}
 		this.n = n;
 		size = (int) Math.pow(2, n) + 1;
 		rand = new Random();
@@ -225,33 +230,33 @@ public class Map {
 				//we may need to switch i and j; I can never remember if the outer loop is the row or the column
 				if (floatMap[i][j] > mountainThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, day, droneImage);
+						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, day, "images/drone.png");
 					} else {
-						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, night, droneImage);
+						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, night, "images/drone.png");
 					}
 					if (rand.nextFloat() < .3) {
 						tileMap[i][j].setResource(iron);
 					}
 				} else if (floatMap[i][j] > groundThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(plain, noResource, noBuilding, day, droneImage);
+						tileMap[i][j] = new Tile(plain, noResource, noBuilding, day, "images/drone.png");
 					} else {
-						tileMap[i][j] = new Tile(plain, noResource, noBuilding, night, droneImage);
+						tileMap[i][j] = new Tile(plain, noResource, noBuilding, night, "images/drone.png");
 					}
 					if (rand.nextFloat() < .3) {
 						tileMap[i][j].setResource(carbon);
 					}
 				} else if (floatMap[i][j] > sandThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(sand, noResource, noBuilding, day, droneImage);
+						tileMap[i][j] = new Tile(sand, noResource, noBuilding, day, "images/drone.png");
 					} else {
-						tileMap[i][j] = new Tile(sand, noResource, noBuilding, night, droneImage);
+						tileMap[i][j] = new Tile(sand, noResource, noBuilding, night, "images/drone.png");
 					}
 				} else {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, day, droneImage);
+						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, day, "images/drone.png");
 					} else {
-						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, night, droneImage);
+						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, night, "images/drone.png");
 					}
 					if (rand.nextFloat() < .3) {
 						tileMap[i][j].setResource(methane);
@@ -449,5 +454,47 @@ public class Map {
 
 	public LinkedList<Building> getAllBuildings() {
 		return allBuildings;
+	}
+	
+	private void writeObject(ObjectOutputStream objOut) throws IOException {
+		objOut.writeObject(size);
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				objOut.writeObject(map[i][j]);
+			}
+		}
+		objOut.writeObject(seed);
+		objOut.writeObject(mountainThreshold);
+		objOut.writeObject(groundThreshold);
+		objOut.writeObject(sandThreshold);
+		objOut.writeObject(droneImage);
+		objOut.writeObject(numOfTerraformedTiles);
+		objOut.writeObject(allBuildings);
+	}
+	
+	private void readObject(ObjectInputStream objIn) throws Exception {
+		size = (Integer)objIn.readObject();
+		map = new Tile[size][size];
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				map[i][j] = (Tile)objIn.readObject();
+			}
+		}
+		seed = (long)objIn.readObject();
+		mountainThreshold = (float)objIn.readObject();
+		groundThreshold = (float)objIn.readObject();
+		sandThreshold = (float)objIn.readObject();
+		droneImage = (String)objIn.readObject();
+		numOfTerraformedTiles = (int)objIn.readObject();
+		allBuildings = (LinkedList<Building>)objIn.readObject();
+		
+		for(int i = 0; i < size; i++){
+			for(int j = 0; j < size; j++){
+				map[i][j].setWest(map[i][(size + (j - 1)) % size ]);
+				map[i][j].setEast(map[i][(size + (j + 1)) % size ]);
+				map[i][j].setNorth(map[(size + (i - 1)) % size ][j]);
+				map[i][j].setSouth(map[(size + (i + 1)) % size ][j]);
+			}
+		}
 	}
 }
