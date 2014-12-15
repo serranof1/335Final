@@ -397,12 +397,14 @@ public class GraphicView extends JPanel{
 			
 			// for information panel
 			if(!selectResource){
-				activeTile = map.getTile((evt.getX() / 25) + leftCol, (evt.getY() / 25) + leftRow);
+				System.out.println("x:  " +((evt.getX() / 25) + leftCol) +"   y:  " +(((evt.getY() / 25) + leftRow)));
+				activeTile = map.getTile(((evt.getX() / 25) + leftCol), ((evt.getY() / 25) + leftRow));
 				
 				if(activeTile.getHasDrone()){
 					stockPileInfo.drawUpdateField(mainGame.getAllDrones().getDroneInformation(activeTile.getX(), activeTile.getY()));
-				}
+				} else {
 				stockPileInfo.drawUpdateField(activeTile.toString());
+				}
 			}
 			
 			
