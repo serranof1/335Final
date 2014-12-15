@@ -90,10 +90,10 @@ public class MainGame implements Serializable {
 				"Do you want to enter a seed?", "Do you want to enter a seed?",
 				JOptionPane.YES_NO_OPTION);
 		if (n == JOptionPane.NO_OPTION) {
-			map = new Map(6);
+			map = new Map(7);
 		} else {
 			String s = JOptionPane.showInputDialog("Enter a long:");
-			map = new Map(6, Long.parseLong(s));
+			map = new Map(7, Long.parseLong(s));
 		}
 		
 	}
@@ -122,29 +122,6 @@ public class MainGame implements Serializable {
 		map.build(base);
 		base.setFinished();
 		buildingList.add(base);
-
-		Building farmTest = new Farm(3, 3);
-		map.build(farmTest);
-		farmTest.setFinished();
-		buildingList.add(farmTest);
-
-		Building engineeringTest = new Engineering(10, 3);
-		map.build(engineeringTest);
-		buildingList.add(engineeringTest);
-		engineeringTest.setFinished();
-
-		Building methPlanTest = new MethanePlant(15, 3);
-		map.build(methPlanTest);
-		buildingList.add(methPlanTest);
-		methPlanTest.setFinished();
-
-		plant1 = new SolarPlant(50, 50);
-		map.build(plant1);
-		buildingList.add(plant1);
-		plant1.setFinished();
-
-		wb.addTestStorm(map);
-
 	}
 
 	/**
@@ -156,19 +133,14 @@ public class MainGame implements Serializable {
 	private void initializeDrones() {
 		allDrones = new ListOfLists();
 		
-		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
-		Drone gasTest = new Drone("gasTest", 120, map.getTile(15, 5));
-		gasTest.setGas(20);
-		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
-		repairTest.setRepair(20);
+		Drone powerTest = new Drone("LowPower", 400, map.getTile(10, 10));
+		Drone gasTest = new Drone("LowMethane", 400, map.getTile(11, 11));
+		Drone repairTest = new Drone("repairTest", 400, map.getTile(13, 13));
 		
-		Drone sacrifice = new Drone("sacrifice", 1, map.getTile(25, 5));
 
 		allDrones.addNewDrone(powerTest);
 		allDrones.addNewDrone(gasTest);
 		allDrones.addNewDrone(repairTest);
-		allDrones.addNewDrone(sacrifice);
-		System.out.println("\nALLDRONES SIZE : " +allDrones.size());
 	}
 
 	/**
@@ -177,7 +149,6 @@ public class MainGame implements Serializable {
 	public void assignAndDoTasks() {
 		resourceTasks();
 		buildTasks();
-		mineTasks();
 		itemBuildTasks();
 		doDroneTasks();
 		checkNeeds();
@@ -221,17 +192,10 @@ public class MainGame implements Serializable {
 			if(!resourceList.isEmpty()){
 				if(!drone.isCollecting()){
 					drone.getTaskList().push(new CollectResourcesTask(drone, resourceList, (Base)buildingList.get(0)));
-					System.out.println("Resource Task Assigned\n" +resourceList.getFirst().getX() +"   " +resourceList.getFirst().getY() );
 					resourceList.removeFirst();
 				}
 			}
 		}
-		// for (int i = 0; i < resourceCollectors.size(); i++) {
-		// resourceCollectors.get(i).getTaskList().push(new
-		// DepositTask(resourceCollectors.get(i), buildingList.get(0)));
-		// checkNeeds(resourceCollectors.get(i));
-		//
-		// }
 	}
 
 	private void buildTasks() {
@@ -239,21 +203,13 @@ public class MainGame implements Serializable {
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
 				if (!buildingList.get(i).isFinished()) {
-					builders.get(j)
-							.getTaskList()
-							.push(new BuildTask(builders.get(j), buildingList
-									.get(i)));
+					builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
 				}
 			}
 		}
 	}
-
-	private void mineTasks() {
-
-	}
-
-	private void itemBuildTasks() {
-
+	private void itemBuildTasks(){
+		
 	}
 	
 	/**
@@ -263,8 +219,7 @@ public class MainGame implements Serializable {
 		// Goes through every drone, checks if they're dead and removes them if
 		// they are.
 		// Then it calls execute on every drone's current task.
-		System.out
-				.println("**************************************************************");
+		System.out.println("**************************************************************");
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
 				if(allDrones.get(i).get(j).executeTaskList(map)){
@@ -272,8 +227,7 @@ public class MainGame implements Serializable {
 				}
 			}
 		}
-		System.out
-				.println("**************************************************************");
+		System.out.println("**************************************************************");
 	}
 	
 	/**
@@ -284,11 +238,6 @@ public class MainGame implements Serializable {
 		for (Building building : buildingList) {
 			if (building.isFinished()){
 				building.executeOnBuilding(map);
-			}else if(!building.inProgress()){
-				//We need to somehow pick a drone from the builders list
-				//that isn't already working on a building
-				//drone . push new build task with that building and set its state
-				//to be "in progress"
 			}	
 		}
 	}
@@ -370,9 +319,7 @@ public class MainGame implements Serializable {
 	}
 
 	public void gatherResources(Point upperLeft, Point bottomRight) {
-		
-		System.out.println("gather resources input points:  " +upperLeft.toString() + bottomRight.toString());
-		
+				
 		for(int i = upperLeft.x; i <= bottomRight.x; i++){
 			for(int j = upperLeft.y; j <= bottomRight.y; j++){
 				
