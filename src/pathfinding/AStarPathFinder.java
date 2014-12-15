@@ -2,6 +2,7 @@ package pathfinding;
 
 import game.Map;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,7 +17,7 @@ import tiles.Tile;
  * 
  * @author Kevin Glass and Team Rosetta
  */
-public class AStarPathFinder implements PathFinder {
+public class AStarPathFinder implements PathFinder, Serializable {
 	/** The set of nodes that have been searched through */
 	private ArrayList closed = new ArrayList();
 	/** The set of nodes that we do not yet consider fully searched */
@@ -320,7 +321,7 @@ public class AStarPathFinder implements PathFinder {
 	 *
 	 * @author kevin
 	 */
-	private class SortedList {
+	private class SortedList implements Serializable {
 		/** The list of elements */
 		private ArrayList list = new ArrayList();
 		
@@ -382,7 +383,7 @@ public class AStarPathFinder implements PathFinder {
 	/**
 	 * A single node in the search graph
 	 */
-	private class Node implements Comparable {
+	private class Node implements Comparable, Serializable {
 		/** The x coordinate of the node */
 		private int x;
 		/** The y coordinate of the node */

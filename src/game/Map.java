@@ -44,8 +44,8 @@ public class Map implements Serializable {
 	
 	private AStarPathFinder finder;
 	
-//	private BufferedImage droneImage;
-	private String droneImage;
+	transient private BufferedImage droneImage;
+	//private String droneImage;
 	//I think, for a map of any particular size, the linkedlist of resources becomes difficult to use
 	//so I did not implement it here. We may need to figure this out.
 	
@@ -80,12 +80,12 @@ public class Map implements Serializable {
 	 * @param n - The size of the map.
 	 */
 	public Map(int n) {
-//		try {
-//			droneImage = ImageIO.read(new File("images/drone.png"));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println("No drone image");
-//		}
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("No drone image");
+		}
 		this.n = n;
 		size = (int) Math.pow(2, n) + 1;
 		rand = new Random();
@@ -230,33 +230,33 @@ public class Map implements Serializable {
 				//we may need to switch i and j; I can never remember if the outer loop is the row or the column
 				if (floatMap[i][j] > mountainThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, day, "images/drone.png");
+						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, day);
 					} else {
-						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, night, "images/drone.png");
+						tileMap[i][j] = new Tile(mountain, noResource, noBuilding, night);
 					}
 					if (rand.nextFloat() < .3) {
 						tileMap[i][j].setResource(iron);
 					}
 				} else if (floatMap[i][j] > groundThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(plain, noResource, noBuilding, day, "images/drone.png");
+						tileMap[i][j] = new Tile(plain, noResource, noBuilding, day);
 					} else {
-						tileMap[i][j] = new Tile(plain, noResource, noBuilding, night, "images/drone.png");
+						tileMap[i][j] = new Tile(plain, noResource, noBuilding, night);
 					}
 					if (rand.nextFloat() < .3) {
 						tileMap[i][j].setResource(carbon);
 					}
 				} else if (floatMap[i][j] > sandThreshold) {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(sand, noResource, noBuilding, day, "images/drone.png");
+						tileMap[i][j] = new Tile(sand, noResource, noBuilding, day);
 					} else {
-						tileMap[i][j] = new Tile(sand, noResource, noBuilding, night, "images/drone.png");
+						tileMap[i][j] = new Tile(sand, noResource, noBuilding, night);
 					}
 				} else {
 					if (j < size / 2) {
-						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, day, "images/drone.png");
+						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, day);
 					} else {
-						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, night, "images/drone.png");
+						tileMap[i][j] = new Tile(ocean, noResource, noBuilding, night);
 					}
 					if (rand.nextFloat() < .3) {
 						tileMap[i][j].setResource(methane);
@@ -456,6 +456,19 @@ public class Map implements Serializable {
 		return allBuildings;
 	}
 	
+	public void rebuildNodes() {
+		for(int i = 0; i < size; i++){
+			for(int j = 0; j < size; j++){
+				map[i][j].reloadImages();
+				map[i][j].setWest(map[i][(size + (j - 1)) % size ]);
+				map[i][j].setEast(map[i][(size + (j + 1)) % size ]);
+				map[i][j].setNorth(map[(size + (i - 1)) % size ][j]);
+				map[i][j].setSouth(map[(size + (i + 1)) % size ][j]);
+			}
+		}
+	}
+	
+	/*
 	private void writeObject(ObjectOutputStream objOut) throws IOException {
 		objOut.writeObject(size);
 		for(int i = 0; i < size; i++) {
@@ -484,7 +497,7 @@ public class Map implements Serializable {
 		mountainThreshold = (float)objIn.readObject();
 		groundThreshold = (float)objIn.readObject();
 		sandThreshold = (float)objIn.readObject();
-		droneImage = (String)objIn.readObject();
+		//droneImage = (String)objIn.readObject();
 		numOfTerraformedTiles = (int)objIn.readObject();
 		allBuildings = (LinkedList<Building>)objIn.readObject();
 		
@@ -496,5 +509,5 @@ public class Map implements Serializable {
 				map[i][j].setSouth(map[(size + (i + 1)) % size ][j]);
 			}
 		}
-	}
+	}*/
 }
