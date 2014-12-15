@@ -301,11 +301,11 @@ public class MainGame implements Serializable {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > map.getSize() / 5;
+		return map.getTerraformed() > 150;
 	}
 
 	public boolean checkLose() {
-		return allDrones.numberOfDrones() > 0;
+		return allDrones.numberOfDrones() <= 0;
 	}
 	
 	/**
