@@ -219,7 +219,7 @@ public abstract class Building extends Observable implements Serializable {
 	}
 	
 	public void setCarbon(int x){
-		carbon = +x;
+		carbon += x;
 		System.out.println("\nCarbon Incremented: " + carbon);
 	}
 	public int getCarbon(){
