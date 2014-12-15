@@ -32,4 +32,10 @@ public class GroundTile extends TileWrapper {
 	public Image getImage() {
 		return ground.getImage();
 	}
+
+	@Override
+	public String toString() {
+		
+		return getGround().toString();
+	}
 }

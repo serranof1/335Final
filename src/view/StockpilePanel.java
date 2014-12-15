@@ -29,6 +29,13 @@ public class StockpilePanel extends JPanel{
 		add(resources);
 	}
 
+	public void drawUpdateField(String input){
+		Font font = new Font("SansSerif", Font.BOLD, 20);
+		updateField.setFont(font);
+		updateField.setHorizontalAlignment(JTextField.CENTER);
+		updateField.setText(input);
+	}
+	
 	public void drawResources(String input){
 		Font font = new Font("SansSerif", Font.BOLD, 20);
 		resources.setHorizontalAlignment(JTextField.CENTER);

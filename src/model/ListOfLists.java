@@ -121,6 +121,20 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 		}
 	}
 
+	public String getDroneInformation(int x, int y){
+		for(ArrayList<Drone> list : allDrones){
+			for(Drone currentDrone : list){
+				if(currentDrone.getLocationX() == x && currentDrone.getLocationY() == y){
+					return currentDrone.toString();
+				} else {
+					return null;
+				}
+			
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<Drone> get(String listName) {
 		switch (listName) {
 		case "defaultList": return get(0);

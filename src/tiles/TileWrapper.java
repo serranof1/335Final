@@ -12,4 +12,5 @@ import java.io.Serializable;
 public abstract class TileWrapper implements Serializable {
 	public abstract String drawTextForm();
 	public abstract Image getImage();
+	public abstract String toString();
 }

@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.ListOfLists;
+import tiles.Tile;
 import buildings.Base;
 
 /**
@@ -54,6 +55,8 @@ public class GraphicView extends JPanel{
 	private MainGame mainGame;
 	private ListOfLists allDrones;
 
+	private Tile activeTile;
+	
 	public GraphicView(MainGame mainGame, int row, int col , int viewHeight, int viewLength) {
 		this.mainGame = mainGame;
 		allDrones = mainGame.getAllDrones();
@@ -65,7 +68,6 @@ public class GraphicView extends JPanel{
 		userInfo.setBackground(Color.WHITE);
 		stockPileInfo = new StockpilePanel();
 		stockPileInfo.setSize(stockPileInfo.getSize());
-		
 		
 		userInfo.setLayout(new GridBagLayout());
 		this.add(userInfo, BorderLayout.EAST);
@@ -337,6 +339,18 @@ public class GraphicView extends JPanel{
 
 		public void mouseClicked(MouseEvent evt) {
 			
+			// for information panel
+			if(!selectResource){
+				activeTile = map.getTile((evt.getX() / 25) + leftCol, (evt.getY() / 25) + leftRow);
+				
+				if(activeTile.getHasDrone()){
+					stockPileInfo.drawUpdateField(mainGame.getAllDrones().getDroneInformation(activeTile.getX(), activeTile.getY()));
+				}
+				stockPileInfo.drawUpdateField(activeTile.toString());
+			}
+			
+			
+			// for resource collection
 			Point upperLeft = new Point();
 			Point bottomRight = new Point();
 			
