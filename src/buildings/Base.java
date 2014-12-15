@@ -32,7 +32,7 @@ public class Base extends Building {
 		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.BASE);
 		setMethane(15000);
 		setPower(15000);
-		setIron(3000);
+		setIron(100000);
 		setCarbon(2500);
 	}
 	

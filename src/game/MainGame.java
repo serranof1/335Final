@@ -159,6 +159,7 @@ public class MainGame implements Serializable {
 	 * This method iterates through each {@link Drone} and checks all its needs, power, repair, and gas.
 	 */
 	public void checkNeeds() {
+		try {
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
 				Drone drone = allDrones.get(i).get(j);
@@ -182,6 +183,7 @@ public class MainGame implements Serializable {
 				}
 			}
 		}
+		} catch (Exception e) {}
 	}
 	
 	/**

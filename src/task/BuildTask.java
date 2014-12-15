@@ -51,7 +51,7 @@ public class BuildTask extends Task {
 				map.build(toBuild);
 				toBuild.setFinished();
 				drone.getTaskList().pop();
-				map.getAllBuildings().get(0).setIron(-1000);
+				map.getAllBuildings().get(0).setIron(-100);
 				return true;
 			// }
 			} else {

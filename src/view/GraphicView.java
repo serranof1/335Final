@@ -723,7 +723,7 @@ public class GraphicView extends JPanel{
 			if(e.getSource() == build) {
 				System.out.println("clicks1:   " +clicks1);
 				
-				if(clicks1 == 0){
+				if(clicks1 == 0 && mainGame.getBuildingList().get(0).getIron() > 3000){
 				buildSolarPlant.setEnabled(true);
 				buildEngineering.setEnabled(true);
 				buildMethanePlant.setEnabled(true);
