@@ -301,7 +301,7 @@ public class MainGame implements Serializable {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > 150;
+		return map.getTerraformed() > 300;
 	}
 
 	public boolean checkLose() {
