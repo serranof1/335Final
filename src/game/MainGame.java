@@ -19,6 +19,7 @@ import model.WeatherBehavior;
 import task.BuildTask;
 import task.ChargeTask;
 import task.CollectResourcesTask;
+import task.DeadTask;
 import task.ItemBuildTask;
 import task.MethaneTask;
 import task.MoveTask;
@@ -186,6 +187,9 @@ public class MainGame implements Serializable {
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
 				Drone drone = allDrones.get(i).get(j);
+				if(drone.getRepair()<= 0 || drone.getGas() <=0 || drone.getPower()<=0){
+					drone.getTaskList().push(new DeadTask(drone));
+				}
 				if (drone.getRepair() < 30 && !drone.isRepairing()) {
 					Building repairAt = map.findNearest(drone.getCurrentTile(),	BuildingEnum.ENGINEERING);
 					drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile()));
