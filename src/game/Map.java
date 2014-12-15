@@ -413,6 +413,27 @@ public class Map implements Serializable {
 		return nearestBuilding;
 	}
 	
+	public Tile findNearest(Tile start, BuildingEnum type, Boolean b) {
+		int buildX, buildY, startX, startY, minX, minY;
+		startX = start.getX();
+		startY = start.getY();
+		minX = 10000;
+		minY = 10000;
+		Building nearestBuilding = null;
+		for (Building build : allBuildings) {
+			if (build.getTypeOfBuilding() == type) {
+				buildX = (int) build.getLocation().getX();
+				buildY = (int) build.getLocation().getY();
+				if ((buildX - startX)*(buildX - startX) + (buildY - startY)*(buildY - startY) < (minX - startX)*(minX - startX) + (minY - startY)*(minY - startY)) {
+					minX = buildX;
+					minY = buildY;
+					nearestBuilding = build;
+				}
+			}
+		}
+		return map[minY][minX];
+	}
+	
 	/**
 	 * This sets a {@link Tile} to be marked as visited for the purpose of pathfinding.
 	 * @param x - the x location of the {@link Tile}

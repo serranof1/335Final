@@ -44,18 +44,22 @@ public class BuildTask extends Task {
 		int x = (int) toBuild.getLocation().getX();
 		int y = (int) toBuild.getLocation().getY();
 		buildLoc = map.getTile(y, x);
-		if (drone.getCurrentTile() == buildLoc) {
-			// buildProgress+=1;
-			// if (toBuild.contruct()) {
-			map.build(toBuild);
-			toBuild.setFinished();
-			drone.getTaskList().pop();
-			return true;
+		if (map.getAllBuildings().get(0).getIron() > 1000) {
+			if (drone.getCurrentTile() == buildLoc) {
+				// buildProgress+=1;
+				// if (toBuild.contruct()) {
+				map.build(toBuild);
+				toBuild.setFinished();
+				drone.getTaskList().pop();
+				map.getAllBuildings().get(0).setIron(-1000);
+				return true;
 			// }
-		} else {
-			drone.getTaskList().push(new MoveTask(drone, buildLoc, true));
-			drone.getTaskList().peek().execute(map);
+			} else {
+				drone.getTaskList().push(new MoveTask(drone, buildLoc, true));
+				drone.getTaskList().peek().execute(map);
+			}
 		}
+		drone.getTaskList().pop();
 		return false;
 	}
 }

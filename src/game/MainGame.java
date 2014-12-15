@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import model.Battery;
 import model.Drone;
+import model.Items;
 import model.ListOfLists;
 import model.WeatherBehavior;
 import task.BuildTask;
@@ -133,9 +134,9 @@ public class MainGame implements Serializable {
 	private void initializeDrones() {
 		allDrones = new ListOfLists();
 		
-		Drone powerTest = new Drone("LowPower", 400, map.getTile(10, 10));
-		Drone gasTest = new Drone("LowMethane", 400, map.getTile(11, 11));
-		Drone repairTest = new Drone("repairTest", 400, map.getTile(13, 13));
+		Drone powerTest = new Drone("Start1", 400, map.getTile(10, 10));
+		Drone gasTest = new Drone("Start2", 400, map.getTile(11, 11));
+		Drone repairTest = new Drone("Start3", 400, map.getTile(13, 13));
 		
 
 		allDrones.addNewDrone(powerTest);
@@ -163,17 +164,18 @@ public class MainGame implements Serializable {
 				Drone drone = allDrones.get(i).get(j);
 				if(drone.getRepair()<= 0 || drone.getGas() <=0 || drone.getPower()<=0){
 					drone.getTaskList().push(new DeadTask(drone));
+					allDrones.deadDrone(drone);
 				}
-				if (drone.getRepair() < 30 && !drone.isRepairing()) {
+				if (drone.getRepair() < 30 && !drone.isRepairing() && drone.getRepair() > 0) {
 					Building repairAt = map.findNearest(drone.getCurrentTile(),	BuildingEnum.ENGINEERING);
 					drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile()));
 				}
-				if (drone.getGas() < 50 && !drone.isFilling()) {
+				if (drone.getGas() < 50 && !drone.isFilling() && drone.getGas() > 0) {
 					Building gasAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.METHANEPLANT);
 					drone.getTaskList().push(new MethaneTask(drone, gasAt, gasAt.getEmptyTile()));
 					System.out.println("DRONE GETTING GAS");
 				}
-				if (drone.getPower() < 80 && !drone.isCharging()) {
+				if (drone.getPower() < 80 && !drone.isCharging() && drone.getPower() > 0) {
 					Building chargeAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.POWERPLANT);
 					drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
 					System.out.println("DRONE CHARGING");
@@ -204,12 +206,24 @@ public class MainGame implements Serializable {
 			for (int j = 0; j < builders.size(); j++) {
 				if (!buildingList.get(i).isFinished()) {
 					builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
+					if (!buildingList.get(i).inProgress()) {
+						builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
+					}
 				}
 			}
 		}
-	}
-	private void itemBuildTasks(){
+	}		
+
+	private void itemBuildTasks() {
 		
+	}
+	
+	public void giveItems(Items item) {
+		for (int i = 0; i < allDrones.size(); i++) {
+			for (int j = 0; j < allDrones.get(i).size(); j++) {
+				item.execute(allDrones.get(i).get(j));
+			}
+		}
 	}
 	
 	/**
@@ -279,10 +293,10 @@ public class MainGame implements Serializable {
 				break;
 			}
 		}
-		if (base.getPower() >= 400 && base.getIron() >= 3000
+		if (base.getPower() >= 400 && base.getIron() >= 400
 				&& base.getMethane() >= 400) {
 			base.setPower(-400);
-			base.setIron(-3000);
+			base.setIron(-400);
 			base.setMethane(-400);
 			
 			

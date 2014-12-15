@@ -24,7 +24,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.Battery;
+import model.Boat;
+import model.GasTank;
+import model.Jetpack;
 import model.ListOfLists;
+import model.RepairBox;
+import model.Treads;
 import tiles.Tile;
 import buildings.Base;
 import buildings.Building;
@@ -368,7 +374,12 @@ public class GraphicView extends JPanel{
 		buildEngineering.addActionListener(buttonListen);
 		buildMethanePlant.addActionListener(buttonListen);
 		buildFarm.addActionListener(buttonListen);
-		
+		buildBattery.addActionListener(buttonListen);
+		buildRepairBox.addActionListener(buttonListen);
+		buildGasTank.addActionListener(buttonListen);
+		buildTreads.addActionListener(buttonListen);
+		buildJetpack.addActionListener(buttonListen);
+		buildBoat.addActionListener(buttonListen);
 	}
 	
 	private class AddToBuildersListener implements ActionListener{
@@ -689,22 +700,22 @@ public class GraphicView extends JPanel{
 			//5 through 10 we can drop the currentSelection assignment
 			//and just have the ItemBuildTask set here
 			if (e.getSource() == buildBattery) {
-				currentSelection = 5;
+				mainGame.giveItems(new Battery());
 			}
 			if (e.getSource() == buildRepairBox) {
-				currentSelection = 6;
+				mainGame.giveItems(new RepairBox());
 			}
 			if (e.getSource() == buildGasTank) {
-				currentSelection = 7;
+				mainGame.giveItems(new GasTank());
 			}
 			if (e.getSource() == buildTreads) {
-				currentSelection = 8;
+				mainGame.giveItems(new Treads());
 			}
 			if (e.getSource() == buildJetpack) {
-				currentSelection = 9;
+				mainGame.giveItems(new Jetpack());
 			}
 			if (e.getSource() == buildBoat) {
-				currentSelection = 10;
+				mainGame.giveItems(new Boat());
 			}
 			if (e.getSource() == collect) {
 				currentSelection = 11;
