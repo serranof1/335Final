@@ -172,7 +172,7 @@ public class MainGame implements Serializable {
 	 */
 	public void assignAndDoTasks() {
 		resourceTasks();
-//		buildTasks();
+		buildTasks();
 		mineTasks();
 		itemBuildTasks();
 		doDroneTasks();
@@ -227,7 +227,7 @@ public class MainGame implements Serializable {
 		// }
 	}
 
-/*	private void buildTasks() {
+	private void buildTasks() {
 		ArrayList<Drone> builders = allDrones.get("builders");
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
@@ -239,7 +239,7 @@ public class MainGame implements Serializable {
 				}
 			}
 		}
-	}*/
+	}
 
 	private void mineTasks() {
 
@@ -301,7 +301,7 @@ public class MainGame implements Serializable {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > 150;
+		return map.getTerraformed() > 300;
 	}
 
 	public boolean checkLose() {
@@ -323,15 +323,19 @@ public class MainGame implements Serializable {
 				break;
 			}
 		}
-//		if (base.getPower() >= 400 && base.getIron() >= 3000
-//				&& base.getMethane() >= 400) {
+		if (base.getPower() >= 400 && base.getIron() >= 3000
+				&& base.getMethane() >= 400) {
+			base.setPower(-400);
+			base.setIron(-3000);
+			base.setMethane(-400);
+			
 			
 			Drone newDrone = new Drone("Drone: " + nameInt, 400, map.getTile(10, 5));
 			allDrones.addNewDrone(newDrone);
 			nameInt++;
 			return newDrone;
-//		}
-//		return null;
+		}
+		return null;
 	}
 	
 	public ListOfLists getAllDrones(){
@@ -378,6 +382,10 @@ public class MainGame implements Serializable {
 		map.build(toBeBuilt);
 		buildingList.add(toBeBuilt);
 		toBeBuilt.setFinished();
+	}
+	
+	public void addToBuildingList(Building toBeBuilt) {
+		buildingList.add(toBeBuilt);
 	}
 	/*
 	public void saveGame() {

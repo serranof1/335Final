@@ -512,7 +512,8 @@ public class GraphicView extends JPanel{
 				globalizePoints(upperLeft, bottomRight);
 				System.out.println(upperLeft.x + " " + upperLeft.y);
 				Building toBeBuilt = new SolarPlant(upperLeft.y, upperLeft.x);
-				mainGame.placeBuilding(toBeBuilt);
+				//mainGame.placeBuilding(toBeBuilt);
+				mainGame.addToBuildingList(toBeBuilt);
 				grabFocus();
 				currentSelection = 0;
 			}
@@ -527,7 +528,8 @@ public class GraphicView extends JPanel{
 				bottomRight.y = startPointY;
 				globalizePoints(upperLeft, bottomRight);
 				Building toBeBuilt = new Engineering(upperLeft.y, upperLeft.x);
-				mainGame.placeBuilding(toBeBuilt);
+				//mainGame.placeBuilding(toBeBuilt);
+				mainGame.addToBuildingList(toBeBuilt);
 				grabFocus();
 				currentSelection = 0;
 			}
@@ -542,7 +544,8 @@ public class GraphicView extends JPanel{
 				bottomRight.y = startPointY;
 				globalizePoints(upperLeft, bottomRight);
 				Building toBeBuilt = new MethanePlant(upperLeft.y, upperLeft.x);
-				mainGame.placeBuilding(toBeBuilt);
+				//mainGame.placeBuilding(toBeBuilt);
+				mainGame.addToBuildingList(toBeBuilt);
 				grabFocus();
 				currentSelection = 0;
 			}
@@ -557,7 +560,8 @@ public class GraphicView extends JPanel{
 				bottomRight.y = startPointY;
 				globalizePoints(upperLeft, bottomRight);
 				Building toBeBuilt = new Farm(upperLeft.y, upperLeft.x);
-				mainGame.placeBuilding(toBeBuilt);
+				//mainGame.placeBuilding(toBeBuilt);
+				mainGame.addToBuildingList(toBeBuilt);
 				grabFocus();
 				currentSelection = 0;
 			}

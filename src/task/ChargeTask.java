@@ -44,7 +44,6 @@ public class ChargeTask extends Task{
 					drone.setPower(drone.getMaxPower());
 					drone.getTaskList().pop();
 					drone.toggleCharge();
-					return true;
 				}
 			
 		}else{

@@ -41,7 +41,9 @@ public class BuildTask extends Task {
 		drone.setGas(drone.getGas() - 5);
 		drone.setPower(drone.getPower() - 10);
 		drone.setRepair(drone.getRepair() - 1);
-		buildLoc = toBuild.getTileList().get(0);
+		int x = (int) toBuild.getLocation().getX();
+		int y = (int) toBuild.getLocation().getY();
+		buildLoc = map.getTile(y, x);
 		if (drone.getCurrentTile() == buildLoc) {
 			// buildProgress+=1;
 			// if (toBuild.contruct()) {
