@@ -49,7 +49,7 @@ public class GraphicView extends JPanel{
 	private int currentSelection;
 	
 	//each button buildMine and after needs to be implemented
-	private JButton button, collect, makeDrone, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm, buildBattery, buildRepairBox, buildGasTank, buildTreads, buildJetpack, buildBoat;
+	private JButton build, collect, makeDrone, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm, buildBattery, buildRepairBox, buildGasTank, buildTreads, buildJetpack, buildBoat;
 	private JButton downArrow1, downArrow2, downArrow3, downArrow4;
 	private JButton upArrow1, upArrow2, upArrow3, upArrow4;
 	private JPanel userInfo;
@@ -91,14 +91,10 @@ public class GraphicView extends JPanel{
 		c.gridy = 0;
 		userInfo.add(makeDrone, c);
 
-		button = new JButton("Build1");
+		build = new JButton("Build");
 		c.gridx = 1;
-		userInfo.add(button, c);
-
-		button = new JButton("Build2");
-		c.weightx = 0.5;
-		c.gridx = 2;
-		userInfo.add(button, c);
+		c.gridwidth = 2;
+		userInfo.add(build, c);
 
 		collect = new JButton("Collect");
 		c.ipady =20;      //make this component tall
@@ -231,6 +227,11 @@ public class GraphicView extends JPanel{
 		c.gridy = 15;       //third row
 		userInfo.add(fakeLabel, c);
 
+		buildSolarPlant.setEnabled(false);
+		buildEngineering.setEnabled(false);
+		buildMethanePlant.setEnabled(false);
+		buildFarm.setEnabled(false);
+		
 		leftRow = row;
 		leftCol = col;
 		selectResource = false;
@@ -360,6 +361,7 @@ public class GraphicView extends JPanel{
 		this.addKeyListener(new KeyMoveListener());
 		
 		ActionListener buttonListen = new ButtonListener();
+		build.addActionListener(buttonListen);
 		collect.addActionListener(buttonListen);
 		buildSolarPlant.addActionListener(buttonListen);
 		buildEngineering.addActionListener(buttonListen);
@@ -558,6 +560,10 @@ public class GraphicView extends JPanel{
 				grabFocus();
 				currentSelection = 0;
 			}
+			buildSolarPlant.setEnabled(false);
+			buildEngineering.setEnabled(false);
+			buildMethanePlant.setEnabled(false);
+			buildFarm.setEnabled(false);
 		}
 
 		private void globalizePoints(Point upperLeft, Point bottomRight) {
@@ -695,6 +701,12 @@ public class GraphicView extends JPanel{
 			}
 			if (e.getSource() == collect) {
 				currentSelection = 11;
+			}
+			if(e.getSource() == build) {
+				buildSolarPlant.setEnabled(true);
+				buildEngineering.setEnabled(true);
+				buildMethanePlant.setEnabled(true);
+				buildFarm.setEnabled(true);
 			}
 		}
 		

@@ -24,14 +24,12 @@ import buildings.Building;
  */
 public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializable {
 
-	private ArrayList<ArrayList<Drone>> allDrones;
 	private ArrayList<Drone> defaultList, builders, resourceCollectors,
 			itemBuilders;
 	private int numDrones;
 
 	public ListOfLists() {
-		allDrones = new ArrayList<ArrayList<Drone>>();
-
+		
 		defaultList = new ArrayList<Drone>();
 		builders = new ArrayList<Drone>();
 		resourceCollectors = new ArrayList<Drone>();
@@ -73,11 +71,11 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 	 * @param drone - The {@link Drone} to be moved.
 	 */
 	public void moveToDefaultList(Drone drone) {
-		for (int i = 0; i < allDrones.size(); i++) {
-			for (int j = 0; j < allDrones.get(i).size(); j++) {
+		for (int i = 0; i < this.size(); i++) {
+			for (int j = 0; j < this.get(i).size(); j++) {
 
-				if (allDrones.get(i).get(j).getName() == drone.getName()) {
-					allDrones.get(i).remove(j);
+				if (this.get(i).get(j).getName() == drone.getName()) {
+					this.get(i).remove(j);
 					defaultList.add(drone);
 				}
 			}
@@ -110,11 +108,11 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 	}
 
 	public void deadDrone(Drone dead) {
-		for (int i = 0; i < allDrones.size(); i++) {
-			for (int j = 0; j < allDrones.get(i).size(); j++) {
+		for (int i = 0; i < this.size(); i++) {
+			for (int j = 0; j < this.get(i).size(); j++) {
 
-				if (allDrones.get(i).get(j).getName() == dead.getName()) {
-					allDrones.get(i).remove(j);
+				if (this.get(i).get(j).getName() == dead.getName()) {
+					this.get(i).remove(j);
 					numDrones--;
 				}
 			}
@@ -123,12 +121,12 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 
 	public String getDroneInformation(int x, int y){
 		String result = new String();
-		System.out.println("alldrones size: " +allDrones.size());
-		for (int i = 0; i < allDrones.size(); i++) {
+		System.out.println("alldrones size: " +this.size());
+		for (int i = 0; i < this.size(); i++) {
 			System.out.println("TEST2");
-			for (int j = 0; j < allDrones.get(i).size(); j++) {
+			for (int j = 0; j < this.get(i).size(); j++) {
 				
-				Drone currentDrone = allDrones.get(i).get(j);
+				Drone currentDrone = this.get(i).get(j);
 				System.out.println("TEST3");
 				if(currentDrone.getLocationX() == x && currentDrone.getLocationY() == y){
 					
