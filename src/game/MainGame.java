@@ -323,15 +323,19 @@ public class MainGame implements Serializable {
 				break;
 			}
 		}
-//		if (base.getPower() >= 400 && base.getIron() >= 3000
-//				&& base.getMethane() >= 400) {
+		if (base.getPower() >= 400 && base.getIron() >= 3000
+				&& base.getMethane() >= 400) {
+			base.setPower(-400);
+			base.setIron(-3000);
+			base.setMethane(-400);
+			
 			
 			Drone newDrone = new Drone("Drone: " + nameInt, 400, map.getTile(10, 5));
 			allDrones.addNewDrone(newDrone);
 			nameInt++;
 			return newDrone;
-//		}
-//		return null;
+		}
+		return null;
 	}
 	
 	public ListOfLists getAllDrones(){
