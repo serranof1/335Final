@@ -51,6 +51,7 @@ public class Farm extends Building {
 	@Override
 	public void executeOnBuilding(Map map) {
 		map.getTile(0, 0).setGround(grass);
+		carbon = map.getAllBuildings().get(0).getCarbon();
 		if (carbon > 0 && max < 10) {
 			//This will need to be converted to node-logic.
 		for (int i = yGrass; i < yGrass + lenGrass + 1; i++) {
@@ -76,7 +77,7 @@ public class Farm extends Building {
 		widGrass += 2;
 		lenGrass += 2;
 		map.addToTerraformed(-2);
-		carbon--;
+		map.getAllBuildings().get(0).setCarbon(-100);
 		max++;
 		}
 	}
