@@ -34,4 +34,9 @@ public class WeatherTile extends TileWrapper {
 	public void setWeatherType(WeatherEnum weather) {
 		this.weather = weather;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

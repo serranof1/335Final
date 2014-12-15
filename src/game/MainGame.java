@@ -328,7 +328,6 @@ public class MainGame implements Serializable {
 			
 			Drone newDrone = new Drone("Drone: " + nameInt, 400, map.getTile(10, 5));
 			allDrones.addNewDrone(newDrone);
-			allDrones.moveFromDefaultList(newDrone, allDrones.get(3));
 			nameInt++;
 			return newDrone;
 //		}

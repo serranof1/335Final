@@ -29,5 +29,11 @@ public class BuildingTile extends TileWrapper {
 	public BuildingEnum getBuildingType() {
 		return building;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
