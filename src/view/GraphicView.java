@@ -27,6 +27,11 @@ import javax.swing.JTextField;
 import model.ListOfLists;
 import tiles.Tile;
 import buildings.Base;
+import buildings.Building;
+import buildings.Engineering;
+import buildings.Farm;
+import buildings.MethanePlant;
+import buildings.SolarPlant;
 
 /**
  * GraphicView is a JPanel for the graphical representation of our game.
@@ -41,6 +46,7 @@ public class GraphicView extends JPanel{
 
 	private int startPointX, startPointY, endPointY, endPointX;
 	private int clicks = 0;
+	private int currentSelection;
 	
 	//each button buildMine and after needs to be implemented
 	private JButton button, collect, makeDrone, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm, buildBattery, buildRepairBox, buildGasTank, buildTreads, buildJetpack, buildBoat;
@@ -59,6 +65,7 @@ public class GraphicView extends JPanel{
 	private Tile activeTile;
 	
 	public GraphicView(MainGame mainGame, int row, int col , int viewHeight, int viewLength) {
+		currentSelection = 0;
 		this.mainGame = mainGame;
 		allDrones = mainGame.getAllDrones();
 		this.setBackground(Color.BLACK);
@@ -351,6 +358,14 @@ public class GraphicView extends JPanel{
 		upArrow3.addActionListener(new AddToCollectorsListener());
 		upArrow4.addActionListener(new AddToItemBuildersListener());
 		this.addKeyListener(new KeyMoveListener());
+		
+		ActionListener buttonListen = new ButtonListener();
+		collect.addActionListener(buttonListen);
+		buildSolarPlant.addActionListener(buttonListen);
+		buildEngineering.addActionListener(buttonListen);
+		buildMethanePlant.addActionListener(buttonListen);
+		buildFarm.addActionListener(buttonListen);
+		
 	}
 	
 	private class AddToBuildersListener implements ActionListener{
@@ -399,7 +414,7 @@ public class GraphicView extends JPanel{
 	 */
 	private class ListenToMouse implements MouseMotionListener, MouseListener {
 
-		public void mouseClicked(MouseEvent evt) {
+		public void mouseClicked2(MouseEvent evt) {
 			
 			// for information panel
 			if(!selectResource){
@@ -442,6 +457,97 @@ public class GraphicView extends JPanel{
 				//do other things here, im not sure what
 			}
 		}
+		
+		public void mouseClicked(MouseEvent evt) {
+			System.out.println("mouse clicked");
+			System.out.println(currentSelection);
+			
+			// for resource collection
+			Point upperLeft = new Point();
+			Point bottomRight = new Point();
+			
+			if(currentSelection == 11 && clicks == 0){
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				clicks++;
+				System.out.println("mouse click 1:  " +clicks);
+
+			} else if(currentSelection == 11 && clicks == 1){
+				System.out.println("mouse click 2:   " +clicks);
+				clicks--;
+				currentSelection = 0;
+				//add resources to list here
+				System.out.println("startX  " +startPointX);
+				upperLeft.x = startPointX;
+				upperLeft.y = startPointY;
+				bottomRight.x = endPointX;
+				bottomRight.y = endPointY;
+				
+				globalizePoints(upperLeft, bottomRight);
+				mainGame.gatherResources(upperLeft, bottomRight);
+				grabFocus();
+			} 
+			if(currentSelection == 1){
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				upperLeft.x = startPointX;
+				upperLeft.y = startPointY;
+				bottomRight.x = startPointX;
+				bottomRight.y = startPointY;
+				
+				globalizePoints(upperLeft, bottomRight);
+				System.out.println(upperLeft.x + " " + upperLeft.y);
+				Building toBeBuilt = new SolarPlant(upperLeft.y, upperLeft.x);
+				mainGame.placeBuilding(toBeBuilt);
+				grabFocus();
+				currentSelection = 0;
+			}
+			if(currentSelection == 2){
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				upperLeft.x = startPointX;
+				upperLeft.y = startPointY;
+				bottomRight.x = startPointX;
+				bottomRight.y = startPointY;
+				globalizePoints(upperLeft, bottomRight);
+				Building toBeBuilt = new Engineering(upperLeft.y, upperLeft.x);
+				mainGame.placeBuilding(toBeBuilt);
+				grabFocus();
+				currentSelection = 0;
+			}
+			if(currentSelection == 3){
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				upperLeft.x = startPointX;
+				upperLeft.y = startPointY;
+				bottomRight.x = startPointX;
+				bottomRight.y = startPointY;
+				globalizePoints(upperLeft, bottomRight);
+				Building toBeBuilt = new MethanePlant(upperLeft.y, upperLeft.x);
+				mainGame.placeBuilding(toBeBuilt);
+				grabFocus();
+				currentSelection = 0;
+			}
+			if(currentSelection == 4){
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				startPointX = evt.getX();
+				startPointY = evt.getY();
+				upperLeft.x = startPointX;
+				upperLeft.y = startPointY;
+				bottomRight.x = startPointX;
+				bottomRight.y = startPointY;
+				globalizePoints(upperLeft, bottomRight);
+				Building toBeBuilt = new Farm(upperLeft.y, upperLeft.x);
+				mainGame.placeBuilding(toBeBuilt);
+				grabFocus();
+				currentSelection = 0;
+			}
+		}
 
 		private void globalizePoints(Point upperLeft, Point bottomRight) {
 			
@@ -469,7 +575,7 @@ public class GraphicView extends JPanel{
 		public void mouseMoved(MouseEvent evt) {
 			endPointX = evt.getX();
 			endPointY = evt.getY();
-			if(selectResource && clicks == 1)
+			if(currentSelection > 0 && clicks == 1)
 
 				repaint();
 		}
@@ -540,5 +646,46 @@ public class GraphicView extends JPanel{
 	public void setMap(Map map) {
 		this.map = map;
 
+	}
+	
+	private class ButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buildSolarPlant) {
+				currentSelection = 1;
+			}
+			if (e.getSource() == buildEngineering) {
+				currentSelection = 2;
+			}
+			if (e.getSource() == buildMethanePlant) {
+				currentSelection = 3;
+			}
+			if (e.getSource() == buildFarm) {
+				currentSelection = 4;
+			}
+			if (e.getSource() == buildBattery) {
+				currentSelection = 5;
+			}
+			if (e.getSource() == buildRepairBox) {
+				currentSelection = 6;
+			}
+			if (e.getSource() == buildGasTank) {
+				currentSelection = 7;
+			}
+			if (e.getSource() == buildTreads) {
+				currentSelection = 8;
+			}
+			if (e.getSource() == buildJetpack) {
+				currentSelection = 9;
+			}
+			if (e.getSource() == buildBoat) {
+				currentSelection = 10;
+			}
+			if (e.getSource() == collect) {
+				currentSelection = 11;
+			}
+		}
+		
 	}
 }

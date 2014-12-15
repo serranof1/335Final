@@ -137,7 +137,7 @@ public class MainGame implements Serializable {
 		buildingList.add(methPlanTest);
 		methPlanTest.setFinished();
 
-		plant1 = new SolarPlant(18, 3);
+		plant1 = new SolarPlant(50, 50);
 		map.build(plant1);
 		buildingList.add(plant1);
 		plant1.setFinished();
@@ -372,6 +372,12 @@ public class MainGame implements Serializable {
 				}
 			}
 		}
+	}
+	
+	public void placeBuilding(Building toBeBuilt) {
+		map.build(toBeBuilt);
+		buildingList.add(toBeBuilt);
+		toBeBuilt.setFinished();
 	}
 	/*
 	public void saveGame() {
