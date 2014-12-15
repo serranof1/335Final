@@ -312,7 +312,6 @@ public class GraphicView extends JPanel{
 		this.addMouseListener(listener);
 		collect.addActionListener(new CollectListener());
 		makeDrone.addActionListener(new MakeDroneListener());
-		downArrow.addActionListener(new DroneToDefaultListener());
 		this.addKeyListener(new KeyMoveListener());
 	}
 

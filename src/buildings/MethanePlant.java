@@ -27,7 +27,7 @@ public class MethanePlant extends Building {
 
 	@Override
 	public void executeOnBuilding(Map map) {
-		setInventory(getInventory() + 10);
+		setMethane(10);
 	}
 	/**
 	 * As long as resources are available, this method will provide fuel for the {@link Drone}, to fill

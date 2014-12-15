@@ -2,6 +2,7 @@ package task;
 
 import game.Map;
 
+import java.io.Serializable;
 import java.util.List;
 
 import model.Drone;
@@ -12,7 +13,7 @@ import tiles.Tile;
  * @author Team Rosetta
  *
  */
-public abstract class Task {
+public abstract class Task implements Serializable{
 	protected Drone drone;
 	private Tile tile; 
 	

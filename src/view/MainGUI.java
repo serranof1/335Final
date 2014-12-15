@@ -1,21 +1,31 @@
 package view;
 
 import game.MainGame;
+import game.Map;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.LinkedList;
 import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import buildings.Base;
+import buildings.Building;
 import model.WeatherBehavior;
+import model.ListOfLists;
 
 /**
  * MainGUI is a JFrame that holds the full game, graphical and model.
@@ -36,12 +46,12 @@ public class MainGUI extends JFrame{
 	private int frameCount = 0;
 	private boolean win = false;
 	private boolean lose = false;
-	
+	/*
 	private JMenuBar menuBar;
 	private JMenu menu;
 	private JMenuItem menuItemSave;
 	private JMenuItem menuItemLoad;
-	
+	*/
 	public static void main(String[] args){
 		new MainGUI();
 		graphics.setFocusable(true);
@@ -49,10 +59,18 @@ public class MainGUI extends JFrame{
 	
 	public MainGUI(){
 		
-		mainGame = new MainGame();
+		int answer = JOptionPane.showConfirmDialog(null, "Load Data?", "Load Data?", JOptionPane.YES_NO_OPTION);
+		if (answer == JOptionPane.NO_OPTION || !load()) {
+			mainGame = new MainGame();
+		} else {
+			load();
+			mainGame.getMap().rebuildNodes();
+		}
+		
+		//mainGame = new MainGame();
 		base = (Base) mainGame.getBuildingList().get(0);
 		setupMapPane();
-		setupMenuBar();
+		//setupMenuBar();
 		this.setVisible(true);
 		this.setSize(1200,900);
 		this.setLocationRelativeTo(null);
@@ -107,7 +125,7 @@ public class MainGUI extends JFrame{
 	private void gameLoop()
 	{
 		timer = new Timer();
-		timer.schedule(new loopRunnable(), 0, 2000 / 2); 
+		timer.schedule(new loopRunnable(), 0, 1000); 
 	}
 
 	private class loopRunnable extends java.util.TimerTask
@@ -137,7 +155,7 @@ public class MainGUI extends JFrame{
 			}
 		}
 	}
-	
+	/*
 	private void setupMenuBar() {
 		menuBar = new JMenuBar();
 		menu = new JMenu("Menu");
@@ -166,32 +184,78 @@ public class MainGUI extends JFrame{
 				mainGame.loadGame();
 		}
 	}
-	
+	*/
 	private class SaveDataListener implements WindowListener {
 
 		@Override
-		public void windowOpened(WindowEvent e) {}
-
-		@Override
-		public void windowClosing(WindowEvent e) {
-			timer.cancel();
-			mainGame.saveGame();
+		public void windowActivated(WindowEvent e) {
+			//
 		}
 
 		@Override
-		public void windowClosed(WindowEvent e) {}
+		public void windowClosed(WindowEvent e) {
+			//
+		}
 
 		@Override
-		public void windowIconified(WindowEvent e) {}
+		public void windowClosing(WindowEvent e) {
+			// TODO Auto-generated method stub
+			int answer = JOptionPane.showConfirmDialog(null, "Save Data?", "Save Data?", JOptionPane.YES_NO_OPTION);
+			if (answer == JOptionPane.YES_OPTION){
+				save();
+			}
+		}
 
 		@Override
-		public void windowDeiconified(WindowEvent e) {}
+		public void windowDeactivated(WindowEvent e) {
+			//
+		}
 
 		@Override
-		public void windowActivated(WindowEvent e) {}
+		public void windowDeiconified(WindowEvent e) {
+			//
+		}
 
 		@Override
-		public void windowDeactivated(WindowEvent e) {}
-		
+		public void windowIconified(WindowEvent e) {
+			//
+		}
+
+		@Override
+		public void windowOpened(WindowEvent e) {
+			//
+		}	
+	}
+	
+	public boolean load() {
+		try {
+			FileInputStream inStream = new FileInputStream(new File("game.dat"));
+			ObjectInputStream inObject = new ObjectInputStream(inStream);
+			mainGame = (MainGame) inObject.readObject();
+			mainGame.setMap((Map)inObject.readObject());
+			mainGame.setAllDrones((ListOfLists)inObject.readObject());
+			mainGame.setBuildingList((LinkedList<Building>)inObject.readObject());
+			mainGame.setWeatherBehavior((WeatherBehavior)inObject.readObject());
+			inObject.close();
+		} catch (Exception e){
+			System.out.println("Could not load");
+			return false;
+		}
+		return true;
+	}
+	
+	public void save() {
+		try {
+			FileOutputStream outStream = new FileOutputStream(new File("game.dat"));
+			ObjectOutputStream outObject = new ObjectOutputStream(outStream);
+			outObject.writeObject(mainGame);
+			outObject.writeObject(mainGame.getMap());
+			outObject.writeObject(mainGame.getAllDrones());
+			outObject.writeObject(mainGame.getBuildingList());
+			outObject.writeObject(mainGame.getWeatherBehavior());
+			outObject.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

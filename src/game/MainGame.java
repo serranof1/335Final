@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -38,7 +39,7 @@ import buildings.SolarPlant;
  * @author Team Rosetta
  *
  */
-public class MainGame {
+public class MainGame implements Serializable {
 
 	private static Map map;
 
@@ -153,16 +154,16 @@ public class MainGame {
 	 */
 	private void initializeDrones() {
 		allDrones = new ListOfLists();
-//		
-//		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
-//		Drone gasTest = new Drone("gasTest", 120, map.getTile(15, 5));
-//		gasTest.setGas(20);
-//		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
-//		repairTest.setRepair(20);
-//
-//		allDrones.addNewDrone(powerTest);
-//		allDrones.addNewDrone(gasTest);
-//		allDrones.addNewDrone(repairTest);
+		
+		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
+		Drone gasTest = new Drone("gasTest", 120, map.getTile(15, 5));
+		gasTest.setGas(20);
+		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
+		repairTest.setRepair(20);
+
+		allDrones.addNewDrone(powerTest);
+		allDrones.addNewDrone(gasTest);
+		allDrones.addNewDrone(repairTest);
 
 	}
 
@@ -208,12 +209,13 @@ public class MainGame {
 	 */
 	private void resourceTasks() {
 		ArrayList<Drone> resourceCollectors = allDrones.get("resourceCollectors");
+		
 		for (Drone drone : resourceCollectors) {
 			if(!resourceList.isEmpty()){
 				if(!drone.isCollecting()){
 					drone.getTaskList().push(new CollectResourcesTask(drone, resourceList.getFirst(), (Base)buildingList.get(0)));
+					System.out.println("Resource Task Assigned\n" +resourceList.getFirst().getX() +"   " +resourceList.getFirst().getY() );
 					resourceList.removeFirst();
-					System.out.println("Resource Task Assigned\n" + resourceList);
 				}
 			}
 		}
@@ -334,20 +336,43 @@ public class MainGame {
 	public ListOfLists getAllDrones(){
 		return allDrones;
 	}
+	
+	public WeatherBehavior getWeatherBehavior() {
+		return wb;
+	}
+	
+	public void setMap(Map map) {
+		this.map = map;
+	}
+	
+	public void setAllDrones(ListOfLists allDrones) {
+		this.allDrones = allDrones;
+	}
+	
+	public void setBuildingList(LinkedList<Building> buildingList) {
+		this.buildingList = buildingList;
+	}
+	
+	public void setWeatherBehavior(WeatherBehavior wb) {
+		this.wb = wb;
+	}
 
 	public void gatherResources(Point upperLeft, Point bottomRight) {
 		
-		for(int i = 0; i < bottomRight.x - upperLeft.x; i++){
-			for(int j = 0; j < bottomRight.y - upperLeft.y; j++){
+		System.out.println("gather resources input points:  " +upperLeft.toString() + bottomRight.toString());
+		
+		for(int i = upperLeft.x; i <= bottomRight.x; i++){
+			for(int j = upperLeft.y; j <= bottomRight.y; j++){
+				
 				if(map.getTile(i, j).getResource().getResource() == ResourceEnum.CARBON || 
 						map.getTile(i, j).getResource().getResource() == ResourceEnum.IRON ){
+					System.out.println("gather resources add:  " +map.getTile(i, j).getX() +"   " +map.getTile(i, j).getY());
 					resourceList.add(map.getTile(i, j));
 				}
 			}
 		}
-		System.out.println(resourceList);
 	}
-	
+	/*
 	public void saveGame() {
 		saveMap();
 	}
@@ -384,5 +409,5 @@ public class MainGame {
 			e.printStackTrace();
 			System.err.println("An error occured when loading the game");
 		}
-	}
+	}*/
 }

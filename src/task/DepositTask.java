@@ -31,6 +31,7 @@ public class DepositTask extends Task {
 
 		if (drone.getCurrentTile() == map.getTile((int) giveMeStuff.getLocation().getX(), (int) giveMeStuff.getLocation().getY())) {
 			drone.depositResources(giveMeStuff);
+			System.out.println("Attempting to deposit");
 			drone.getTaskList().pop();
 			drone.toggleCollecting();
 		} else {

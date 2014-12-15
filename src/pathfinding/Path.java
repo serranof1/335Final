@@ -1,10 +1,11 @@
 package pathfinding;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import pathfinding.Path.Step;
 
-public class Path {
+public class Path implements Serializable {
 
 	/** The list of steps building up this path */
 	private ArrayList steps = new ArrayList();
@@ -92,7 +93,7 @@ public class Path {
 	 * 
 	 * @author Kevin Glass
 	 */
-	public class Step {
+	public class Step implements Serializable {
 		/** The x coordinate at the given step */
 		private int x;
 		/** The y coordinate at the given step */

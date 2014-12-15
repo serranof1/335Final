@@ -1,8 +1,10 @@
 package pathfinding;
 
+import java.io.Serializable;
+
 import game.Map;
 
-public class ClosestHeuristic implements AStarHeuristic {
+public class ClosestHeuristic implements AStarHeuristic, Serializable {
 
 	/**
 	 * @see AStarHeuristic#getCost(TileBasedMap, Mover, int, int, int, int)

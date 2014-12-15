@@ -2,6 +2,7 @@ package model;
 
 import game.Map;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -21,7 +22,7 @@ import buildings.Building;
  * @author Gateway
  *
  */
-public class ListOfLists extends ArrayList<ArrayList<Drone>> {
+public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializable {
 
 	private ArrayList<ArrayList<Drone>> allDrones;
 	private ArrayList<Drone> defaultList, builders, miners, resourceCollectors,
