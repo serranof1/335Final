@@ -164,7 +164,7 @@ public class MainGame implements Serializable {
 		allDrones.addNewDrone(powerTest);
 		allDrones.addNewDrone(gasTest);
 		allDrones.addNewDrone(repairTest);
-
+		System.out.println("\nALLDRONES SIZE : " +allDrones.size());
 	}
 
 	/**
@@ -301,11 +301,11 @@ public class MainGame implements Serializable {
 	}
 
 	public boolean checkWin() {
-		return map.getTerraformed() > map.getSize() / 5;
+		return map.getTerraformed() > 150;
 	}
 
 	public boolean checkLose() {
-		return allDrones.numberOfDrones() > 0;
+		return allDrones.numberOfDrones() <= 0;
 	}
 	
 	/**

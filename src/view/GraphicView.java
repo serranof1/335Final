@@ -49,7 +49,7 @@ public class GraphicView extends JPanel{
 	private int currentSelection;
 	
 	//each button buildMine and after needs to be implemented
-	private JButton button, collect, makeDrone, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm, buildBattery, buildRepairBox, buildGasTank, buildTreads, buildJetpack, buildBoat;
+	private JButton build, collect, makeDrone, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm, buildBattery, buildRepairBox, buildGasTank, buildTreads, buildJetpack, buildBoat;
 	private JButton downArrow1, downArrow2, downArrow3, downArrow4;
 	private JButton upArrow1, upArrow2, upArrow3, upArrow4;
 	private JPanel userInfo;
@@ -91,14 +91,10 @@ public class GraphicView extends JPanel{
 		c.gridy = 0;
 		userInfo.add(makeDrone, c);
 
-		button = new JButton("Build1");
+		build = new JButton("Build");
 		c.gridx = 1;
-		userInfo.add(button, c);
-
-		button = new JButton("Build2");
-		c.weightx = 0.5;
-		c.gridx = 2;
-		userInfo.add(button, c);
+		c.gridwidth = 2;
+		userInfo.add(build, c);
 
 		collect = new JButton("Collect");
 		c.ipady =20;      //make this component tall
@@ -231,6 +227,11 @@ public class GraphicView extends JPanel{
 		c.gridy = 15;       //third row
 		userInfo.add(fakeLabel, c);
 
+		buildSolarPlant.setEnabled(false);
+		buildEngineering.setEnabled(false);
+		buildMethanePlant.setEnabled(false);
+		buildFarm.setEnabled(false);
+		
 		leftRow = row;
 		leftCol = col;
 		selectResource = false;
@@ -360,6 +361,7 @@ public class GraphicView extends JPanel{
 		this.addKeyListener(new KeyMoveListener());
 		
 		ActionListener buttonListen = new ButtonListener();
+		build.addActionListener(buttonListen);
 		collect.addActionListener(buttonListen);
 		buildSolarPlant.addActionListener(buttonListen);
 		buildEngineering.addActionListener(buttonListen);
@@ -459,6 +461,17 @@ public class GraphicView extends JPanel{
 		}
 		
 		public void mouseClicked(MouseEvent evt) {
+			
+			if(currentSelection == 0){
+				System.out.println("x:  " +((evt.getX() / 25) + leftCol) +"   y:  " +(((evt.getY() / 25) + leftRow)));
+				activeTile = map.getTile(((evt.getX() / 25) + leftCol), ((evt.getY() / 25) + leftRow));
+				
+				if(activeTile.getHasDrone()){
+					stockPileInfo.drawUpdateField(mainGame.getAllDrones().getDroneInformation(activeTile.getX(), activeTile.getY()));
+				} else {
+				stockPileInfo.drawUpdateField(activeTile.toString());
+				}
+			}
 			System.out.println("mouse clicked");
 			System.out.println(currentSelection);
 			
@@ -547,6 +560,10 @@ public class GraphicView extends JPanel{
 				grabFocus();
 				currentSelection = 0;
 			}
+			buildSolarPlant.setEnabled(false);
+			buildEngineering.setEnabled(false);
+			buildMethanePlant.setEnabled(false);
+			buildFarm.setEnabled(false);
 		}
 
 		private void globalizePoints(Point upperLeft, Point bottomRight) {
@@ -664,6 +681,8 @@ public class GraphicView extends JPanel{
 			if (e.getSource() == buildFarm) {
 				currentSelection = 4;
 			}
+			//5 through 10 we can drop the currentSelection assignment
+			//and just have the ItemBuildTask set here
 			if (e.getSource() == buildBattery) {
 				currentSelection = 5;
 			}
@@ -684,6 +703,12 @@ public class GraphicView extends JPanel{
 			}
 			if (e.getSource() == collect) {
 				currentSelection = 11;
+			}
+			if(e.getSource() == build) {
+				buildSolarPlant.setEnabled(true);
+				buildEngineering.setEnabled(true);
+				buildMethanePlant.setEnabled(true);
+				buildFarm.setEnabled(true);
 			}
 		}
 		

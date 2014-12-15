@@ -143,15 +143,18 @@ public class MainGUI extends JFrame{
 			drawGame();
 			x++;
 
-			if (!running) //Comment out this if-statement to show the win condition triggering.
+			//if (!running) //Comment out this if-statement to show the win condition triggering.
 				//Getting the master up-to-date was a little weird, since both Cody and I pushed stuff separately
 
 			if (!running || win || lose)
 
 			{
 				timer.cancel();
-				if (win); System.out.println("You won.");
-				if (lose); System.out.println("You lose.");
+				if (win) { 
+					System.out.println("You won.");
+				} else {
+					System.out.println("You lose.");
+				}
 			}
 		}
 	}
