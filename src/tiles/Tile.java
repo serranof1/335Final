@@ -23,10 +23,10 @@ public class Tile implements Serializable {
 	private TileWrapper[] tileStack = new TileWrapper[4];
 	private int x, y;
 	private boolean hasDrone, visited;
-	private Tile north, south, east, west;
+	transient private Tile north, south, east, west;
 	private Color color;
-//	private BufferedImage droneImage;
-	private String droneImage;
+	transient private BufferedImage droneImage;
+	//private String droneImage;
 	
 	public Tile(TileWrapper[] tileStack) {
 		this.tileStack = tileStack;
@@ -39,11 +39,11 @@ public class Tile implements Serializable {
 				color = color.darker();
 			}
 		}
-//		try {
-//			droneImage = ImageIO.read(new File("images/drone.png"));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		hasDrone = false;
 		visited = false;
 	}
@@ -62,15 +62,15 @@ public class Tile implements Serializable {
 				color = color.darker();
 			}
 		}
-//		try {
-//			droneImage = ImageIO.read(new File("images/drone.png"));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		hasDrone = false;
 	}
 	
-	public Tile(TileWrapper ground, TileWrapper resource, TileWrapper building, TileWrapper weather, String image) {
+	public Tile(TileWrapper ground, TileWrapper resource, TileWrapper building, TileWrapper weather, BufferedImage image) {
 		droneImage = image;
 		tileStack[0] = ground;
 		tileStack[1] = resource;
@@ -101,7 +101,7 @@ public class Tile implements Serializable {
 	public void setY(int y){this.y = y;}
 	public void setTileStack(TileWrapper[] tw){tileStack = tw;}
 	public void setColor(Color c){color = c;}
-	public void setImage(String i){droneImage = i;}
+	public void setImage(BufferedImage i){droneImage = i;}
 	
 	public GroundTile getGround(){return (GroundTile)tileStack[0];}
 	public ResourceTile getResource(){return (ResourceTile)tileStack[1];}
@@ -116,7 +116,7 @@ public class Tile implements Serializable {
 	public int getY(){return y;}
 	public TileWrapper[] getTileStack(){return tileStack;}
 	public Color getColor(){return color;}
-	public String getImage(){return droneImage;}
+	public BufferedImage getImage(){return droneImage;}
 	
 	public ResourceEnum gather() {return ((ResourceTile) tileStack[1]).gather();}
 	public boolean hasResource() {return ((ResourceTile) tileStack[1]).getResource() != ResourceEnum.NOTHING;}
@@ -194,7 +194,7 @@ public class Tile implements Serializable {
 	public void setVisited(boolean visited) {
 		this.visited = visited;
 	}
-	
+	/*
 	private void writeObject(ObjectOutputStream objOut) throws IOException {
 		objOut.writeObject(tileStack);
 		objOut.writeObject(x);
@@ -210,8 +210,16 @@ public class Tile implements Serializable {
 		x = (Integer)objIn.readObject();
 		y = (Integer)objIn.readObject();
 		color = (Color)objIn.readObject();
-		droneImage = (String)objIn.readObject();
+		//droneImage = (String)objIn.readObject();
 		hasDrone = (boolean)objIn.readObject();
 		visited = (boolean)objIn.readObject();
+	}
+	*/
+	public void reloadImages() {
+		try {
+			droneImage = ImageIO.read(new File("images/drone.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

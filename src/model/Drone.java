@@ -3,6 +3,7 @@ package model;
 import game.Map;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import pathfinding.Mover;
@@ -13,7 +14,7 @@ import tiles.ResourceEnum;
 import tiles.Tile;
 import buildings.Building;
 
-public class Drone implements Mover{
+public class Drone implements Mover, Serializable {
 
 	private Path myPath;
 	

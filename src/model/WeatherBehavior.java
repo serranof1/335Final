@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import game.Map;
  * @author Gateway
  *
  */
-public class WeatherBehavior {
+public class WeatherBehavior implements Serializable{
 	private final WeatherTile night = new WeatherTile(WeatherEnum.NIGHT);
 	private final WeatherTile day = new WeatherTile(WeatherEnum.DAY);
 	private ArrayList<Storm> stormList;
@@ -128,7 +129,7 @@ public class WeatherBehavior {
 		} 
 	}
 	
-	private class Storm {
+	private class Storm implements Serializable {
 		private int x, y, size, timeRemaining, currentRadius;
 		private final WeatherTile stormTile = new WeatherTile(WeatherEnum.STORM);
 		private final WeatherTile dayTile = new WeatherTile(WeatherEnum.DAY);

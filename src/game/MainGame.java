@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -38,7 +39,7 @@ import buildings.SolarPlant;
  * @author Team Rosetta
  *
  */
-public class MainGame {
+public class MainGame implements Serializable {
 
 	private static Map map;
 
@@ -153,16 +154,16 @@ public class MainGame {
 	 */
 	private void initializeDrones() {
 		allDrones = new ListOfLists();
-//		
-//		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
-//		Drone gasTest = new Drone("gasTest", 120, map.getTile(15, 5));
-//		gasTest.setGas(20);
-//		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
-//		repairTest.setRepair(20);
-//
-//		allDrones.addNewDrone(powerTest);
-//		allDrones.addNewDrone(gasTest);
-//		allDrones.addNewDrone(repairTest);
+		
+		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
+		Drone gasTest = new Drone("gasTest", 120, map.getTile(15, 5));
+		gasTest.setGas(20);
+		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
+		repairTest.setRepair(20);
+
+		allDrones.addNewDrone(powerTest);
+		allDrones.addNewDrone(gasTest);
+		allDrones.addNewDrone(repairTest);
 
 	}
 
@@ -334,6 +335,26 @@ public class MainGame {
 	public ListOfLists getAllDrones(){
 		return allDrones;
 	}
+	
+	public WeatherBehavior getWeatherBehavior() {
+		return wb;
+	}
+	
+	public void setMap(Map map) {
+		this.map = map;
+	}
+	
+	public void setAllDrones(ListOfLists allDrones) {
+		this.allDrones = allDrones;
+	}
+	
+	public void setBuildingList(LinkedList<Building> buildingList) {
+		this.buildingList = buildingList;
+	}
+	
+	public void setWeatherBehavior(WeatherBehavior wb) {
+		this.wb = wb;
+	}
 
 	public void gatherResources(Point upperLeft, Point bottomRight) {
 		
@@ -347,7 +368,7 @@ public class MainGame {
 		}
 		System.out.println(resourceList);
 	}
-	
+	/*
 	public void saveGame() {
 		saveMap();
 	}
@@ -384,5 +405,5 @@ public class MainGame {
 			e.printStackTrace();
 			System.err.println("An error occured when loading the game");
 		}
-	}
+	}*/
 }
