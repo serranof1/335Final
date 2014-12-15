@@ -55,15 +55,19 @@ public class Farm extends Building {
 			//This will need to be converted to node-logic.
 		for (int i = yGrass; i < yGrass + lenGrass + 1; i++) {
 			if (rand.nextFloat() > .2){
-				map.getTile2(xGrass, i).setGround(grass);
-				map.getTile2(xGrass + widGrass, i).setGround(grass);
+				//map.getTile2(xGrass, i).setGround(grass);
+				map.getTile2(i, xGrass).setGround(grass);
+				//map.getTile2(xGrass + widGrass, i).setGround(grass);
+				map.getTile2(i, xGrass + widGrass).setGround(grass);
 				map.addToTerraformed(2);
 			}
 		}
 		for (int i = xGrass; i < xGrass + widGrass + 1; i++) {
 			if (rand.nextFloat() > .2) {
-				map.getTile2(i, yGrass).setGround(grass);
-				map.getTile2(i, yGrass + lenGrass).setGround(grass);
+				//map.getTile2(i, yGrass).setGround(grass);
+				map.getTile2(yGrass, i).setGround(grass);
+				//map.getTile2(i, yGrass + lenGrass).setGround(grass);
+				map.getTile2(yGrass + lenGrass, i).setGround(grass);
 				map.addToTerraformed(2);
 			}
 		}

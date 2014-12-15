@@ -30,6 +30,8 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 	private int numDrones;
 
 	public ListOfLists() {
+		allDrones = new ArrayList<ArrayList<Drone>>();
+
 		defaultList = new ArrayList<Drone>();
 		builders = new ArrayList<Drone>();
 		resourceCollectors = new ArrayList<Drone>();
@@ -82,7 +84,7 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 		}
 
 	}
-	
+
 	/**
 	 * This moves a {@link Drone} from the default list to a new list.
 	 * @param drone - The {@link Drone} to be moved.
@@ -120,19 +122,26 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 	}
 
 	public String getDroneInformation(int x, int y){
-		for(ArrayList<Drone> list : allDrones){
-			for(Drone currentDrone : list){
+		String result = new String();
+		System.out.println("alldrones size: " +allDrones.size());
+		for (int i = 0; i < allDrones.size(); i++) {
+			System.out.println("TEST2");
+			for (int j = 0; j < allDrones.get(i).size(); j++) {
+				
+				Drone currentDrone = allDrones.get(i).get(j);
+				System.out.println("TEST3");
 				if(currentDrone.getLocationX() == x && currentDrone.getLocationY() == y){
-					return currentDrone.toString();
+					
+					result = currentDrone.toString();
 				} else {
-					return null;
+					result = "found no drone";
 				}
-			
 			}
 		}
-		return null;
+		return result;
+
 	}
-	
+
 	public ArrayList<Drone> get(String listName) {
 		switch (listName) {
 		case "defaultList": return get(0);
