@@ -59,7 +59,7 @@ public class Farm extends Building {
 				map.getTile2(i, xGrass).setGround(grass);
 				//map.getTile2(xGrass + widGrass, i).setGround(grass);
 				map.getTile2(i, xGrass + widGrass).setGround(grass);
-				map.addToTerraformed(2);
+				map.addToTerraformed(1);
 			}
 		}
 		for (int i = xGrass; i < xGrass + widGrass + 1; i++) {
@@ -68,7 +68,7 @@ public class Farm extends Building {
 				map.getTile2(yGrass, i).setGround(grass);
 				//map.getTile2(i, yGrass + lenGrass).setGround(grass);
 				map.getTile2(yGrass + lenGrass, i).setGround(grass);
-				map.addToTerraformed(2);
+				map.addToTerraformed(1);
 			}
 		}
 		xGrass--;

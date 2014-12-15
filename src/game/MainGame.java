@@ -156,7 +156,7 @@ public class MainGame implements Serializable {
 	private void initializeDrones() {
 		allDrones = new ListOfLists();
 		
-		Drone powerTest = new Drone("powerTest", 50, map.getTile(10, 5));
+		Drone powerTest = new Drone("powerTest", 500, map.getTile(10, 5));
 		Drone gasTest = new Drone("gasTest", 120, map.getTile(15, 5));
 		gasTest.setGas(20);
 		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
@@ -240,10 +240,9 @@ public class MainGame implements Serializable {
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
 				if (!buildingList.get(i).isFinished()) {
-					builders.get(j)
-							.getTaskList()
-							.push(new BuildTask(builders.get(j), buildingList
-									.get(i)));
+					if (!buildingList.get(i).inProgress()) {
+						builders.get(j).getTaskList().push(new BuildTask(builders.get(j), buildingList.get(i)));
+					}
 				}
 			}
 		}
@@ -331,10 +330,10 @@ public class MainGame implements Serializable {
 				break;
 			}
 		}
-		if (base.getPower() >= 400 && base.getIron() >= 3000
+		if (base.getPower() >= 400 && base.getIron() >= 400
 				&& base.getMethane() >= 400) {
 			base.setPower(-400);
-			base.setIron(-3000);
+			base.setIron(-400);
 			base.setMethane(-400);
 			
 			
