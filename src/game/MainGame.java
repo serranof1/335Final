@@ -161,10 +161,13 @@ public class MainGame implements Serializable {
 		gasTest.setGas(20);
 		Drone repairTest = new Drone("repairTest", 400, map.getTile(20, 5));
 		repairTest.setRepair(20);
+		
+		Drone sacrifice = new Drone("sacrifice", 1, map.getTile(25, 5));
 
 		allDrones.addNewDrone(powerTest);
 		allDrones.addNewDrone(gasTest);
 		allDrones.addNewDrone(repairTest);
+		allDrones.addNewDrone(sacrifice);
 		System.out.println("\nALLDRONES SIZE : " +allDrones.size());
 	}
 
