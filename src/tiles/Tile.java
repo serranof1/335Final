@@ -16,7 +16,7 @@ import resources.Resource;
 /**
  * Tile represents each individual cell of the {@link Map}. It holds the different layers, such as ground
  * and resources. It also holds its north, south, east, and west as a node.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class Tile implements Serializable {
@@ -215,6 +215,13 @@ public class Tile implements Serializable {
 		visited = (boolean)objIn.readObject();
 	}
 	*/
+	public String toString(){
+		String result = new String();
+		result += "TERRAIN:  " +tileStack[0].toString();
+		result += "   RESOURCE:  " +tileStack[1].toString();
+		return result;
+	}
+	
 	public void reloadImages() {
 		try {
 			droneImage = ImageIO.read(new File("images/drone.png"));

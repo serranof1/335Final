@@ -39,4 +39,10 @@ public class ResourceTile extends TileWrapper {
 	public Image getImage() {
 		return resource.getImage();
 	}
+
+	@Override
+	public String toString() {
+		
+		return getResource().toString();
+	}
 }

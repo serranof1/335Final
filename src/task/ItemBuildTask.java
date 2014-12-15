@@ -5,11 +5,10 @@ import model.Items;
 import tiles.Tile;
 import game.Map;
 
-/**
- * ItemBuiltTask is a {@link Task} in which an {@link Items} is built and given
- * to a {@link Drone}.
- * 
+/** 
  * @author Gateway
+ * ItemBuiltTask is a {@link Task} in which an {@link Items} is built and given to a {@link Drone}.
+ * @author Team Rosetta
  *
  */
 public class ItemBuildTask extends Task {

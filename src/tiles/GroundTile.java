@@ -4,7 +4,7 @@ import java.awt.Image;
 /**
  * The GroundTile represents the layer in a {@link Tile} that determines things like movement.
  * It stores its type of GroundTile as a (@link GroundEnum}.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 
@@ -31,5 +31,11 @@ public class GroundTile extends TileWrapper {
 	@Override
 	public Image getImage() {
 		return ground.getImage();
+	}
+
+	@Override
+	public String toString() {
+		
+		return getGround().toString();
 	}
 }

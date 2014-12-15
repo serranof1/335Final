@@ -6,7 +6,7 @@ import game.Map;
 
 /**
  * WaitTask is a {@link Task} in which a {@link Task} in which a Drone sits in one place.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class WaitTask extends Task {
