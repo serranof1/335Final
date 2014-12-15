@@ -43,7 +43,7 @@ public class GraphicView extends JPanel{
 	private Map map;
 	private int leftRow, leftCol;
 	private int viewLength, viewHeight;
-
+	private int clicks1;
 	private int startPointX, startPointY, endPointY, endPointX;
 	private int clicks = 0;
 	private int currentSelection;
@@ -66,6 +66,7 @@ public class GraphicView extends JPanel{
 	
 	public GraphicView(MainGame mainGame, int row, int col , int viewHeight, int viewLength) {
 		currentSelection = 0;
+		clicks1 = 0;
 		this.mainGame = mainGame;
 		allDrones = mainGame.getAllDrones();
 		this.setBackground(Color.BLACK);
@@ -593,7 +594,6 @@ public class GraphicView extends JPanel{
 			endPointX = evt.getX();
 			endPointY = evt.getY();
 			if(currentSelection > 0 && clicks == 1)
-
 				repaint();
 		}
 
@@ -669,6 +669,7 @@ public class GraphicView extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			if (e.getSource() == buildSolarPlant) {
 				currentSelection = 1;
 			}
@@ -705,10 +706,24 @@ public class GraphicView extends JPanel{
 				currentSelection = 11;
 			}
 			if(e.getSource() == build) {
+				System.out.println("clicks1:   " +clicks1);
+				
+				if(clicks1 == 0){
 				buildSolarPlant.setEnabled(true);
 				buildEngineering.setEnabled(true);
 				buildMethanePlant.setEnabled(true);
 				buildFarm.setEnabled(true);
+				clicks1++;
+				return;
+				}
+				if(clicks1 == 1){
+					buildSolarPlant.setEnabled(false);
+					buildEngineering.setEnabled(false);
+					buildMethanePlant.setEnabled(false);
+					buildFarm.setEnabled(false);
+					clicks1--;
+					return;
+				}
 			}
 		}
 		
