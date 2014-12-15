@@ -25,7 +25,7 @@ public class DefaultTask extends Task {
 	 * @param map - The {@link Map} on which to act.
 	 */
 	@Override
-	public void execute(Map map) {
+	public boolean execute(Map map) {
 		/**
 		 * Generate a random number between 1 and 4.
 		 * if 1, move North, 2 move East, 3 move South, 4 move West
@@ -48,7 +48,6 @@ public class DefaultTask extends Task {
 		} else {
 			//do nothing if no tiles aroudn can be moved into
 		}
-	}
-	
-	
+		return false;
+	}		
 }

@@ -30,10 +30,11 @@ public class DeadTask extends Task{
 	}
 
 	@Override
-	public void execute(Map map) {
+	public boolean execute(Map map) {
 		//The execute method does nothing here. We could use this part
 		//to convert the tile to use as a resource
 		drone.getCurrentTile().setImage(deadDrone);
 		//System.out.println("Dead task being executed");
+		return false;
 	}
 }

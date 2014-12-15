@@ -17,7 +17,7 @@ public abstract class Task implements Serializable{
 	protected Drone drone;
 	private Tile tile; 
 	
-	public abstract void execute(Map map);
+	public abstract boolean execute(Map map);
 	
 	public Task(Drone drone){
 		this.drone = drone;

@@ -213,7 +213,7 @@ public class MainGame implements Serializable {
 		for (Drone drone : resourceCollectors) {
 			if(!resourceList.isEmpty()){
 				if(!drone.isCollecting()){
-					drone.getTaskList().push(new CollectResourcesTask(drone, resourceList.getFirst(), (Base)buildingList.get(0)));
+					drone.getTaskList().push(new CollectResourcesTask(drone, resourceList, (Base)buildingList.get(0)));
 					System.out.println("Resource Task Assigned\n" +resourceList.getFirst().getX() +"   " +resourceList.getFirst().getY() );
 					resourceList.removeFirst();
 				}
@@ -260,7 +260,9 @@ public class MainGame implements Serializable {
 				.println("**************************************************************");
 		for (int i = 0; i < allDrones.size(); i++) {
 			for (int j = 0; j < allDrones.get(i).size(); j++) {
-				allDrones.get(i).get(j).executeTaskList(map);
+				if(allDrones.get(i).get(j).executeTaskList(map)){
+				 allDrones.moveToDefaultList(allDrones.get(i).get(j), allDrones.get(i));	
+				}
 			}
 		}
 		System.out
@@ -326,7 +328,6 @@ public class MainGame implements Serializable {
 			
 			Drone newDrone = new Drone("Drone: " + nameInt, 400, map.getTile(10, 5));
 			allDrones.addNewDrone(newDrone);
-			allDrones.moveFromDefaultList(newDrone, allDrones.get(3));
 			nameInt++;
 			return newDrone;
 //		}
