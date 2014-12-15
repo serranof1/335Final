@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -19,8 +20,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+import model.ListOfLists;
 import buildings.Base;
 
 /**
@@ -39,6 +43,8 @@ public class GraphicView extends JPanel{
 	
 	//each button buildMine and after needs to be implemented
 	private JButton button, collect, makeDrone, buildMine, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm;
+	private JButton downArrow1, downArrow2, downArrow3, downArrow4;
+	private JButton upArrow1, upArrow2, upArrow3, upArrow4;
 	private JPanel userInfo;
 	private StockpilePanel stockPileInfo;
 
@@ -46,9 +52,11 @@ public class GraphicView extends JPanel{
 	public boolean dragging;
 	
 	private MainGame mainGame;
+	private ListOfLists allDrones;
 
 	public GraphicView(MainGame mainGame, int row, int col , int viewHeight, int viewLength) {
 		this.mainGame = mainGame;
+		allDrones = mainGame.getAllDrones();
 		this.setBackground(Color.BLACK);
 		this.viewHeight = viewHeight;
 		this.viewLength = viewLength;
@@ -65,47 +73,126 @@ public class GraphicView extends JPanel{
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
-		makeDrone = new JButton("New Drone");
+		makeDrone = new JButton("Drone");
+		c.anchor = GridBagConstraints.NORTH;
 		c.weightx = 0.5;
-		c.anchor = GridBagConstraints.EAST;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		userInfo.add(makeDrone, c);
 
-		button = new JButton("Button 2");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.5;
+		button = new JButton("Build1");
 		c.gridx = 1;
-		c.gridy = 0;
 		userInfo.add(button, c);
 
-		button = new JButton("Button 3");
-		c.fill = GridBagConstraints.HORIZONTAL;
+		button = new JButton("Build2");
 		c.weightx = 0.5;
 		c.gridx = 2;
-		c.gridy = 0;
 		userInfo.add(button, c);
 
 		collect = new JButton("Collect");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 40;      //make this component tall
+		c.ipady =20;      //make this component tall
 		c.weightx = 0.0;
 		c.gridwidth = 3;
 		c.gridx = 0;
 		c.gridy = 1;
 		userInfo.add(collect, c);
+		
+		JLabel list0 = new JLabel("Default: ");
+		c.ipady =15;
+		c.weightx = 0.5;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 3;
+		userInfo.add(list0, c);
+		
+		JTextField defNum = new JTextField("" + mainGame.getAllDrones().get(0).size());
+		c.gridx = 2;
+		userInfo.add(defNum, c);
+		
+		
+		JLabel list1 = new JLabel("Builders: ");
+		c.gridx = 0;
+		c.gridy = 4;
+		userInfo.add(list1, c);
+		
+		JTextField buildNum = new JTextField("" + mainGame.getAllDrones().get(1).size());
+		c.gridx = 1;
+		userInfo.add(buildNum, c);
+		
+		JPanel buttonPanel1 = new JPanel();
+		c.gridx = 2;
+		buttonPanel1.setLayout(new GridLayout(2,1));
+		upArrow1 = new JButton("+");
+		downArrow1 = new JButton("-");
+		buttonPanel1.add(upArrow1);
+		buttonPanel1.add(downArrow1);
+		userInfo.add(buttonPanel1, c);
+		
+		JLabel list2 = new JLabel("Miners: ");
+		c.gridx = 0;
+		c.gridy = 5;
+		userInfo.add(list2, c);
+		
+		JTextField mineNum = new JTextField("" + mainGame.getAllDrones().get(2).size());
+		c.gridx = 1;
+		userInfo.add(mineNum, c);
 
-		button = new JButton("5");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 0;       //reset to default
+		JPanel buttonPanel2 = new JPanel();
+		c.gridx = 2;
+		buttonPanel2.setLayout(new GridLayout(2,1));
+		upArrow2 = new JButton("+");
+		downArrow2 = new JButton("-");
+		buttonPanel2.add(upArrow2);
+		buttonPanel2.add(downArrow2);
+		userInfo.add(buttonPanel2, c);
+		
+		JLabel list3 = new JLabel("Collectors: ");
+		c.gridx = 0;
+		c.gridy = 6;
+		userInfo.add(list3, c);
+		
+		JTextField collectNum = new JTextField("" + mainGame.getAllDrones().get(3).size());
+		c.gridx = 1;
+		userInfo.add(collectNum, c);
+
+		JPanel buttonPanel3 = new JPanel();
+		c.gridx = 2;
+		buttonPanel3.setLayout(new GridLayout(2,1));
+		upArrow3 = new JButton("+");
+		downArrow3 = new JButton("-");
+		buttonPanel3.add(upArrow3);
+		buttonPanel3.add(downArrow3);
+		userInfo.add(buttonPanel3, c);
+		
+		
+		JLabel list4 = new JLabel("Item Builders: ");
+		c.gridx = 0;
+		c.gridy = 7;
+		userInfo.add(list4, c);
+		
+		JTextField itemNum = new JTextField("" + mainGame.getAllDrones().get(4).size());
+		c.gridx = 1;
+		userInfo.add(itemNum, c);
+
+		JPanel buttonPanel4 = new JPanel();
+		c.gridx = 2;
+		buttonPanel4.setLayout(new GridLayout(2,1));
+		upArrow4 = new JButton("+");
+		downArrow4 = new JButton("-");
+		buttonPanel4.add(upArrow4);
+		buttonPanel4.add(downArrow4);
+		userInfo.add(buttonPanel4, c);
+		
+		JLabel fakeLabel = new JLabel("");
+		c.ipady = 0;
 		c.weighty = 1.0;   //request any extra vertical space
 		c.anchor = GridBagConstraints.EAST; //bottom of space
 		c.insets = new Insets(10,0,0,0);  //top padding
 		c.gridx = 2;       //aligned with button 2
 		c.gridwidth = 2;   //2 columns wide
-		c.gridy = 2;       //third row
-		userInfo.add(button, c);
+		c.gridy = 8;       //third row
+		userInfo.add(fakeLabel, c);
 
 		leftRow = row;
 		leftCol = col;
@@ -225,6 +312,7 @@ public class GraphicView extends JPanel{
 		this.addMouseListener(listener);
 		collect.addActionListener(new CollectListener());
 		makeDrone.addActionListener(new MakeDroneListener());
+		downArrow.addActionListener(new DroneToDefaultListener());
 		this.addKeyListener(new KeyMoveListener());
 	}
 
