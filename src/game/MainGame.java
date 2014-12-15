@@ -172,7 +172,7 @@ public class MainGame implements Serializable {
 	 */
 	public void assignAndDoTasks() {
 		resourceTasks();
-//		buildTasks();
+		buildTasks();
 		mineTasks();
 		itemBuildTasks();
 		doDroneTasks();
@@ -227,7 +227,7 @@ public class MainGame implements Serializable {
 		// }
 	}
 
-/*	private void buildTasks() {
+	private void buildTasks() {
 		ArrayList<Drone> builders = allDrones.get("builders");
 		for (int i = 0; i < buildingList.size(); i++) {
 			for (int j = 0; j < builders.size(); j++) {
@@ -239,7 +239,7 @@ public class MainGame implements Serializable {
 				}
 			}
 		}
-	}*/
+	}
 
 	private void mineTasks() {
 
@@ -382,6 +382,10 @@ public class MainGame implements Serializable {
 		map.build(toBeBuilt);
 		buildingList.add(toBeBuilt);
 		toBeBuilt.setFinished();
+	}
+	
+	public void addToBuildingList(Building toBeBuilt) {
+		buildingList.add(toBeBuilt);
 	}
 	/*
 	public void saveGame() {

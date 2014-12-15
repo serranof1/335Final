@@ -512,6 +512,7 @@ public class GraphicView extends JPanel{
 				System.out.println(upperLeft.x + " " + upperLeft.y);
 				Building toBeBuilt = new SolarPlant(upperLeft.y, upperLeft.x);
 				mainGame.placeBuilding(toBeBuilt);
+				//mainGame.addToBuildingList(toBeBuilt);
 				grabFocus();
 				currentSelection = 0;
 			}
