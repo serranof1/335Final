@@ -41,7 +41,7 @@ public class CollectResourcesTask extends Task {
 			resourceTile.setResource(nothing);
 			drone.getTaskList().pop();
 			drone.getTaskList().push(new DepositTask(drone, base));
-			if(resources.size()<=1)return true;
+			return true;
 		} else {
 			System.out.println("COLLECT  TASK :    x:    " +resourceTile.getX() + "y:  " +resourceTile.getY());
 			drone.getTaskList().push(new MoveTask(drone, resourceTile, false));
