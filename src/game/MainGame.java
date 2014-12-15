@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import model.Battery;
 import model.Drone;
+import model.Items;
 import model.ListOfLists;
 import model.WeatherBehavior;
 import task.BuildTask;
@@ -253,7 +254,15 @@ public class MainGame implements Serializable {
 	}
 
 	private void itemBuildTasks() {
-
+		
+	}
+	
+	public void giveItems(Items item) {
+		for (int i = 0; i < allDrones.size(); i++) {
+			for (int j = 0; j < allDrones.get(i).size(); j++) {
+				item.execute(allDrones.get(i).get(j));
+			}
+		}
 	}
 	
 	/**
