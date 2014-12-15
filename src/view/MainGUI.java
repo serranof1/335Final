@@ -138,8 +138,7 @@ public class MainGUI extends JFrame{
 			mainGame.doBuildingTasks();
 			mainGame.assignAndDoTasks();
 			win = mainGame.checkWin();
-			//lose = mainGame.checkLose();
-			lose = false;
+			lose = mainGame.checkLose();
 			System.out.println("Current Game Loop Update: " + x);
 			drawGame();
 			x++;
@@ -151,8 +150,11 @@ public class MainGUI extends JFrame{
 
 			{
 				timer.cancel();
-				if (win) { System.out.println("You won.");}
-				else {System.out.println("You lose.");}
+				if (win) { 
+					System.out.println("You won.");
+				} else {
+					System.out.println("You lose.");
+				}
 			}
 		}
 	}
