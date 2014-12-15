@@ -42,7 +42,7 @@ public class GraphicView extends JPanel{
 	private int clicks = 0;
 	
 	//each button buildMine and after needs to be implemented
-	private JButton button, collect, makeDrone, buildMine, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm;
+	private JButton button, collect, makeDrone, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm, buildBattery, buildRepairBox, buildGasTank, buildTreads, buildJetpack, buildBoat;
 	private JButton downArrow1, downArrow2, downArrow3, downArrow4;
 	private JButton upArrow1, upArrow2, upArrow3, upArrow4;
 	private JPanel userInfo;
@@ -97,6 +97,7 @@ public class GraphicView extends JPanel{
 		c.gridx = 0;
 		c.gridy = 1;
 		userInfo.add(collect, c);
+		
 		
 		JLabel list0 = new JLabel("Default: ");
 		c.ipady =15;
@@ -184,6 +185,61 @@ public class GraphicView extends JPanel{
 		buttonPanel4.add(downArrow4);
 		userInfo.add(buttonPanel4, c);
 		
+		buildSolarPlant = new JButton("Solar Plant");
+		c.gridx = 0;
+		c.gridy = 8;
+		c.gridwidth = 3;
+		userInfo.add(buildSolarPlant, c);
+		
+		buildEngineering = new JButton("Engineering");
+		c.gridx = 0;
+		c.gridy = 9;
+		c.gridwidth = 3;
+		userInfo.add(buildEngineering, c);
+		
+		buildMethanePlant = new JButton("Methane Plant");
+		c.gridx = 0;
+		c.gridy = 10;
+		c.gridwidth = 3;
+		userInfo.add(buildMethanePlant, c);
+		
+		buildFarm = new JButton("Farm");
+		c.gridx = 0;
+		c.gridy = 11;
+		c.gridwidth = 3;
+		userInfo.add(buildFarm, c);
+		
+		c.gridwidth = 1;
+		buildBattery = new JButton("Battery");
+		c.gridx = 0;
+		c.gridy = 12;
+		userInfo.add(buildBattery, c);
+		
+		buildRepairBox = new JButton("Repair Box");
+		c.gridx = 2;
+		c.gridy = 12;
+		userInfo.add(buildRepairBox, c);
+		
+		buildGasTank = new JButton("Gas Tank");
+		c.gridx = 0;
+		c.gridy = 13;
+		userInfo.add(buildGasTank, c);
+		
+		buildTreads = new JButton("Treads");
+		c.gridx = 2;
+		c.gridy = 13;
+		userInfo.add(buildTreads, c);
+		
+		buildJetpack = new JButton("Jetpack");
+		c.gridx = 0;
+		c.gridy = 14;
+		userInfo.add(buildJetpack, c);
+		
+		buildBoat = new JButton("Boat");
+		c.gridx = 2;
+		c.gridy = 14;
+		userInfo.add(buildBoat, c);
+		
 		JLabel fakeLabel = new JLabel("");
 		c.ipady = 0;
 		c.weighty = 1.0;   //request any extra vertical space
@@ -191,7 +247,7 @@ public class GraphicView extends JPanel{
 		c.insets = new Insets(10,0,0,0);  //top padding
 		c.gridx = 2;       //aligned with button 2
 		c.gridwidth = 2;   //2 columns wide
-		c.gridy = 8;       //third row
+		c.gridy = 15;       //third row
 		userInfo.add(fakeLabel, c);
 
 		leftRow = row;
