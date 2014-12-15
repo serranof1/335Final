@@ -192,17 +192,18 @@ public class MainGame implements Serializable {
 				Drone drone = allDrones.get(i).get(j);
 				if(drone.getRepair()<= 0 || drone.getGas() <=0 || drone.getPower()<=0){
 					drone.getTaskList().push(new DeadTask(drone));
+					allDrones.deadDrone(drone);
 				}
-				if (drone.getRepair() < 30 && !drone.isRepairing()) {
+				if (drone.getRepair() < 30 && !drone.isRepairing() && drone.getRepair() > 0) {
 					Building repairAt = map.findNearest(drone.getCurrentTile(),	BuildingEnum.ENGINEERING);
 					drone.getTaskList().push(new RepairTask(drone, repairAt, repairAt.getEmptyTile()));
 				}
-				if (drone.getGas() < 50 && !drone.isFilling()) {
+				if (drone.getGas() < 50 && !drone.isFilling() && drone.getGas() > 0) {
 					Building gasAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.METHANEPLANT);
 					drone.getTaskList().push(new MethaneTask(drone, gasAt, gasAt.getEmptyTile()));
 					System.out.println("DRONE GETTING GAS");
 				}
-				if (drone.getPower() < 80 && !drone.isCharging()) {
+				if (drone.getPower() < 80 && !drone.isCharging() && drone.getPower() > 0) {
 					Building chargeAt = map.findNearest(drone.getCurrentTile(), BuildingEnum.POWERPLANT);
 					drone.getTaskList().push(new ChargeTask(drone, chargeAt, chargeAt.getEmptyTile()));
 					System.out.println("DRONE CHARGING");
