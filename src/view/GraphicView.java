@@ -681,6 +681,8 @@ public class GraphicView extends JPanel{
 			if (e.getSource() == buildFarm) {
 				currentSelection = 4;
 			}
+			//5 through 10 we can drop the currentSelection assignment
+			//and just have the ItemBuildTask set here
 			if (e.getSource() == buildBattery) {
 				currentSelection = 5;
 			}
