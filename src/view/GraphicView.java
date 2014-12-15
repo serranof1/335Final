@@ -459,6 +459,17 @@ public class GraphicView extends JPanel{
 		}
 		
 		public void mouseClicked(MouseEvent evt) {
+			
+			if(currentSelection == 0){
+				System.out.println("x:  " +((evt.getX() / 25) + leftCol) +"   y:  " +(((evt.getY() / 25) + leftRow)));
+				activeTile = map.getTile(((evt.getX() / 25) + leftCol), ((evt.getY() / 25) + leftRow));
+				
+				if(activeTile.getHasDrone()){
+					stockPileInfo.drawUpdateField(mainGame.getAllDrones().getDroneInformation(activeTile.getX(), activeTile.getY()));
+				} else {
+				stockPileInfo.drawUpdateField(activeTile.toString());
+				}
+			}
 			System.out.println("mouse clicked");
 			System.out.println(currentSelection);
 			
