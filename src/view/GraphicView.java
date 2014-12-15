@@ -686,35 +686,45 @@ public class GraphicView extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			
 			if (e.getSource() == buildSolarPlant) {
+				
 				currentSelection = 1;
 			}
 			if (e.getSource() == buildEngineering) {
+				
 				currentSelection = 2;
 			}
 			if (e.getSource() == buildMethanePlant) {
+				
 				currentSelection = 3;
 			}
 			if (e.getSource() == buildFarm) {
+				
 				currentSelection = 4;
 			}
 			//5 through 10 we can drop the currentSelection assignment
 			//and just have the ItemBuildTask set here
 			if (e.getSource() == buildBattery) {
 				mainGame.giveItems(new Battery());
+				buildBattery.setEnabled(false);
 			}
 			if (e.getSource() == buildRepairBox) {
 				mainGame.giveItems(new RepairBox());
+				buildRepairBox.setEnabled(false);
 			}
 			if (e.getSource() == buildGasTank) {
 				mainGame.giveItems(new GasTank());
+				buildGasTank.setEnabled(false);
 			}
 			if (e.getSource() == buildTreads) {
 				mainGame.giveItems(new Treads());
+				buildTreads.setEnabled(false);
 			}
 			if (e.getSource() == buildJetpack) {
+				buildJetpack.setEnabled(false);
 				mainGame.giveItems(new Jetpack());
 			}
 			if (e.getSource() == buildBoat) {
+				buildBoat.setEnabled(false);
 				mainGame.giveItems(new Boat());
 			}
 			if (e.getSource() == collect) {
