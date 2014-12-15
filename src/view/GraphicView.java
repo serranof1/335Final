@@ -43,9 +43,9 @@ public class GraphicView extends JPanel{
 	
 	//each button buildMine and after needs to be implemented
 	private JButton button, collect, makeDrone, buildMine, buildSolarPlant, buildEngineering, buildMethanePlant, buildFarm;
-	private JButton downArrow1, downArrow2, downArrow3, downArrow4;
 	private JButton upArrow1, upArrow2, upArrow3, upArrow4;
 	private JPanel userInfo;
+	private JTextField defNum, buildNum, mineNum, collectNum, itemNum;
 	private StockpilePanel stockPileInfo;
 
 	private boolean selectResource;
@@ -106,7 +106,8 @@ public class GraphicView extends JPanel{
 		c.gridy = 3;
 		userInfo.add(list0, c);
 		
-		JTextField defNum = new JTextField("" + mainGame.getAllDrones().get(0).size());
+		defNum = new JTextField("" + mainGame.getAllDrones().get(0).size());
+		defNum.setEditable(false);
 		c.gridx = 2;
 		userInfo.add(defNum, c);
 		
@@ -116,54 +117,28 @@ public class GraphicView extends JPanel{
 		c.gridy = 4;
 		userInfo.add(list1, c);
 		
-		JTextField buildNum = new JTextField("" + mainGame.getAllDrones().get(1).size());
+		buildNum = new JTextField("" + mainGame.getAllDrones().get(1).size());
+		buildNum.setEditable(false);
 		c.gridx = 1;
 		userInfo.add(buildNum, c);
 		
-		JPanel buttonPanel1 = new JPanel();
 		c.gridx = 2;
-		buttonPanel1.setLayout(new GridLayout(2,1));
 		upArrow1 = new JButton("+");
-		downArrow1 = new JButton("-");
-		buttonPanel1.add(upArrow1);
-		buttonPanel1.add(downArrow1);
-		userInfo.add(buttonPanel1, c);
-		
-		JLabel list2 = new JLabel("Miners: ");
-		c.gridx = 0;
-		c.gridy = 5;
-		userInfo.add(list2, c);
-		
-		JTextField mineNum = new JTextField("" + mainGame.getAllDrones().get(2).size());
-		c.gridx = 1;
-		userInfo.add(mineNum, c);
-
-		JPanel buttonPanel2 = new JPanel();
-		c.gridx = 2;
-		buttonPanel2.setLayout(new GridLayout(2,1));
-		upArrow2 = new JButton("+");
-		downArrow2 = new JButton("-");
-		buttonPanel2.add(upArrow2);
-		buttonPanel2.add(downArrow2);
-		userInfo.add(buttonPanel2, c);
+		userInfo.add(upArrow1, c);
 		
 		JLabel list3 = new JLabel("Collectors: ");
 		c.gridx = 0;
 		c.gridy = 6;
 		userInfo.add(list3, c);
 		
-		JTextField collectNum = new JTextField("" + mainGame.getAllDrones().get(3).size());
+		collectNum = new JTextField("" + mainGame.getAllDrones().get(2).size());
+		collectNum.setEditable(false);
 		c.gridx = 1;
 		userInfo.add(collectNum, c);
 
-		JPanel buttonPanel3 = new JPanel();
 		c.gridx = 2;
-		buttonPanel3.setLayout(new GridLayout(2,1));
 		upArrow3 = new JButton("+");
-		downArrow3 = new JButton("-");
-		buttonPanel3.add(upArrow3);
-		buttonPanel3.add(downArrow3);
-		userInfo.add(buttonPanel3, c);
+		userInfo.add(upArrow3, c);
 		
 		
 		JLabel list4 = new JLabel("Item Builders: ");
@@ -171,18 +146,14 @@ public class GraphicView extends JPanel{
 		c.gridy = 7;
 		userInfo.add(list4, c);
 		
-		JTextField itemNum = new JTextField("" + mainGame.getAllDrones().get(4).size());
+		itemNum = new JTextField("" + mainGame.getAllDrones().get(3).size());
+		itemNum.setEditable(false);
 		c.gridx = 1;
 		userInfo.add(itemNum, c);
 
-		JPanel buttonPanel4 = new JPanel();
 		c.gridx = 2;
-		buttonPanel4.setLayout(new GridLayout(2,1));
 		upArrow4 = new JButton("+");
-		downArrow4 = new JButton("-");
-		buttonPanel4.add(upArrow4);
-		buttonPanel4.add(downArrow4);
-		userInfo.add(buttonPanel4, c);
+		userInfo.add(upArrow4, c);
 		
 		JLabel fakeLabel = new JLabel("");
 		c.ipady = 0;
@@ -223,7 +194,6 @@ public class GraphicView extends JPanel{
 		repaint();
 	}
 
-	//We may want to use that JViewer or whatever it was Gabe was talking about, but that's later.
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 
@@ -233,6 +203,12 @@ public class GraphicView extends JPanel{
 		for (int i = 0; i < viewHeight; i++){
 			for (int j = viewLength; j > 0; j--) { // Changed loop condition here.
 				stockPileInfo.drawResources(this.getResourceString());
+				defNum.setText(""+mainGame.getAllDrones().get(0).size());
+				buildNum.setText(""+mainGame.getAllDrones().get(1).size());
+				
+				collectNum.setText(""+mainGame.getAllDrones().get(2).size());
+				itemNum.setText(""+mainGame.getAllDrones().get(3).size());
+				
 				map.getTile(col, row).draw(g, (viewLength - j) * 25, i * 25);
 				col++;
 			}
@@ -312,7 +288,34 @@ public class GraphicView extends JPanel{
 		this.addMouseListener(listener);
 		collect.addActionListener(new CollectListener());
 		makeDrone.addActionListener(new MakeDroneListener());
+		upArrow1.addActionListener(new AddToBuildersListener());
+		upArrow3.addActionListener(new AddToCollectorsListener());
+		upArrow4.addActionListener(new AddToItemBuildersListener());
 		this.addKeyListener(new KeyMoveListener());
+	}
+	
+	private class AddToBuildersListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			System.out.println("Button Pressed");
+			if(allDrones.get(0).size()>0)
+				allDrones.moveFromDefaultList(allDrones.get(0).get(0), allDrones.get(1));
+		}
+	}
+	
+	private class AddToCollectorsListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			System.out.println("Button Pressed");
+			if(allDrones.get(0).size()>0)
+				allDrones.moveFromDefaultList(allDrones.get(0).get(0), allDrones.get(2));
+		}
+	}
+	
+	private class AddToItemBuildersListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			System.out.println("Button Pressed");
+			if(allDrones.get(0).size()>0)
+				allDrones.moveFromDefaultList(allDrones.get(0).get(0), allDrones.get(3));
+		}
 	}
 
 	private class CollectListener implements ActionListener{

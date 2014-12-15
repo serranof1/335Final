@@ -24,7 +24,7 @@ public class DepositTask extends Task {
 	 * @param map - The {@link Map} on which to execute.
 	 */
 	@Override
-	public void execute(Map map) {
+	public boolean execute(Map map) {
 		drone.setPower(drone.getPower() - 3);
 		drone.setGas(drone.getGas() - 1);
 		drone.setRepair(drone.getRepair() - 1);
@@ -38,5 +38,6 @@ public class DepositTask extends Task {
 			drone.getTaskList().push(new MoveTask(drone, map.getTile((int) giveMeStuff.getLocation().getX(), (int) giveMeStuff.getLocation().getY()), false));
 			drone.getTaskList().peek().execute(map);
 		}
+		return false;
 	}
 }

@@ -94,7 +94,6 @@ public class Drone implements Mover, Serializable {
 	
 	private int carbon = 0;
 	private int iron = 0;
-	private int methane = 0;
 	private int maxCapacity = 100;
 
 	public Drone(String name, double power, Tile start) {
@@ -138,8 +137,8 @@ public class Drone implements Mover, Serializable {
 	}
 
 
-	public void executeTaskList(Map map) {
-		taskList.peek().execute(map);
+	public boolean executeTaskList(Map map) {
+		return taskList.peek().execute(map);
 	}
 
 	public String getName() {
@@ -281,7 +280,7 @@ public class Drone implements Mover, Serializable {
 	}
 	
 	public int getMethane() {
-		return methane;
+		return gas;
 	}
 	
 //	public void gather(int i, ResourceEnum resource) {
@@ -311,25 +310,25 @@ public class Drone implements Mover, Serializable {
 		}
 	}
 	public void incrementMethane(int i) {
-		methane += i;
+		gas += i;
 	}
 	
 	public void gather(int i, ResourceEnum resource) {
-		if (iron + carbon + methane + i < maxCapacity) {
+		if (iron + carbon + gas + i < maxCapacity) {
 			if (resource == ResourceEnum.IRON) {
 				iron += i;
 			} else if (resource == ResourceEnum.CARBON) {
 				carbon += i;
 			} else if (resource == ResourceEnum.METHANE) {
-				methane += i;
+				gas += i;
 			}
 		} else {
 			if (resource == ResourceEnum.IRON) {
-				iron = maxCapacity - carbon - methane;
+				iron = maxCapacity - carbon - gas;
 			} else if (resource == ResourceEnum.CARBON) {
-				carbon = maxCapacity - iron - methane;
+				carbon = maxCapacity - iron - gas;
 			} else if (resource == ResourceEnum.METHANE) {
-				methane = maxCapacity - iron - carbon;
+				gas = maxCapacity - iron - carbon;
 			}
 		}
 	}
@@ -368,5 +367,8 @@ public class Drone implements Mover, Serializable {
 	}
 	public boolean isFilling(){
 		return filling;
+	}
+	public String toString(){
+		return name+": Power= "+ power + " Carbon: " + carbon + " Methane: " + gas + " Repair: " + repair;
 	}
 }

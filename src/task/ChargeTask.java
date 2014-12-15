@@ -30,7 +30,7 @@ public class ChargeTask extends Task{
 	 * the drone is recharged. If it is not at a {@link SolarPlant} it is assigned a {@link MoveTask}.
 	 */
 	@Override
-	public void execute(Map map) {
+	public boolean execute(Map map) {
 		drone.setGas(drone.getGas() - 2);
 		drone.setRepair(drone.getRepair() -1);
 		if(drone.getCurrentTile() == goal){
@@ -44,6 +44,7 @@ public class ChargeTask extends Task{
 					drone.setPower(drone.getMaxPower());
 					drone.getTaskList().pop();
 					drone.toggleCharge();
+					return true;
 				}
 			
 		}else{
@@ -51,5 +52,7 @@ public class ChargeTask extends Task{
 			drone.getTaskList().push(new MoveTask(drone, plant.getEmptyTile(), false));
 			drone.getTaskList().peek().execute(map);
 		}
+	
+		return false;
 	}
 }

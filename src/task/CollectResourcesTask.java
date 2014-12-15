@@ -1,5 +1,7 @@
 package task;
 
+import java.util.LinkedList;
+
 import game.Map;
 import model.Drone;
 import tiles.ResourceEnum;
@@ -14,17 +16,19 @@ import buildings.Building;
  *
  */
 public class CollectResourcesTask extends Task {
-	Tile resourceTile;
-	Base base;
+	private Tile resourceTile;
+	private Base base;
 	private ResourceTile nothing = new ResourceTile(ResourceEnum.NOTHING);
-	public CollectResourcesTask(Drone drone, Tile resourceTile, Base base) {
+	private LinkedList<Tile> resources;
+	public CollectResourcesTask(Drone drone, LinkedList<Tile> resources, Base base) {
 		super(drone);
-		this.resourceTile = resourceTile;
+		this.resources = resources;
+		this.resourceTile = resources.getFirst();
 		this.base = base;
 		drone.toggleCollecting();
 	}
 	@Override
-	public void execute(Map map) {
+	public boolean execute(Map map) {
 		drone.setPower(drone.getPower() - 3);
 		drone.setGas(drone.getGas() - 1);
 		drone.setRepair(drone.getRepair() - 1);
@@ -35,15 +39,15 @@ public class CollectResourcesTask extends Task {
 				drone.gather(ResourceEnum.IRON);
 			}
 			resourceTile.setResource(nothing);
-			
-			
 			drone.getTaskList().pop();
 			drone.getTaskList().push(new DepositTask(drone, base));
+			if(resources.size()<=1)return true;
 		} else {
 			System.out.println("COLLECT  TASK :    x:    " +resourceTile.getX() + "y:  " +resourceTile.getY());
 			drone.getTaskList().push(new MoveTask(drone, resourceTile, false));
 			drone.getTaskList().peek().execute(map);
 		}
+		return false;
 	}
 }
 

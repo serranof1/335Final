@@ -30,7 +30,7 @@ public class MethaneTask extends Task{
 	 * the drone is refueld. If it is not at a {@link MethanePlant} it is assigned a {@link MoveTask}.
 	 */
 	@Override
-	public void execute(Map map) {
+	public boolean execute(Map map) {
 		drone.setPower(drone.getPower() - 2);
 		if(drone.getCurrentTile() == goal){
 			plant.addDrone(drone);
@@ -43,12 +43,13 @@ public class MethaneTask extends Task{
 					drone.setGas(drone.getMaxGas());
 					drone.getTaskList().pop();
 					drone.toggleFilling();
+					return true;
 				}
-			
 		}else{
 			
 			drone.getTaskList().push(new MoveTask(drone, plant.getEmptyTile(), false));
 			drone.getTaskList().peek().execute(map);
 		}
+		return false;
 	}
 }

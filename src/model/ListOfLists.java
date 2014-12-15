@@ -25,20 +25,18 @@ import buildings.Building;
 public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializable {
 
 	private ArrayList<ArrayList<Drone>> allDrones;
-	private ArrayList<Drone> defaultList, builders, miners, resourceCollectors,
+	private ArrayList<Drone> defaultList, builders, resourceCollectors,
 			itemBuilders;
 	private int numDrones;
 
 	public ListOfLists() {
 		defaultList = new ArrayList<Drone>();
 		builders = new ArrayList<Drone>();
-		miners = new ArrayList<Drone>();
 		resourceCollectors = new ArrayList<Drone>();
 		itemBuilders = new ArrayList<Drone>();
 
 		add(defaultList);
 		add(builders);
-		add(miners);
 		add(resourceCollectors);
 		add(itemBuilders);
 
@@ -125,9 +123,8 @@ public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializ
 		switch (listName) {
 		case "defaultList": return get(0);
 		case "builders": return get(1);
-		case "miners": return get(2);
-		case "resourceCollectors": return get(3);
-		case "itemBuilders": return get(4);
+		case "resourceCollectors": return get(2);
+		case "itemBuilders": return get(3);
 		default: System.out.println("Not an available list"); return null;
 		}
 	}
