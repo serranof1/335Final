@@ -358,6 +358,7 @@ public class GraphicView extends JPanel{
 			System.out.println("Button Pressed");
 			if(allDrones.get(0).size()>0)
 				allDrones.moveFromDefaultList(allDrones.get(0).get(0), allDrones.get(1));
+			grabFocus();
 		}
 	}
 	
@@ -366,6 +367,7 @@ public class GraphicView extends JPanel{
 			System.out.println("Button Pressed");
 			if(allDrones.get(0).size()>0)
 				allDrones.moveFromDefaultList(allDrones.get(0).get(0), allDrones.get(2));
+			grabFocus();
 		}
 	}
 	
@@ -374,20 +376,20 @@ public class GraphicView extends JPanel{
 			System.out.println("Button Pressed");
 			if(allDrones.get(0).size()>0)
 				allDrones.moveFromDefaultList(allDrones.get(0).get(0), allDrones.get(3));
+			grabFocus();
 		}
 	}
 
 	private class CollectListener implements ActionListener{
 			public void actionPerformed(ActionEvent e){
 				setSelectResource(true);
+				grabFocus();
 			}
 	}
 	private class MakeDroneListener implements ActionListener{
 			public void actionPerformed(ActionEvent e){
 				mainGame.createDrone();
 				grabFocus();
-				
-				System.out.println("\n\nButton Pressed\n\n");
 			}
 	}
 	/**
