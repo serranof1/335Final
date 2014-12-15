@@ -3,7 +3,7 @@ package model;
 import tiles.BuildingEnum;
 /**
  * GasTank is an {@link Items} used to increase the maximum gas of a {@link Drone}.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class GasTank extends Items{

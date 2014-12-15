@@ -9,7 +9,7 @@ import tiles.Tile;
 
 /**
  * This method represents a path the drone can take to get from location to another.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class Path {

@@ -29,7 +29,7 @@ import buildings.Base;
 
 /**
  * GraphicView is a JPanel for the graphical representation of our game.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class GraphicView extends JPanel{

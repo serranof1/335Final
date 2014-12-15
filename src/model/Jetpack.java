@@ -5,7 +5,7 @@ import tiles.BuildingEnum;
 /**
  * Jetpack is an {@link Items} that increases the movement ability of a {@link Drone}, thereby allowing
  * it to travel over mountains, etc.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class Jetpack extends Items {

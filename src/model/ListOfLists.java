@@ -19,7 +19,7 @@ import buildings.Building;
 
 /**
  * This method separates the ArrayList of all the ArrayLists of {@link Drone}s from the {@link MainGame}.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class ListOfLists extends ArrayList<ArrayList<Drone>> implements Serializable {

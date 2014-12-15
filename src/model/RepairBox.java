@@ -4,7 +4,7 @@ import tiles.BuildingEnum;
 
 /**
  * Repairbox is an {@link Items} that increases the max possible repair for a {@link Drone}
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class RepairBox extends Items {
