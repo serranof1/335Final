@@ -14,6 +14,12 @@ import tiles.ResourceEnum;
 import tiles.Tile;
 import buildings.Building;
 
+/**
+ * The Drone class represents the actors in the game, that is, their movement, location,
+ * how much they are carrying, etc.
+ * @author Team Rosetta
+ *
+ */
 public class Drone implements Mover, Serializable {
 
 	private Path myPath;

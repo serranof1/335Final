@@ -16,7 +16,7 @@ import resources.Resource;
 /**
  * Tile represents each individual cell of the {@link Map}. It holds the different layers, such as ground
  * and resources. It also holds its north, south, east, and west as a node.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class Tile implements Serializable {

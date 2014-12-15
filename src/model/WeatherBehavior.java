@@ -12,7 +12,7 @@ import game.Map;
 
 /**
  * This class maintains the behavior of weather on the {@link Map}.
- * @author Gateway
+ * @author Team Rosetta
  *
  */
 public class WeatherBehavior implements Serializable{
