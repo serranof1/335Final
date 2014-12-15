@@ -164,7 +164,7 @@ public class MainGame implements Serializable {
 		allDrones.addNewDrone(powerTest);
 		allDrones.addNewDrone(gasTest);
 		allDrones.addNewDrone(repairTest);
-
+		System.out.println("\nALLDRONES SIZE : " +allDrones.size());
 	}
 
 	/**
