@@ -41,7 +41,7 @@ public class Engineering extends Building {
 	 */
 	public void repair(Drone drone) {
 		// TODO Auto-generated method stub
-		if (getInventory() > 2) {
+		if (getIron() > 2) {
 			drone.setRepair(drone.getRepair() + 2);
 			setIron(getIron()-2);
 			System.out.println("Engineering: " + getIron());

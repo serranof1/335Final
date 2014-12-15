@@ -29,7 +29,6 @@ public abstract class Building extends Observable implements Serializable {
 	protected int length;
 
 	private int health;
-	private int currentResources = 0;
 	private int resourceCap;
 	private int resourceCost;
 	protected int iron;
@@ -194,22 +193,6 @@ public abstract class Building extends Observable implements Serializable {
 		return inProgress;
 	}
 
-	@Deprecated
-	public void depositAll(int x) {
-		System.out.println("Stuff has been deposited");
-		currentResources = x;
-		notifyObservers();
-		setChanged();
-	}
-
-	public int getInventory() {
-		return currentResources;
-	}
-
-	public void setInventory(int resourceCurr) {
-		currentResources = resourceCurr;
-	}
-
 	public void addTile(Tile addTile) {
 		tileList.add(addTile);
 	}
@@ -236,36 +219,31 @@ public abstract class Building extends Observable implements Serializable {
 	}
 	
 	public void setCarbon(int x){
-		carbon = x;
-		notifyObservers();
-		setChanged();
+		carbon = +x;
+		System.out.println("\nCarbon Incremented: " + carbon);
 	}
 	public int getCarbon(){
 		return carbon;
 	}
 	
 	public void setIron(int x){
-		iron = x;
-		notifyObservers();
-		setChanged();
+		iron += x;
+		System.out.println("\nIron Incremented\n");
+		
 	}
 	public int getIron(){
 		return iron;
 	}
 	
 	public void setPower(int x){
-		electricity = x;
-		notifyObservers();
-		setChanged();
+		electricity += x;
 	}
 	public int getPower(){
 		return electricity;
 	}
 	
 	public void setMethane(int x){
-		methane = x;
-		notifyObservers();
-		setChanged();
+		methane += x;
 	}
 	public int getMethane(){
 		return methane;

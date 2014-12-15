@@ -3,6 +3,7 @@ package task;
 import game.Map;
 import model.Drone;
 import tiles.ResourceEnum;
+import tiles.ResourceTile;
 import tiles.Tile;
 import buildings.Base;
 import buildings.Building;
@@ -15,6 +16,7 @@ import buildings.Building;
 public class CollectResourcesTask extends Task {
 	Tile resourceTile;
 	Base base;
+	private ResourceTile nothing = new ResourceTile(ResourceEnum.NOTHING);
 	public CollectResourcesTask(Drone drone, Tile resourceTile, Base base) {
 		super(drone);
 		this.resourceTile = resourceTile;
@@ -32,10 +34,13 @@ public class CollectResourcesTask extends Task {
 			}else{
 				drone.gather(ResourceEnum.IRON);
 			}
+			resourceTile.setResource(nothing);
+			
 			
 			drone.getTaskList().pop();
 			drone.getTaskList().push(new DepositTask(drone, base));
 		} else {
+			System.out.println("COLLECT  TASK :    x:    " +resourceTile.getX() + "y:  " +resourceTile.getY());
 			drone.getTaskList().push(new MoveTask(drone, resourceTile, false));
 			drone.getTaskList().peek().execute(map);
 		}

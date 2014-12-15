@@ -208,12 +208,13 @@ public class MainGame {
 	 */
 	private void resourceTasks() {
 		ArrayList<Drone> resourceCollectors = allDrones.get("resourceCollectors");
+		
 		for (Drone drone : resourceCollectors) {
 			if(!resourceList.isEmpty()){
 				if(!drone.isCollecting()){
 					drone.getTaskList().push(new CollectResourcesTask(drone, resourceList.getFirst(), (Base)buildingList.get(0)));
+					System.out.println("Resource Task Assigned\n" +resourceList.getFirst().getX() +"   " +resourceList.getFirst().getY() );
 					resourceList.removeFirst();
-					System.out.println("Resource Task Assigned\n" + resourceList);
 				}
 			}
 		}
@@ -337,15 +338,18 @@ public class MainGame {
 
 	public void gatherResources(Point upperLeft, Point bottomRight) {
 		
-		for(int i = 0; i < bottomRight.x - upperLeft.x; i++){
-			for(int j = 0; j < bottomRight.y - upperLeft.y; j++){
+		System.out.println("gather resources input points:  " +upperLeft.toString() + bottomRight.toString());
+		
+		for(int i = upperLeft.x; i <= bottomRight.x; i++){
+			for(int j = upperLeft.y; j <= bottomRight.y; j++){
+				
 				if(map.getTile(i, j).getResource().getResource() == ResourceEnum.CARBON || 
 						map.getTile(i, j).getResource().getResource() == ResourceEnum.IRON ){
+					System.out.println("gather resources add:  " +map.getTile(i, j).getX() +"   " +map.getTile(i, j).getY());
 					resourceList.add(map.getTile(i, j));
 				}
 			}
 		}
-		System.out.println(resourceList);
 	}
 	
 	public void saveGame() {

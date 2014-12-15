@@ -36,7 +36,6 @@ public class SolarPlant extends Building {
 			for (Tile tile : getTileList()) {
 				if (tile.daytime()) {
 					setPower(getPower() + 25);
-					System.out.println("SolarPlant power: " + getPower());
 				}
 			}
 		}

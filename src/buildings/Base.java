@@ -21,10 +21,7 @@ public class Base extends Building {
 	private final static int BASE_WIDTH = 4;
 	private final static int BASE_LENGTH = 4;
 	private final static int MAX_CAP = 35000;
-	private int methane = 15000;
-	private int electricity = 15000;
-	private int iron = 2500;
-	private int carbon = 2500;
+	
 	
 	/**
 	 * 
@@ -33,7 +30,10 @@ public class Base extends Building {
 	 */
 	public Base(int x, int y) {
 		super(x, y, BASE_WIDTH, BASE_LENGTH, MAX_CAP, BUILDING_NAME, BuildingEnum.BASE);
-		setInventory(35000);
+		setMethane(15000);
+		setPower(15000);
+		setIron(2500);
+		setCarbon(2500);
 	}
 	
 	/**
@@ -50,10 +50,10 @@ public class Base extends Building {
 	public String getStockPile(){
 		
 		String stock = new String();
-		stock += "METHANE  " +methane +"\n";
-		stock += "	ELECTRICTY  " +electricity +"\n";
-		stock += "	IRON  " +iron+"\n";
-		stock += "	CARBON  " +carbon;
+		stock += "METHANE  " +getMethane() +"\n";
+		stock += "	ELECTRICITY  " +getPower()+"\n";
+		stock += "	IRON  " +getIron()+"\n";
+		stock += "	CARBON  " +getCarbon();
 		return stock;
 		
 	}

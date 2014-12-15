@@ -107,7 +107,7 @@ public class MainGUI extends JFrame{
 	private void gameLoop()
 	{
 		timer = new Timer();
-		timer.schedule(new loopRunnable(), 0, 2000 / 2); 
+		timer.schedule(new loopRunnable(), 0, 1000); 
 	}
 
 	private class loopRunnable extends java.util.TimerTask

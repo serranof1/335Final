@@ -21,6 +21,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import tiles.Tile;
 import buildings.Base;
 
 /**
@@ -132,7 +133,7 @@ public class GraphicView extends JPanel{
 	}
 
 	private void drawMap() {
-
+		stockPileInfo.drawResources(this.getResourceString());
 		repaint();
 	}
 
@@ -156,8 +157,8 @@ public class GraphicView extends JPanel{
 		if(selectResource && clicks == 1){
 			int topLeftX = startPointX / 25;
 			int topLeftY = startPointY / 25;
-			int bottomRightX = endPointX / 25;
-			int bottomRightY = endPointY / 25;
+			int bottomRightX = (endPointX / 25) + 1;
+			int bottomRightY = (endPointY / 25) + 1;
 			Color myGreen = new Color(0 , 255 , 0, 125);
 
 
@@ -297,7 +298,6 @@ public class GraphicView extends JPanel{
 			
 			upperLeft = newUpperLeft;
 			bottomRight = newBottomRight;
-			
 			
 		}
 
